@@ -16,13 +16,17 @@
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
     "@mui/x-date-pickers": "^8.0.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.6.1",
     "clsx": "^2.1.1",
     "date-fns": "4.1.0",
     "date-fns-jalali": "latest",
     "json-server": "^1.0.0-beta.3",
+    "msw": "^2.7.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.5.1",
+    "vitest": "^3.1.2",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

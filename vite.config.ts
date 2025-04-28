@@ -9,9 +9,5 @@ export default defineConfig({
       "@": "/src",
     },
   },
-  build: {
-    assetsDir: "assets", // Папка, куда складываются CSS/JS
-    outDir: "dist", // Итоговая папка билда
-  },
-  base: "/",
+  
 });

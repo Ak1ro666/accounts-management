@@ -21,11 +21,11 @@ export function Layout({
 }) {
   return FORM_QUERY.map((query) => {
     if (query.disabled) {
-      return <TableCell>{query.label}</TableCell>;
+      return <TableCell key={query.id}>{query.label}</TableCell>;
     }
 
     return (
-      <TableCell>
+      <TableCell key={query.id}>
         <TableSortLabel
           active={selectedSort.query === query.value}
           direction={selectedSort.direction}
