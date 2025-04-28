@@ -1,5 +1,5 @@
 import { API_URL } from "../api-config";
-import type { Account, AccountId } from "../../account";
+import type { Account, AccountId, Charge, Payment } from "../../account";
 import { AccountsApiContextType } from "./accounts-api-provider";
 import type { CreateData, UpdateData } from "./types";
 
@@ -37,13 +37,13 @@ export const api: AccountsApiContextType = {
   },
   fetchAccountsCharges: async (id: AccountId) => {
     return await fetch(API_URL.accountsCharges(id)).then(
-      (res) => res.json() as Promise<Account>,
+      (res) => res.json() as Promise<Charge[]>,
     );
   },
 
   fetchAccountsPayments: async (id: AccountId) => {
     return await fetch(API_URL.accountsCharges(id)).then(
-      (res) => res.json() as Promise<Account>,
+      (res) => res.json() as Promise<Payment[]>,
     );
   },
 };
