@@ -39,9 +39,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
   const handleConfirm = () => {
     startTransition(async () => {
-      if (state?.onConfirm) {
-        await state.onConfirm();
-      }
+      await state?.onConfirm?.();
 
       setIsOpen(false);
     });
@@ -49,9 +47,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
   const handleClose = () => {
     startTransition(async () => {
-      if (state?.onCancel) {
-        await state.onCancel();
-      }
+      await state?.onCancel?.();
 
       setIsOpen(false);
     });

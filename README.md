@@ -1,54 +1,61 @@
-# React + TypeScript + Vite
+# Каталог Лицевых Счетов
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Демонстрационное SPA-приложение для управления лицевыми счетами.
 
-Currently, two official plugins are available:
+## Функциональность
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Просмотр, фильтрация и сортировка списка лицевых счетов
+- Создание, редактирование и удаление лицевых счетов
+- Управление статусами счетов
+- Просмотр начислений и оплат по счетам
+- Поддержка конкурентного редактирования
+- Автоматическое обновление данных в реальном времени
 
-## Expanding the ESLint configuration
+## Технический стек
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 18
+- TypeScript 5
+- Material UI
+- Мокированное API
+- Unit tests
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Запуск проекта
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. Клонировать репозиторий:
+   \`\`\`bash
+   git clone https://github.com/your-username/account-catalog.git
+   cd account-catalog
+   \`\`\`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+2. Установить зависимости:
+   \`\`\`bash
+   npm install
+   \`\`\`
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+3. Запустить проект в режиме разработки:
+   \`\`\`bash
+   npm run dev
+   \`\`\`
+
+4. Запустить mock сервер:
+   \`\`\`bash
+   npm run server
+   \`\`\`
+
+5. Открыть [http://localhost:5173](http://localhost:5173) в браузере.
+6. Сервер открывается по адресу [http://localhost:5000](http://localhost:5000) в браузере.
+
+## Тестирование
+
+Запуск unit-тестов:
+\`\`\`bash
+npm test
+\`\`\`
+
+## Структура проекта
+
+- `/app` - Часто меняющаяся логика инициализации и конфигурации приложения
+- `/feature` - Бизнес код fron-end приложения
+- `/pages` - Страницы fron-end приложения
+- `/kernel` - Ядро приложения, бизнес код, который очень широко переиспользуется, но не является вспомогательным "Тип Юзера, Доменные события, Идентификаторы".
+- `/shared` - Редко меняющаяся сложная инфраструктурная логика

@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import type { FormData, FormErrors } from "../../../domain/form";
-import type { Account } from "../../../domain/account";
+import { getSortByDate, type Account } from "../../../domain/account";
 
 import { TabPanel } from "../../tab-panel";
 import { ChargesTable } from "../../charges-table";
@@ -140,14 +140,14 @@ export function Layout({
 
         <TabPanel value={tabValue} index={0}>
           <ChargesTable
-            charges={account?.charges ?? []}
+            charges={getSortByDate(account?.charges ?? [])}
             isLoading={isLoading}
           />
         </TabPanel>
 
         <TabPanel value={tabValue} index={1}>
           <PaymentsTable
-            payments={account?.payments ?? []}
+            payments={getSortByDate(account?.payments ?? [])}
             isLoading={isLoading}
           />
         </TabPanel>

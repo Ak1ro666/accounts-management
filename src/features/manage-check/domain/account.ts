@@ -25,3 +25,9 @@ export type Account = {
   charges: Charge[];
   payments: Payment[];
 };
+
+export const getSortByDate = <T extends Charge | Payment>(items: T[]): T[] => {
+  return [...items].sort(
+    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+  );
+};
