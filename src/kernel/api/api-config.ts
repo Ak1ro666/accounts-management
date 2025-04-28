@@ -1,5 +1,5 @@
 export const API_URL = {
-  root: (url: string) => `http://localhost:5000${url}`,
+  root: (url: string) => `/api${url}`,
 
   accounts: (url: string = "") => API_URL.root(`/accounts/${url}`),
   accountsForId: (id: string) => API_URL.accounts(id),
