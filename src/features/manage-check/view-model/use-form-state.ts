@@ -14,9 +14,12 @@ export function useFormState(defaultFormData?: FormData) {
 
   const fullFormData = { ...defaultFormData, ...formData };
 
+  const isUpdateFormData = Object.values(formData).length > 0;
+
   return {
     data: fullFormData,
     onChange,
     reset,
+    isUpdate: isUpdateFormData,
   } as const;
 }

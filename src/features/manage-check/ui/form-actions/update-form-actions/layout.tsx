@@ -5,11 +5,13 @@ export function Layout({
   onSubmit,
   onReset,
   disabled,
+  isUpdateFormData,
 }: {
   onClose: () => void;
   onSubmit: () => void;
   onReset: () => void;
   disabled: boolean;
+  isUpdateFormData: boolean;
 }) {
   return (
     <>
@@ -30,7 +32,7 @@ export function Layout({
         Отмена
       </Button>
       <Button
-        disabled={disabled}
+        disabled={disabled || !isUpdateFormData}
         onClick={onSubmit}
         variant="contained"
         color="primary"

@@ -1,6 +1,6 @@
 import { useTransition } from "react";
 
-import type { UpdateData } from "@/kernel/api/accounts";
+import { AccountsApiContext, type UpdateData } from "@/kernel/api/accounts";
 
 import { Modal } from "../../ui/modal";
 import { UpdateFields } from "../../ui/fields/update-fields";
@@ -10,18 +10,23 @@ import { useErrors } from "../../model/use-errors";
 import { useUpdateCheckModal } from "../../model/use-update-check-modal";
 
 import { useFormState } from "../../view-model/use-form-state";
+import { AccountTabs } from "../../ui/account-tabs";
+import { useConfirmation } from "@/shared/ui/confirmation";
+import type { AccountId } from "../../domain/account";
 
 export function Layout({
   updateCheck,
 }: {
-  updateCheck: (id: string, body: UpdateData) => Promise<void>;
+  updateCheck: (id: AccountId, body: UpdateData) => Promise<void>;
 }) {
   const [isLoading, startTransition] = useTransition();
+  const api = AccountsApiContext.use();
   const updateCheckModal = useUpdateCheckModal();
   const formState = useFormState(updateCheckModal.defaultAccountFormState);
   const errorsState = useErrors({
     formData: formState.data,
   });
+  const confirmation = useConfirmation();
 
   const onClose = () => {
     updateCheckModal.closeModal();
@@ -35,13 +40,36 @@ export function Layout({
     if (isValid) {
       errorsState.hideErrors();
 
-      startTransition(
-        async () =>
+      if (updateCheckModal?.account?.id) {
+        startTransition(async () => {
+          const currentAccount = await api.fetchAccountsForId(
+            updateCheckModal.account!.id,
+          );
+
+          if (
+            currentAccount.updatedAt !== updateCheckModal.account!.updatedAt
+          ) {
+            confirmation.open({
+              title: "Внимание",
+              content:
+                "Данные были изменены другим пользователем. Хотите обновить данные?",
+              cancelText: "Отменить",
+              confirmationText: "Обновить",
+              onConfirm: async () => {
+                formState.reset();
+                await updateCheckModal.refetch(updateCheckModal.account!.id);
+              },
+            });
+
+            return;
+          }
+
           await updateCheck(
-            updateCheckModal.currentAccount?.id ?? "",
+            updateCheckModal.account!.id,
             formState.data as UpdateData,
-          ).finally(onClose),
-      );
+          ).finally(onClose);
+        });
+      }
     } else {
       errorsState.showErrors();
     }
@@ -55,8 +83,14 @@ export function Layout({
           formData={formState.data}
           errors={errorsState.errors}
           onChange={formState.onChange}
-          account={updateCheckModal.currentAccount}
+          account={updateCheckModal.account}
           isLoading={updateCheckModal.isLoading}
+          tabs={
+            <AccountTabs
+              isLoading={updateCheckModal.isLoading}
+              account={updateCheckModal.account}
+            />
+          }
         />
       }
       footer={
@@ -65,6 +99,7 @@ export function Layout({
           disabled={isLoading}
           onSubmit={handleSubmitForm}
           onClose={onClose}
+          isUpdateFormData={formState.isUpdate}
         />
       }
       onClose={onClose}

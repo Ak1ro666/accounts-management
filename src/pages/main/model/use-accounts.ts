@@ -34,7 +34,9 @@ export function useAccounts() {
   };
 
   const update = async (id: AccountId, data: UpdateData) => {
-    await api.update(id, data).finally(refetch);
+    await api
+      .update(id, { ...data, updatedAt: new Date().toISOString() })
+      .finally(refetch);
   };
 
   const create = async (body: CreateData) => {

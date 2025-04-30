@@ -1,23 +1,16 @@
-import { useState } from "react";
+import { ReactNode } from "react";
 import {
-  Box,
-  CircularProgress,
   FormControl,
   Grid,
   InputLabel,
   MenuItem,
   Select,
-  Tab,
-  Tabs,
   TextField,
 } from "@mui/material";
 
 import type { FormData, FormErrors } from "../../../domain/form";
-import { getSortByDate, type Account } from "../../../domain/account";
-
-import { TabPanel } from "../../tab-panel";
-import { ChargesTable } from "../../charges-table";
-import { PaymentsTable } from "../../payments-table";
+import { type Account } from "../../../domain/account";
+import { UiLoader } from "@/shared/ui/loader";
 
 export function Layout({
   formData,
@@ -25,15 +18,15 @@ export function Layout({
   onChange,
   account,
   isLoading,
+  tabs,
 }: {
   formData: FormData;
   errors?: FormErrors;
   onChange: (name: string) => (value: string) => void;
   account?: Account;
   isLoading: boolean;
+  tabs: ReactNode;
 }) {
-  const [tabValue, setTabValue] = useState<number>(0);
-
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.name)(e.target.value);
   };
@@ -41,16 +34,7 @@ export function Layout({
   return (
     <>
       {isLoading ? (
-        <Box
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CircularProgress size={24} />
-        </Box>
+        <UiLoader />
       ) : (
         <>
           <Grid size={{ xs: 12, sm: 6 }} mt={1}>
@@ -127,31 +111,7 @@ export function Layout({
           </Grid>
         </>
       )}
-      <Grid size={{ xs: 12 }}>
-        <Box sx={{ borderBottom: 1, borderColor: "divider", mt: 3 }}>
-          <Tabs
-            value={tabValue}
-            onChange={(_, newValue) => setTabValue(newValue)}
-          >
-            <Tab label="Начисления" id="account-tab-0" />
-            <Tab label="Оплаты" id="account-tab-1" />
-          </Tabs>
-        </Box>
-
-        <TabPanel value={tabValue} index={0}>
-          <ChargesTable
-            charges={getSortByDate(account?.charges ?? [])}
-            isLoading={isLoading}
-          />
-        </TabPanel>
-
-        <TabPanel value={tabValue} index={1}>
-          <PaymentsTable
-            payments={getSortByDate(account?.payments ?? [])}
-            isLoading={isLoading}
-          />
-        </TabPanel>
-      </Grid>
+      {tabs}
     </>
   );
 }

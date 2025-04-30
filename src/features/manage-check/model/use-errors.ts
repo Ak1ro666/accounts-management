@@ -29,9 +29,9 @@ export function useErrors({
       errors.owner.push("Необходимо заполнить поле 'Владелец'");
     }
 
-    if (data.owner && data.owner?.length <= 3) {
+    if (data.owner && data.owner?.length <= 2) {
       errors.owner = errors.owner ?? [];
-      errors.owner.push("Поле 'Владелец' должно содержать более 3-х символов");
+      errors.owner.push("Поле 'Владелец' должно содержать минимум 3 символа");
     }
 
     if (!data.address) {

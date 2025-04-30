@@ -12,4 +12,5 @@ export type UpdateData = {
   status?: AccountStatus;
   owner?: string;
   address?: string;
+  updatedAt?: string;
 };

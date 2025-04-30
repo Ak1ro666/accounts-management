@@ -42,7 +42,7 @@ export const api: AccountsApiContextType = {
   },
 
   fetchAccountsPayments: async (id: AccountId) => {
-    return await fetch(API_URL.accountsCharges(id)).then(
+    return await fetch(API_URL.accountsPayments(id)).then(
       (res) => res.json() as Promise<Payment[]>,
     );
   },

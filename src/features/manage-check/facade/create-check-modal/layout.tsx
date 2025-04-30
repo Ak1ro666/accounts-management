@@ -32,7 +32,7 @@ export function Layout({
     errorsState.hideErrors();
   };
 
-  const handleSubmitForm = () => {
+  const onSubmitForm = () => {
     const isValid = errorsState.checkIsValid();
 
     if (isValid) {
@@ -59,7 +59,7 @@ export function Layout({
       footer={
         <CreateFormActions
           disabled={isLoading}
-          onSubmit={handleSubmitForm}
+          onSubmit={onSubmitForm}
           onClose={onClose}
         />
       }
