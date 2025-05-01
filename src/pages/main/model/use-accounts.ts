@@ -12,14 +12,17 @@ export function useAccounts() {
     data = [],
     isLoading,
     refetch,
-  } = useLoad<Account[]>(
-    () =>
+  } = useLoad<Account[]>({
+    fetcher: () =>
       new Promise((resolve) => {
         setTimeout(() => {
           resolve(api.fetchAccounts());
         }, 1000);
       }),
-  );
+    subscribe: {
+      timeout: 1000,
+    },
+  });
   const [removedAccounts, setRemovedAccounts] = useState<AccountId[]>([]);
 
   const remove = async (id: AccountId) => {

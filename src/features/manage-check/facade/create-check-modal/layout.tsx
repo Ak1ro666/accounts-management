@@ -1,4 +1,3 @@
-import { useTransition } from "react";
 import type { Account } from "@/kernel/account";
 import type { CreateData } from "@/kernel/api/accounts";
 
@@ -10,6 +9,7 @@ import { useCreateCheck } from "../../model/use-create-check";
 import { useErrors } from "../../model/use-errors";
 
 import { useFormState } from "../../view-model/use-form-state";
+import { useCreateSubmitForm } from "../../model/use-create-submit-form";
 
 export function Layout({
   createCheck,
@@ -18,7 +18,6 @@ export function Layout({
   createCheck: (body: CreateData) => Promise<void>;
   accountsData: Account[];
 }) {
-  const [isLoading, startTransition] = useTransition();
   const cancelCreate = useCreateCheck((state) => state.cancelCreate);
   const isCreating = useCreateCheck((state) => state.isCreating);
   const formState = useFormState();
@@ -31,20 +30,14 @@ export function Layout({
     formState.reset();
     errorsState.hideErrors();
   };
-
-  const onSubmitForm = () => {
-    const isValid = errorsState.checkIsValid();
-
-    if (isValid) {
-      errorsState.hideErrors();
-      startTransition(
-        async () =>
-          await createCheck(formState.data as CreateData).finally(onClose),
-      );
-    } else {
-      errorsState.showErrors();
-    }
-  };
+  const formSubmit = useCreateSubmitForm({
+    createCheck,
+    checkIsValid: errorsState.checkIsValid,
+    hideErrors: errorsState.hideErrors,
+    showErrors: errorsState.showErrors,
+    afterSubmit: onClose,
+    formStateData: formState.data,
+  });
 
   return (
     <Modal
@@ -58,8 +51,8 @@ export function Layout({
       }
       footer={
         <CreateFormActions
-          disabled={isLoading}
-          onSubmit={onSubmitForm}
+          disabled={formSubmit.isLoading}
+          onSubmit={formSubmit.onSubmitForm}
           onClose={onClose}
         />
       }
