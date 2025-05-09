@@ -30,7 +30,7 @@ export const api: AccountsApiContextType = {
     });
   },
 
-  fetchAccountsForId: async (id: AccountId) => {
+  fetchAccountsById: async (id: AccountId) => {
     return await fetch(API_URL.accountsForId(id)).then(
       (res) => res.json() as Promise<Account>,
     );

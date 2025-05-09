@@ -10,3 +10,6 @@ export const getStatusConfig = (status: "OPEN" | "PRE_CLOSED" | "CLOSED") => {
       return { label: status, color: "default" as const };
   }
 };
+
+export const getDebtConfig = (debt?: number) =>
+  debt ? debt.toFixed(2) : Number(0).toFixed(2);

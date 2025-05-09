@@ -3,12 +3,12 @@
     {
       "id": "1",
       "code": "ЛС004550123",
-      "status": "PRE_CLOSED",
+      "status": "OPEN",
       "owner": "Иванов Иван Иванович",
       "address": "Москва, Ленинский просп., 13, корп.2, кв 14",
       "debt": 107.5,
       "createdAt": "2025-04-22",
-      "updatedAt": "2025-05-01T02:39:48.826Z",
+      "updatedAt": "2025-05-06T03:54:09.554Z",
       "charges": [],
       "payments": []
     },
@@ -143,6 +143,46 @@
       "updatedAt": "2025-04-23T10:11:00Z",
       "charges": [],
       "payments": []
+    }
+  ],
+  "files": [
+    {
+      "id": "1",
+      "name": "Документ 1",
+      "type": "folder",
+      "children": [
+        {
+          "id": "2",
+          "name": "Файл 2",
+          "type": "file",
+          "size": 1024
+        },
+        {
+          "id": "3",
+          "name": "Документ 3",
+          "type": "folder",
+          "children": [
+            {
+              "id": "5",
+              "name": "Файл 5",
+              "type": "file",
+              "size": 1024
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Файл 4",
+      "size": 1024,
+      "type": "file"
+    },
+    {
+      "id": "6",
+      "name": "Файл 6",
+      "size": 1024,
+      "type": "file"
     }
   ]
 }

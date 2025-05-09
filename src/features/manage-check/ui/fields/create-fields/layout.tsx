@@ -23,7 +23,7 @@ export function Layout({
   };
 
   return (
-    <>
+    <Grid container spacing={2}>
       <Grid size={{ xs: 12, sm: 6 }} mt={1}>
         <TextField
           name="code"
@@ -78,6 +78,6 @@ export function Layout({
           helperText={errors?.address}
         />
       </Grid>
-    </>
+    </Grid>
   );
 }

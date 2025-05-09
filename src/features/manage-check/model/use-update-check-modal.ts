@@ -14,30 +14,32 @@ export function useUpdateCheckModal() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchAccount = async (id: AccountId) => {
+    setIsLoading(true);
     await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(
-          Promise.all([
-            api.fetchAccountsForId(id),
-            Promise.resolve(ACCOUNTS_CHARGES), // api.fetchAccountsCharges(id),
-            Promise.resolve(ACCOUNTS_PAYMENTS), // api.fetchAccountsPayments(id),
-          ])
-            .then(([accountData, chargesData, paymentsData]) => {
-              setAccount({
-                ...accountData,
-                charges: chargesData,
-                payments: paymentsData,
-              });
-            })
-            .finally(() => setIsLoading(false)),
-        );
-      }, 1000);
+      setTimeout(
+        () =>
+          resolve(
+            Promise.all([
+              api.fetchAccountsById(id),
+              Promise.resolve(ACCOUNTS_CHARGES), // api.fetchAccountsCharges(id),
+              Promise.resolve(ACCOUNTS_PAYMENTS), // api.fetchAccountsPayments(id),
+            ])
+              .then(([accountData, chargesData, paymentsData]) => {
+                setAccount({
+                  ...accountData,
+                  charges: chargesData,
+                  payments: paymentsData,
+                });
+              })
+              .finally(() => setIsLoading(false)),
+          ),
+        1000,
+      );
     });
   };
 
   checkModalEventEmitter.useEvent("onChangeOpenModal", async (id) => {
     setIsOpen(true);
-    setIsLoading(true);
     await fetchAccount(id);
   });
 

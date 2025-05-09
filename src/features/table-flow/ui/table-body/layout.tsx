@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 
 import {
-  CircularProgress,
   IconButton,
   MenuItem,
   Select,
@@ -13,7 +12,10 @@ import { Delete, Edit } from "@mui/icons-material";
 
 import type { Account, AccountId, AccountStatus } from "@/kernel/account";
 
+import { UiLoader } from "@/shared/ui/loader";
+
 import { ACCOUNT_STATUS } from "../../lib/constants";
+import { getDebtConfig } from "../../domain/table";
 
 export function Layout({
   isLoading,
@@ -34,7 +36,7 @@ export function Layout({
     return (
       <TableRow>
         <TableCell colSpan={6} align="center">
-          <CircularProgress />
+          <UiLoader />
         </TableCell>
       </TableRow>
     );
@@ -71,9 +73,7 @@ export function Layout({
       </TableCell>
       <TableCell>{item?.owner}</TableCell>
       <TableCell>{item?.address}</TableCell>
-      <TableCell>
-        {item?.debt ? item.debt.toFixed(2) : Number(0).toFixed(2)} ₽
-      </TableCell>
+      <TableCell>{getDebtConfig(item.debt)} ₽</TableCell>
       <TableCell>
         <IconButton color="primary" onClick={() => onEditClick(item.id)}>
           <Edit />

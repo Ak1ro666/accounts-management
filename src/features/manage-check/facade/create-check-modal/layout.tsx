@@ -1,7 +1,6 @@
 import type { Account } from "@/kernel/account";
 import type { CreateData } from "@/kernel/api/accounts";
 
-import { Modal } from "../../ui/modal";
 import { CreateFields } from "../../ui/fields/create-fields";
 import { CreateFormActions } from "../../ui/form-actions/create-form-actions";
 
@@ -10,6 +9,7 @@ import { useErrors } from "../../model/use-errors";
 
 import { useFormState } from "../../view-model/use-form-state";
 import { useCreateSubmitForm } from "../../model/use-create-submit-form";
+import { UiModal } from "@/shared/ui/modal";
 
 export function Layout({
   createCheck,
@@ -40,7 +40,7 @@ export function Layout({
   });
 
   return (
-    <Modal
+    <UiModal
       title="Создание счета"
       body={
         <CreateFields
@@ -49,7 +49,7 @@ export function Layout({
           onChange={formState.onChange}
         />
       }
-      footer={
+      actions={
         <CreateFormActions
           disabled={formSubmit.isLoading}
           onSubmit={formSubmit.onSubmitForm}
@@ -57,7 +57,7 @@ export function Layout({
         />
       }
       onClose={onClose}
-      isOpen={isCreating}
+      open={isCreating}
     />
   );
 }

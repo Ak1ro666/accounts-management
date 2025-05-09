@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import { Account } from "@/kernel/account";
 
@@ -8,9 +8,7 @@ export function usePagination(items: Account[]) {
 
   const onChangePage = (_: unknown, newPage: number) => setCurrentPage(newPage);
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setCurrentPage(0);
   };

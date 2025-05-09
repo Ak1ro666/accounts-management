@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+
 import {
   FormControl,
   Grid,
@@ -8,9 +9,14 @@ import {
   TextField,
 } from "@mui/material";
 
-import type { FormData, FormErrors } from "../../../domain/form";
-import { type Account } from "../../../domain/account";
 import { UiLoader } from "@/shared/ui/loader";
+
+import {
+  getCreationDate,
+  type FormData,
+  type FormErrors,
+} from "../../../domain/form";
+import { type Account } from "../../../domain/account";
 
 export function Layout({
   formData,
@@ -32,7 +38,7 @@ export function Layout({
   };
 
   return (
-    <>
+    <Grid container spacing={2}>
       {isLoading ? (
         <UiLoader />
       ) : (
@@ -93,10 +99,7 @@ export function Layout({
           <Grid size={{ xs: 12, sm: 6 }}>
             <TextField
               label="Дата создания"
-              value={(account?.createdAt
-                ? new Date(account?.createdAt)
-                : new Date()
-              ).toLocaleDateString("ru-RU")}
+              value={getCreationDate(account)}
               fullWidth
               disabled
             />
@@ -112,6 +115,6 @@ export function Layout({
         </>
       )}
       {tabs}
-    </>
+    </Grid>
   );
 }

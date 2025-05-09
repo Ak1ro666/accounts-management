@@ -5,3 +5,6 @@ export type UserFilters = {
   from: Date | null;
   to: Date | null;
 };
+
+export const isSearchActive = (filters: UserFilters) =>
+  Object.values(filters).some((value) => Boolean(value));

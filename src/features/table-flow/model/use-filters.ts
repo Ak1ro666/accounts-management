@@ -2,12 +2,13 @@ import { useMemo } from "react";
 
 import { Account } from "@/kernel/account";
 
+import { createSearchQueryParams } from "@/shared/infastructure/use-create-search-query";
+
 import {
   getSortedItemsString,
   type Direction,
   type SortQuery,
 } from "../domain/query";
-import { createSearchQueryParams } from "@/shared/infastructure/use-create-search-query";
 
 export function useFilters(items: Account[]) {
   const useQueryParams = createSearchQueryParams<{

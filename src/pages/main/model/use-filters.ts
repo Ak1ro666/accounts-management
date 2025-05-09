@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
 
-import { getFilteredItems, type Account } from "../domain/account";
-import type { UserFilters } from "../domain/filters";
-
 import {
   dateTransformer,
   defaultStringTransformer,
   createSearchQueryParams,
 } from "@/shared/infastructure/use-create-search-query";
+
+import { getFilteredItems, type Account } from "../domain/account";
+import { isSearchActive, type UserFilters } from "../domain/filters";
 
 const initialFilters: UserFilters = {
   owner: "",
@@ -58,9 +58,9 @@ export function useFilters(items: Account[], defaultFilters?: UserFilters) {
     ...userFilters,
   };
 
-  const [isSearch, setIsSearch] = useState<boolean>(() => {
-    return Object.values(fullFilters).some((value) => Boolean(value));
-  });
+  const [isSearch, setIsSearch] = useState<boolean>(() =>
+    isSearchActive(fullFilters),
+  );
 
   const reset = () => {
     resetParams();
@@ -74,8 +74,8 @@ export function useFilters(items: Account[], defaultFilters?: UserFilters) {
 
   const filteredItems = isSearch ? filteredCacheItems : items;
 
-  const onStartSearch = () => {
-    if (Object.values(fullFilters).some((value) => Boolean(value))) {
+  const startSearch = () => {
+    if (isSearchActive(fullFilters)) {
       setIsSearch(true);
     }
   };
@@ -86,7 +86,7 @@ export function useFilters(items: Account[], defaultFilters?: UserFilters) {
       data: fullFilters,
       onChangeFilters: setUserFilters,
       reset,
-      onStartSearch,
+      startSearch,
     },
   ] as const;
 }

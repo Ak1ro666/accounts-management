@@ -38,7 +38,7 @@ export function useUpdateSubmitForm({
 
       if (account?.id) {
         startTransition(async () => {
-          const currentAccount = await api.fetchAccountsForId(account.id);
+          const currentAccount = await api.fetchAccountsById(account.id);
 
           if (currentAccount.updatedAt !== account.updatedAt) {
             confirmation.open({
@@ -56,9 +56,7 @@ export function useUpdateSubmitForm({
             return;
           }
 
-          await updateCheck(account.id, formStateData as UpdateData).finally(
-            afterSubmitForm,
-          );
+          await updateCheck(account.id, formStateData).finally(afterSubmitForm);
         });
       }
     } else {

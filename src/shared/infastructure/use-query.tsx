@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 
-export function useLoad<T>({
+export function useQuery<T>({
   fetcher,
-  subscribe,
+  options,
 }: {
   fetcher: () => Promise<T>;
-  subscribe?: {
-    timeout: number;
+  options?: {
+    initialData?: T;
+    subscribeTimeout?: number;
+    refetchInterval?: number;
   };
 }) {
   const [data, setData] = useState<T>();
@@ -17,7 +19,7 @@ export function useLoad<T>({
       await fetcher().then(setData);
       await subscribeData();
     } catch (e) {
-      setTimeout(() => subscribeData(), subscribe?.timeout);
+      setTimeout(() => subscribeData(), options?.subscribeTimeout);
       console.error(e);
     }
   };
@@ -28,7 +30,7 @@ export function useLoad<T>({
       .then(setData)
       .finally(() => setIsLoading(false))
       .finally(() => {
-        if (subscribe) {
+        if (options?.subscribeTimeout) {
           subscribeData();
         }
       });

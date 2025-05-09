@@ -5,6 +5,11 @@ import {
   useStartCreate,
 } from "@/features/manage-check";
 
+import {
+  ManageFilesStorageModal,
+  useStartOpenModal,
+} from "@/features/manage-files-storage";
+
 import { Root } from "./ui/root";
 import { CreateCheckButton } from "./ui/create-check-button";
 import { Filters } from "./ui/filters";
@@ -17,6 +22,7 @@ export function Page() {
   const accounts = useAccounts();
   const [filteredItems, filters] = useFilters(accounts.data);
   const startCreate = useStartCreate();
+  const startOpenModal = useStartOpenModal();
 
   return (
     <Root
@@ -29,7 +35,7 @@ export function Page() {
           filtersActions={
             <FilteredActions
               onResetClick={filters.reset}
-              onSearchClick={filters.onStartSearch}
+              onSearchClick={filters.startSearch}
             />
           }
         />
@@ -49,7 +55,11 @@ export function Page() {
             createCheck={accounts.create}
             accountsData={accounts.data}
           />
-          <UpdateCheckModal updateCheck={accounts.update} />
+          <UpdateCheckModal
+            openFilesStorage={startOpenModal}
+            updateCheck={accounts.update}
+          />
+          <ManageFilesStorageModal />
         </>
       }
     />
