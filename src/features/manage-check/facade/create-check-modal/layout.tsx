@@ -9,7 +9,7 @@ import { useErrors } from "../../model/use-errors";
 
 import { useFormState } from "../../view-model/use-form-state";
 import { useCreateSubmitForm } from "../../model/use-create-submit-form";
-import { UiModal } from "@/shared/ui/modal";
+import { UiModal } from "@/shared/ui/kit/modal";
 
 export function Layout({
   createCheck,

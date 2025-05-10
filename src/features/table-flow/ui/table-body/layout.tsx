@@ -12,7 +12,7 @@ import { Delete, Edit } from "@mui/icons-material";
 
 import type { Account, AccountId, AccountStatus } from "@/kernel/account";
 
-import { UiLoader } from "@/shared/ui/loader";
+import { UiLoader } from "@/shared/ui/kit/loader";
 
 import { ACCOUNT_STATUS } from "../../lib/constants";
 import { getDebtConfig } from "../../domain/table";

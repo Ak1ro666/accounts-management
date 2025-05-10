@@ -11,7 +11,7 @@ export function useQuery<T>({
     refetchInterval?: number;
   };
 }) {
-  const [data, setData] = useState<T>();
+  const [data, setData] = useState<T | undefined>(options?.initialData);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const subscribeData = async () => {
@@ -38,6 +38,12 @@ export function useQuery<T>({
 
   useEffect(() => {
     fetchData();
+
+    if (options?.refetchInterval) {
+      const intervalId = setInterval(fetcher, options.refetchInterval);
+
+      return () => clearInterval(intervalId);
+    }
   }, []);
 
   return {

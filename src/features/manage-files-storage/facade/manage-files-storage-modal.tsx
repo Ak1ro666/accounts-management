@@ -1,6 +1,6 @@
-import { UiModal } from "@/shared/ui/modal";
+import { UiModal } from "@/shared/ui/kit/modal";
 import { ModalHeader } from "../ui/modal-header";
-import { UiTransition } from "@/shared/ui/transition";
+import { UiTransition } from "@/shared/ui/kit/transition";
 
 import { ModalBody } from "./modal-body";
 import { useOpenModal } from "../model/use-open-modal";
