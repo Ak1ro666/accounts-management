@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@mui/material";
 
-import { UiLoader } from "@/shared/ui/loader";
+import { UiLoader } from "@/shared/ui/kit/loader";
 
 import {
   getCreationDate,

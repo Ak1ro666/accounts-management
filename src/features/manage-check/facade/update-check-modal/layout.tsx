@@ -11,7 +11,7 @@ import { useUpdateSubmitForm } from "../../model/use-update-submit-form";
 import { useFormState } from "../../view-model/use-form-state";
 
 import type { AccountId } from "../../domain/account";
-import { UiModal } from "@/shared/ui/modal";
+import { UiModal } from "@/shared/ui/kit/modal";
 
 export function Layout({
   updateCheck,

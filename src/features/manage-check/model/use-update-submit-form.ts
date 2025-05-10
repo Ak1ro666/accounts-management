@@ -1,7 +1,7 @@
 import { useTransition } from "react";
 
 import { AccountsApiContext, type UpdateData } from "@/kernel/api/accounts";
-import { useConfirmation } from "@/shared/ui/confirmation";
+import { useConfirmation } from "@/shared/ui/kit/confirmation";
 
 import type { Account, AccountId } from "../domain/account";
 

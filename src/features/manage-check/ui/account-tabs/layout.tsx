@@ -4,7 +4,7 @@ import { ChargesTable } from "../charges-table";
 import { PaymentsTable } from "../payments-table";
 import { TabPanel } from "../tab-panel";
 import { Box, Button, Grid, Tab, Tabs } from "@mui/material";
-import { UiLoader } from "@/shared/ui/loader";
+import { UiLoader } from "@/shared/ui/kit/loader";
 
 export function Layout({
   isLoading,

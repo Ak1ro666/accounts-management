@@ -18,7 +18,7 @@ import { FilteredActions } from "./ui/filtered-actions";
 import { useAccounts } from "./model/use-accounts";
 import { useFilters } from "./model/use-filters";
 
-export function Page() {
+function Page() {
   const accounts = useAccounts();
   const [filteredItems, filters] = useFilters(accounts.data);
   const startCreate = useStartCreate();
@@ -65,3 +65,5 @@ export function Page() {
     />
   );
 }
+
+export const Component = Page;

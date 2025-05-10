@@ -15,7 +15,7 @@ export function Layout({
 }: {
   header: ReactNode;
   body: ReactNode;
-  pagination: ReactNode;
+  pagination?: ReactNode;
 }) {
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>

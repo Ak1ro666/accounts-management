@@ -1,6 +1,6 @@
 import type { AccountId } from "@/kernel/account";
 
-import { useConfirmation } from "@/shared/ui/confirmation";
+import { useConfirmation } from "@/shared/ui/kit/confirmation";
 
 export function useDeleteConfirmation(
   remove: (id: AccountId) => Promise<void>,
