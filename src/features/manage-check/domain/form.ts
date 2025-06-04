@@ -7,11 +7,7 @@ export type FormData = {
   address?: string;
 };
 
-export type FormErrors = {
-  code?: string[];
-  owner?: string[];
-  address?: string[];
-};
+export type FormErrors = { [K in keyof FormData]?: string[] };
 
 export const getCreationDate = (account?: Account) =>
   (account?.createdAt

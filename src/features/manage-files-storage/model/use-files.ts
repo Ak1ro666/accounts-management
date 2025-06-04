@@ -2,10 +2,10 @@ import { useMemo, useState } from "react";
 
 import {
   createFileNode,
-  FileFormData,
   type FileNode,
   type FileNodeId,
 } from "../domain/files-tree";
+import { type FileFormData } from "../domain/form";
 
 type StateFiles = {
   files: Record<FileNodeId, FileNode>;

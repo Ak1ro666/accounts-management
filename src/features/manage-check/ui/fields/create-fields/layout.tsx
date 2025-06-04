@@ -1,13 +1,18 @@
+import { ChangeEvent } from "react";
+
 import {
   FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 
 import type { FormData, FormErrors } from "../../../domain/form";
+import { AccountStatus } from "../../../domain/account";
 
 export function Layout({
   formData,
@@ -16,10 +21,18 @@ export function Layout({
 }: {
   formData: FormData;
   errors?: FormErrors;
-  onChange: (name: string) => (value: string) => void;
+  onChange: (name: string, value: string) => void;
 }) {
-  const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.name)(e.target.value);
+  const onChangeField = (
+    e:
+      | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<AccountStatus>,
+  ) => {
+    if (e.target instanceof HTMLInputElement) {
+      onChange(e.target.name, e.target.value);
+    } else {
+      onChange(e.target.name, e.target.value);
+    }
   };
 
   return (
@@ -38,18 +51,19 @@ export function Layout({
       </Grid>
 
       <Grid size={{ xs: 12, sm: 6 }} mt={1}>
-        <FormControl fullWidth>
+        <FormControl error={!!errors?.status} fullWidth>
           <InputLabel>Статус</InputLabel>
           <Select
             name="status"
             value={formData.status}
-            onChange={(e) => onChange(e.target.name)(e.target.value)}
+            onChange={onChangeField}
             label="Статус"
           >
             <MenuItem value="OPEN">Открыт</MenuItem>
             <MenuItem value="PRE_CLOSED">Предзакрыт</MenuItem>
             <MenuItem value="CLOSED">Закрыт</MenuItem>
           </Select>
+          <FormHelperText>{errors?.status}</FormHelperText>
         </FormControl>
       </Grid>
 

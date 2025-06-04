@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ChangeEvent, ReactNode } from "react";
 
 import {
   FormControl,
@@ -6,6 +6,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 
@@ -16,7 +17,7 @@ import {
   type FormData,
   type FormErrors,
 } from "../../../domain/form";
-import { type Account } from "../../../domain/account";
+import type { AccountStatus, Account } from "../../../domain/account";
 
 export function Layout({
   formData,
@@ -28,13 +29,21 @@ export function Layout({
 }: {
   formData: FormData;
   errors?: FormErrors;
-  onChange: (name: string) => (value: string) => void;
+  onChange: (name: string, value: string) => void;
   account?: Account;
   isLoading: boolean;
   tabs: ReactNode;
 }) {
-  const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(e.target.name)(e.target.value);
+  const onChangeField = (
+    e:
+      | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<AccountStatus>,
+  ) => {
+    if (e.target instanceof HTMLInputElement) {
+      onChange(e.target.name, e.target.value);
+    } else {
+      onChange(e.target.name, e.target.value);
+    }
   };
 
   return (
@@ -61,7 +70,7 @@ export function Layout({
               <Select
                 name="status"
                 value={formData.status}
-                onChange={(e) => onChange(e.target.name)(e.target.value)}
+                onChange={onChangeField}
                 label="Статус"
               >
                 <MenuItem value="OPEN">Открыт</MenuItem>

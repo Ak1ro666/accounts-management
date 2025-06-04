@@ -11,15 +11,15 @@ export type FileNode = {
 };
 
 export const createFileNode = (data: {
-  name: string;
-  type: "file" | "folder";
+  name?: string;
+  type?: "file" | "folder";
   size?: number;
   parentId?: FileNodeId;
 }): FileNode => ({
   id: crypto.randomUUID(),
-  name: data.name,
+  name: data.name ?? "",
   size: data.size,
-  type: data.type,
+  type: data.type ?? "file",
   parentId: data.parentId,
 });
 

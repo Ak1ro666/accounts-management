@@ -1,0 +1,80 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useSyncExternalStore } from "react";
+import { LOCAL_STORAGE_AUTH_TOKEN } from "./constants";
+import { parseJwt, publicApiClient } from "../api";
+import { BroadcastEvents } from "../lib/broadcast-events";
+
+type Session = {
+  userId: number;
+  email: string;
+};
+
+let refreshTokenPromise: Promise<string | null> | null = null;
+
+class SessionStore {
+  public updateSessionStream = new BroadcastEvents<
+    { type: "update"; token: string } | { type: "remove" }
+  >("session");
+
+  getSessionToken() {
+    return localStorage.getItem(LOCAL_STORAGE_AUTH_TOKEN);
+  }
+
+  setSessionToken(token: string) {
+    localStorage.setItem(LOCAL_STORAGE_AUTH_TOKEN, token);
+    this.updateSessionStream.emit({ type: "update", token });
+  }
+
+  removeSessionToken() {
+    localStorage.removeItem(LOCAL_STORAGE_AUTH_TOKEN);
+    this.updateSessionStream.emit({ type: "remove" });
+  }
+
+  getSession() {
+    return tokenToSession(this.getSessionToken());
+  }
+
+  isSessionExpired() {
+    const session = this.getSession();
+    return !session || Date.now() > session.exp * 1000;
+  }
+  getRefreshToken = async () => {
+    refreshTokenPromise =
+      refreshTokenPromise ??
+      publicApiClient<{ token: string }>({
+        url: "/refresh",
+        method: "POST",
+      })
+        .then((result) => {
+          appSessionStore.setSessionToken(result.token);
+          return result.token;
+        })
+        .catch(() => {
+          appSessionStore.removeSessionToken();
+          return null;
+        })
+        .finally(() => {
+          refreshTokenPromise = null;
+        });
+
+    return refreshTokenPromise;
+  };
+
+  useSession = () => {
+    const token = useSyncExternalStore(
+      this.updateSessionStream.listen,
+      this.getSessionToken,
+      () => null,
+    );
+
+    return tokenToSession(token);
+  };
+}
+
+const tokenToSession = (token: string | null) => {
+  if (!token) return null;
+
+  return parseJwt<Session>(token);
+};
+
+export const appSessionStore = new SessionStore();

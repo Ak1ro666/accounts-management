@@ -13,5 +13,5 @@ export const FORM_QUERY: {
   { value: "owner", label: "Владелец", id: 3 },
   { value: "address", label: "Адрес", id: 4 },
   { value: "debt", label: "Задолженность", id: 5 },
-  { value: "code", label: "Код счета", disabled: true, id: 6 },
+  { value: "code", label: "Действия", disabled: true, id: 6 },
 ] as const;

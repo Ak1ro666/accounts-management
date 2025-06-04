@@ -1,6 +1,6 @@
 import { AccountsApiContext } from "@/kernel/api/accounts";
 
-import { useQuery } from "@/shared/infastructure/use-query";
+import { useQuery } from "@/shared/lib/react/use-query";
 
 import type { AccountId } from "../domain/account";
 

@@ -24,13 +24,13 @@ export function useUpdateCheckModal() {
               Promise.resolve(ACCOUNTS_CHARGES), // api.fetchAccountsCharges(id),
               Promise.resolve(ACCOUNTS_PAYMENTS), // api.fetchAccountsPayments(id),
             ])
-              .then(([accountData, chargesData, paymentsData]) => {
+              .then(([accountData, chargesData, paymentsData]) =>
                 setAccount({
-                  ...accountData,
+                  ...accountData[0],
                   charges: chargesData,
                   payments: paymentsData,
-                });
-              })
+                }),
+              )
               .finally(() => setIsLoading(false)),
           ),
         1000,

@@ -14,6 +14,7 @@ import { usePagination } from "../model/use-pagination";
 import { useFilters } from "../model/use-filters";
 
 import { ROWS_PER_PAGE_OPTIONS } from "../lib/constants";
+import { TableActions } from "../ui/table-actions";
 
 export function TableFlow({
   items,
@@ -40,14 +41,18 @@ export function TableFlow({
       }
       body={
         <TableBody
-          onDeleteClick={onDeleteConfirmation}
           onChangeStatus={(id, status) => update(id, { status })}
           items={pagination.data}
           isLoading={isLoading}
           renderChip={(status) => <StatusChip status={status} />}
-          onEditClick={(id) =>
-            checkModalEventEmitter.emit("onChangeOpenModal", id)
-          }
+          renderActions={(id) => (
+            <TableActions
+              onDeleteClick={() => onDeleteConfirmation(id)}
+              onEditClick={() =>
+                checkModalEventEmitter.emit("onChangeOpenModal", id)
+              }
+            />
+          )}
         />
       }
       pagination={

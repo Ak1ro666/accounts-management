@@ -39,6 +39,11 @@ export function useErrors({
       errors.address.push("Необходимо заполнить поле 'Адрес'");
     }
 
+    if (!data.status) {
+      errors.status = errors.status ?? [];
+      errors.status.push("Необходимо заполнить поле 'Статус'");
+    }
+
     return errors;
   };
 
