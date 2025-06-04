@@ -1,4 +1,4 @@
-import { createStrictContext } from "@/shared/infastructure/strict-context";
+import { createStrictContext } from "@/shared/lib/react/strict-context";
 import {
   Button,
   Dialog,
@@ -31,7 +31,7 @@ export function useConfirmation() {
   return ConfirmationContext.use();
 }
 
-export function Layout({ children }: { children: ReactNode }) {
+export function Layout({ children }: { children?: ReactNode }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [state, setState] = useState<ConfirmationState | null>(null);
 

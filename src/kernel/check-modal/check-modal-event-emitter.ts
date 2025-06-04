@@ -1,4 +1,4 @@
-import { EventEmitter } from "@/shared/infastructure/event-emitter";
+import { EventEmitter } from "@/shared/lib/event-emitter";
 import { AccountId } from "../account";
 
 type CheckContextType = {

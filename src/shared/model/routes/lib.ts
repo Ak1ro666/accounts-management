@@ -1,25 +1,17 @@
-import { ROUTES } from "./config";
-
-type PathRoutes = (typeof ROUTES)[keyof typeof ROUTES];
-type StringNotNull<S extends string> = S extends "" ? true : false;
-
-type RemoveSlashFromString<S extends string> =
-  S extends `${infer V extends string}/` ? V : S;
-
 type UnionKeyFromPath<
   S extends string = "",
-  Acc extends readonly unknown[] = [],
-> = S extends `/${string}/:${infer V}/:${infer Rest}`
-  ? UnionKeyFromPath<Rest, [...Acc, V]>
-  : S extends `/${string}/:${infer Rest}`
-    ? [...Acc, Rest][number]
-    : S extends `${infer V}/:${infer Rest}`
-      ? UnionKeyFromPath<Rest, [...Acc, V]>
-      : StringNotNull<S> extends true
-        ? [...Acc][number]
-        : [...Acc, RemoveSlashFromString<S>][number];
+  Acc extends string[] = [],
+> = S extends `/:${infer Param}/${infer Rest}`
+  ? UnionKeyFromPath<`/${Rest}`, [...Acc, Param]>
+  : S extends `/:${infer Param}`
+    ? [...Acc, Param][number]
+    : S extends `${string}/:${infer Param}/${infer Rest}`
+      ? UnionKeyFromPath<`/${Rest}`, [...Acc, Param]>
+      : S extends `${string}/:${infer Param}`
+        ? [...Acc, Param][number]
+        : Acc[number];
 
-export const href = <S extends PathRoutes>(
+export const href = <S extends string>(
   url: S,
   options: Record<UnionKeyFromPath<S>, string>,
 ) => {
@@ -34,3 +26,5 @@ export const href = <S extends PathRoutes>(
 
   return newUrl;
 };
+
+href("/users/:id/posts/:postId", { id: "1", postId: "2" });

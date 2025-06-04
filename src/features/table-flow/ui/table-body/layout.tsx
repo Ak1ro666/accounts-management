@@ -1,14 +1,6 @@
 import { ReactNode } from "react";
 
-import {
-  IconButton,
-  MenuItem,
-  Select,
-  TableCell,
-  TableRow,
-} from "@mui/material";
-
-import { Delete, Edit } from "@mui/icons-material";
+import { MenuItem, Select, TableCell, TableRow } from "@mui/material";
 
 import type { Account, AccountId, AccountStatus } from "@/kernel/account";
 
@@ -20,17 +12,15 @@ import { getDebtConfig } from "../../domain/table";
 export function Layout({
   isLoading,
   items,
-  onDeleteClick,
-  onEditClick,
   onChangeStatus,
   renderChip,
+  renderActions,
 }: {
   isLoading?: boolean;
   items?: Account[];
-  onDeleteClick: (id: AccountId) => void;
-  onEditClick: (id: AccountId) => void;
   onChangeStatus: (id: AccountId, status: AccountStatus) => void;
   renderChip: (status: AccountStatus) => ReactNode;
+  renderActions: (id: string) => ReactNode;
 }) {
   if (isLoading) {
     return (
@@ -74,14 +64,7 @@ export function Layout({
       <TableCell>{item?.owner}</TableCell>
       <TableCell>{item?.address}</TableCell>
       <TableCell>{getDebtConfig(item.debt)} ₽</TableCell>
-      <TableCell>
-        <IconButton color="primary" onClick={() => onEditClick(item.id)}>
-          <Edit />
-        </IconButton>
-        <IconButton color="error" onClick={() => onDeleteClick(item.id)}>
-          <Delete />
-        </IconButton>
-      </TableCell>
+      <TableCell>{renderActions(item.id)}</TableCell>
     </TableRow>
   ));
 }

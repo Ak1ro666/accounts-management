@@ -4,11 +4,13 @@ import { AppHeader } from "@/features/header";
 
 import { ROUTES } from "@/shared/model/routes";
 
-import { Providers } from "./providers";
 import { App } from "./app";
+import { Providers } from "./providers";
 
 import { ProtectedRoute } from "./model/protected-router";
 import { protectedLoader } from "./model/protected-loader";
+import { authLoader } from "./model/auth-loader";
+import { appSessionStore } from "@/shared/model/session";
 
 export const router = createBrowserRouter([
   {
@@ -31,15 +33,24 @@ export const router = createBrowserRouter([
             path: ROUTES.ACCOUNTS,
             lazy: () => import("@/pages/accounts/page"),
           },
+          {
+            path: ROUTES.RESENT_ACCOUNTS,
+            lazy: () => import("@/pages/recent-accounts/page"),
+          },
         ],
       },
       {
-        path: ROUTES.LOGIN,
-        lazy: () => import("@/pages/auth/login.page"),
-      },
-      {
-        path: ROUTES.REGISTER,
-        lazy: () => import("@/pages/auth/register.page"),
+        loader: authLoader,
+        children: [
+          {
+            path: ROUTES.SIGN_IN,
+            lazy: () => import("@/pages/sign-in/page"),
+          },
+          {
+            path: ROUTES.SIGN_UP,
+            lazy: () => import("@/pages/sign-up/page"),
+          },
+        ],
       },
       {
         path: ROUTES.HOME,
@@ -48,3 +59,9 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
+appSessionStore.updateSessionStream.listen((event) => {
+  if (event.type === "remove") {
+    router.navigate(ROUTES.SIGN_IN);
+  }
+});

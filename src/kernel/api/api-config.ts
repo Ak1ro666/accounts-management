@@ -1,9 +1,7 @@
 export const API_URL = {
-  root: (url: string) => `http://localhost:5000${url}`,
-
-  accounts: (url: string = "") => API_URL.root(`/accounts/${url}`),
-  accountsForId: (id: string) => API_URL.accounts(id),
-  accountsStatus: (id: string) => API_URL.accounts(`${id}/status`),
-  accountsCharges: (id: string) => API_URL.accounts(`${id}/charges`),
-  accountsPayments: (id: string) => API_URL.accounts(`${id}/payments`),
-};
+  ACCOUNTS: `/accounts`,
+  ACCOUNTS_FOR_ID: "/accounts/:accountId",
+  ACCOUNTS_STATUS: "/accounts/:id/status",
+  ACCOUNTS_CHARGES: "/accounts/:id/charges",
+  ACCOUNTS_PAYMENTS: "/accounts/:id/payments",
+} as const;

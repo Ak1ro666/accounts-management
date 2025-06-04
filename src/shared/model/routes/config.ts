@@ -2,9 +2,10 @@ export const ROUTES = {
   HOME: "/",
   ABOUT: "/about",
   ACCOUNTS: "/accounts",
+  RESENT_ACCOUNTS: "/accounts/recent",
   ACCOUNT: "/account/:id",
-  LOGIN: "/login",
-  REGISTER: "/register",
+  SIGN_IN: "/sign-in",
+  SIGN_UP: "/sign-up",
 } as const;
 
 export type PathParams = {

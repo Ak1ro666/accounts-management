@@ -2,49 +2,54 @@ import { API_URL } from "../api-config";
 import type { Account, AccountId, Charge, Payment } from "../../account";
 import { AccountsApiContextType } from "./accounts-api-provider";
 import type { CreateData, UpdateData } from "./types";
+import { href } from "@/shared/model/routes";
+import { authorizedApiClient } from "@/shared/api/instance";
 
 export const api: AccountsApiContextType = {
-  fetchAccounts: async (path?: string) => {
-    return await fetch(API_URL.accounts(path)).then(
-      (res) => res.json() as Promise<Account[]>,
-    );
+  fetchAccounts: async (slug) => {
+    return await authorizedApiClient<Account[]>({
+      url: `${API_URL.ACCOUNTS}${slug ?? ""}`,
+    });
   },
 
   create: async (data: CreateData) => {
-    return await fetch(API_URL.accounts(), {
+    return await authorizedApiClient<Account>({
+      url: API_URL.ACCOUNTS,
       method: "POST",
-      body: JSON.stringify(data),
-    }).then((res) => res.json() as Promise<Account>);
+      json: data,
+    });
   },
 
   update: async (id: AccountId, data: UpdateData) => {
-    return await fetch(API_URL.accounts(id), {
+    return await authorizedApiClient<Account>({
+      url: href(API_URL.ACCOUNTS_FOR_ID, { accountId: id }),
       method: "PATCH",
-      body: JSON.stringify(data),
-    }).then((res) => res.json() as Promise<Account>);
+      json: data,
+    });
   },
 
   remove: async (id: AccountId) => {
-    await fetch(API_URL.accounts(id), {
+    await authorizedApiClient({
+      url: href(API_URL.ACCOUNTS_FOR_ID, { accountId: id }),
       method: "DELETE",
     });
   },
 
   fetchAccountsById: async (id: AccountId) => {
-    return await fetch(API_URL.accountsForId(id)).then(
-      (res) => res.json() as Promise<Account>,
-    );
+    return await authorizedApiClient<Account[]>({
+      url: `/accounts?id=${id}`,
+    });
   },
   fetchAccountsCharges: async (id: AccountId) => {
-    return await fetch(API_URL.accountsCharges(id)).then(
-      (res) => res.json() as Promise<Charge[]>,
-    );
+    return await authorizedApiClient<Charge[]>({
+      url: href(API_URL.ACCOUNTS_CHARGES, { id }),
+    });
   },
 
   fetchAccountsPayments: async (id: AccountId) => {
-    return await fetch(API_URL.accountsPayments(id)).then(
-      (res) => res.json() as Promise<Payment[]>,
-    );
+    return await authorizedApiClient<Payment[]>({
+      url: href(API_URL.ACCOUNTS_PAYMENTS, { id }),
+    });
   },
 };
 

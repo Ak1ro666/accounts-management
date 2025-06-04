@@ -40,7 +40,7 @@ export function useUpdateSubmitForm({
         startTransition(async () => {
           const currentAccount = await api.fetchAccountsById(account.id);
 
-          if (currentAccount.updatedAt !== account.updatedAt) {
+          if (currentAccount[0].updatedAt !== account.updatedAt) {
             confirmation.open({
               title: "Внимание",
               content:

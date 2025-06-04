@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
-import { Box, Breadcrumbs, Link, List, Paper, Typography } from "@mui/material";
+import { Box, Breadcrumbs, List, Paper, Typography } from "@mui/material";
 
-import type { FileNodeId, Path } from "../../domain/files-tree";
+import type { Path } from "../../domain/files-tree";
 
 export function Layout({
   files,

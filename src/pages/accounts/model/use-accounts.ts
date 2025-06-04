@@ -3,7 +3,7 @@ import { useMemo, useState } from "react";
 import { AccountsApiContext } from "@/kernel/api/accounts";
 import type { UpdateData, CreateData } from "@/kernel/api/accounts";
 
-import { useQuery } from "@/shared/infastructure/use-query";
+import { useQuery } from "@/shared/lib/react/use-query";
 
 import {
   type Account,

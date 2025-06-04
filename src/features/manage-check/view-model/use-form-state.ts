@@ -4,7 +4,7 @@ import type { FormData } from "../domain/form";
 export function useFormState(defaultFormData?: FormData) {
   const [formData, setFormData] = useState<FormData>({});
 
-  const onChange = (name: string) => (value: string) => {
+  const onChange = (name: string, value: string) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
