@@ -23,7 +23,6 @@ export function Layout({
   footer?: React.ReactNode;
   actions?: React.ReactNode;
   onClose?: () => void;
-  fullScreen?: boolean;
 } & DialogProps) {
   return (
     <Dialog maxWidth="md" {...otherProps}>
@@ -38,7 +37,7 @@ export function Layout({
           {body}
           {footer}
         </DialogContent>
-        <DialogActions>{actions}</DialogActions>
+        {actions && <DialogActions>{actions}</DialogActions>}
       </Box>
     </Dialog>
   );

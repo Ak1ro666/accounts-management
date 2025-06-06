@@ -4,7 +4,7 @@ for i in $(env | grep REPLACE_); do
   value=$(echo $i | cut -d '=' -f 2-)
   echo $key=$value
 
-  find ./dist -type f \( -name '*.js' -o -name '*.css' \) -exec sed -i "s|${key}|${value}|g" '{}' +
+  find /usr/share/nginx/html -type f \( -name '*.js' -o -name '*.css' \) -exec sed -i "s|${key}|${value}|g" '{}' +
 done
 
-npm run preview
+nginx -g 'daemon off;'

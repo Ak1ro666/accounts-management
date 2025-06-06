@@ -19,4 +19,17 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 8000,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.endsWith("src/shared/model/config.ts")) {
+            return "env";
+          }
+
+          return null;
+        },
+      },
+    },
+  },
 });
