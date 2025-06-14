@@ -8,24 +8,34 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useStyles } from "./styles";
 import { NAV_ITEMS } from "./lib/data";
+import { ReactNode } from "react";
 
-export function Layout({ className }: { className?: string }) {
-  const isActive = (path: string) => window.location.pathname === path;
+export function Layout({
+  className,
+  switchers,
+}: {
+  className?: string;
+  switchers: ReactNode;
+}) {
+  const location = useLocation();
+  const isActive = (path: string) => location.pathname === path;
   const styles = useStyles();
 
   return (
     <Paper
       className={className}
       sx={{
-        mt: 2,
         width: 256,
-        borderRight: `1px solid ${styles.theme.palette.divider}`,
+        border: `1px solid ${styles.theme.palette.divider}`,
         p: 2,
         borderRadius: 0,
-        boxShadow: "none",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        flexGrow: 1,
       }}
     >
       <List
@@ -61,6 +71,8 @@ export function Layout({ className }: { className?: string }) {
           </ListItem>
         ))}
       </List>
+
+      {switchers}
     </Paper>
   );
 }

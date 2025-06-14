@@ -1,6 +1,13 @@
 import { useState } from "react";
 import type { FormData } from "../domain/form";
 
+const initialFormData: FormData = {
+  address: "",
+  code: "",
+  owner: "",
+  status: "OPEN",
+};
+
 export function useFormState(defaultFormData?: FormData) {
   const [formData, setFormData] = useState<FormData>({});
 
@@ -12,14 +19,14 @@ export function useFormState(defaultFormData?: FormData) {
     setFormData({});
   };
 
-  const fullFormData = { ...defaultFormData, ...formData };
+  const fullFormData = { ...initialFormData, ...defaultFormData, ...formData };
 
-  const isUpdate = Object.values(formData).length > 0;
+  const isUpdated = Object.values(formData).length > 0;
 
   return {
     data: fullFormData,
     onChange,
     reset,
-    isUpdate,
+    isUpdated,
   } as const;
 }

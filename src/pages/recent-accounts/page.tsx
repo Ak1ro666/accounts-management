@@ -17,37 +17,35 @@ import { FilteredActions } from "./ui/filtered-actions";
 
 import { useAccounts } from "./model/use-accounts";
 import { useFilters } from "./model/use-filters";
-import { AccountsSidebar } from "./ui/accounts-sidebar";
 
 function Page() {
-  const accounts = useAccounts();
-  const [filteredItems, filters] = useFilters(accounts.data);
-  const startCreate = useStartCreate();
-  const startOpenModal = useStartOpenModal();
+const accounts = useAccounts();
+const [filteredItems, filters] = useFilters(accounts.data);
+ const startCreate = useStartCreate();
+const startOpenModal = useStartOpenModal();
 
   return (
-    <Root
-      title="Каталог лицевых счетов"
-      sidebar={<AccountsSidebar />}
-      filters={
-        <Filters
-          filters={filters.data}
-          onChangeFilters={filters.onChangeFilters}
-          ownerOptions={accounts.ownerOptions}
-          filtersActions={
-            <FilteredActions
-              onResetClick={filters.reset}
-              onSearchClick={filters.startSearch}
-            />
-          }
-        />
-      }
-      actions={<CreateCheckButton onClick={startCreate} />}
-      tableFlow={
-        <TableFlow
-          items={filteredItems}
-          remove={accounts.remove}
-          update={accounts.update}
+   <Root
+     title="Каталог лицевых счетов"
+     filters={
+    <Filters
+        filters={filters.data}
+        onChangeFilters={filters.onChangeFilters}
+        ownerOptions={accounts.ownerOptions}
+        filtersActions={
+          <FilteredActions
+            onResetClick={filters.reset}
+            onSearchClick={filters.startSearch}
+           />
+         }
+     />
+    }
+    actions={<CreateCheckButton onClick={startCreate} />}
+    tableFlow={
+       <TableFlow
+        items={filteredItems}
+        remove={accounts.remove}
+       update={accounts.update}
           isLoading={accounts.isLoading}
         />
       }

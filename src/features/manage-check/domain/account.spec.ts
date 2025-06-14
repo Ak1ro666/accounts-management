@@ -7,6 +7,6 @@ describe("manage-check/domain/account", () => {
   test("getSortByDateAsc", () => {
     const res = getSortByDateAsc(testChargesDesc);
 
-    expect(res).toEqual(getSortByDateAsc(testChargesAsc));
+    expect(res).toEqual(testChargesAsc);
   });
 });

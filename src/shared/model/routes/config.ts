@@ -6,6 +6,7 @@ export const ROUTES = {
   ACCOUNT: "/account/:id",
   SIGN_IN: "/sign-in",
   SIGN_UP: "/sign-up",
+  NOT_FOUND: "*",
 } as const;
 
 export type PathParams = {

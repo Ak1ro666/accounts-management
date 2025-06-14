@@ -11,6 +11,9 @@ import { ProtectedRoute } from "./model/protected-router";
 import { protectedLoader } from "./model/protected-loader";
 import { authLoader } from "./model/auth-loader";
 import { appSessionStore } from "@/shared/model/session";
+import { Sidebar } from "./ui/sidebar";
+import { PageLayout } from "./ui/page-layout";
+import { LangSwitcher } from "./ui/lang-switcher";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +28,10 @@ export const router = createBrowserRouter([
         element: (
           <>
             <AppHeader />
-            <ProtectedRoute />
+            <PageLayout>
+              <Sidebar switchers={<LangSwitcher />} />
+              <ProtectedRoute />
+            </PageLayout>
           </>
         ),
         children: [
@@ -55,6 +61,10 @@ export const router = createBrowserRouter([
       {
         path: ROUTES.HOME,
         loader: () => redirect(ROUTES.ACCOUNTS),
+      },
+      {
+        path: ROUTES.NOT_FOUND,
+        lazy: () => import("@/pages/not-found/page"),
       },
     ],
   },

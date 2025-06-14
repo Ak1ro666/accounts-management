@@ -4,6 +4,8 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 import { eslintBoundariesConfig } from "./eslint.boundaries.js";
+// TODO: fix eslint extends prettier
+import eslintConfigPrettier from "eslint-config-prettier/flat";
 
 export default tseslint.config(
   { ignores: ["dist"] },
@@ -28,4 +30,5 @@ export default tseslint.config(
     },
   },
   eslintBoundariesConfig,
+  eslintConfigPrettier,
 );

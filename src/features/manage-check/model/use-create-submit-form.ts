@@ -25,8 +25,7 @@ export function useCreateSubmitForm({
     if (isValid) {
       hideErrors();
       startTransition(
-        async () =>
-          await createCheck(formStateData as CreateData).finally(afterSubmit),
+        async () => await createCheck(formStateData).finally(afterSubmit),
       );
     } else {
       showErrors();

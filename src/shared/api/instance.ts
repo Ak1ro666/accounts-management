@@ -3,6 +3,8 @@ import { CONFIG } from "@/shared/model/config";
 
 import { appSessionStore } from "@/shared/model/session";
 
+console.log(CONFIG.API_BASE_URL);
+
 export const publicApiClient = createApi({
   baseUrl: CONFIG.API_BASE_URL,
 });

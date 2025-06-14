@@ -17,19 +17,19 @@ import { FilteredActions } from "./ui/filtered-actions";
 
 import { useAccounts } from "./model/use-accounts";
 import { useFilters } from "./model/use-filters";
-import { AccountsSidebar } from "./ui/accounts-sidebar";
+import { useTranslation } from "react-i18next";
 
 function Page() {
   const accounts = useAccounts();
   const [filteredItems, filters] = useFilters(accounts.data);
   const startCreate = useStartCreate();
   const startOpenModal = useStartOpenModal();
+  const { t } = useTranslation("accounts");
 
   return (
     <Root
-      title="Каталог лицевых счетов"
-      sidebar={<AccountsSidebar />}
-      filters={
+      title={t("title")}
+      actionsPannel={
         <Filters
           filters={filters.data}
           onChangeFilters={filters.onChangeFilters}

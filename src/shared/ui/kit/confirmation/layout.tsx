@@ -8,6 +8,7 @@ import {
   DialogTitle,
 } from "@mui/material";
 import { ReactNode, useState, useTransition } from "react";
+import { createPortal } from "react-dom";
 
 type ConfirmationState = {
   onCancel?: () => Promise<void> | void;
@@ -82,38 +83,41 @@ export function Layout({ children }: { children?: ReactNode }) {
       }}
     >
       {children}
-      <Dialog
-        open={isOpen}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{state?.title}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {state?.content}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            disabled={isLoading}
-            onClick={handleClose}
-            color="inherit"
-            variant="contained"
-          >
-            {state?.cancelText ?? "Cancel"}
-          </Button>
-          <Button
-            disabled={isLoading}
-            onClick={handleConfirm}
-            color="error"
-            variant="contained"
-            autoFocus
-          >
-            {state?.confirmationText ?? "Confirm"}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      {createPortal(
+        <Dialog
+          open={isOpen}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{state?.title}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {state?.content}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              disabled={isLoading}
+              onClick={handleClose}
+              color="inherit"
+              variant="contained"
+            >
+              {state?.cancelText ?? "Cancel"}
+            </Button>
+            <Button
+              disabled={isLoading}
+              onClick={handleConfirm}
+              color="error"
+              variant="contained"
+              autoFocus
+            >
+              {state?.confirmationText ?? "Confirm"}
+            </Button>
+          </DialogActions>
+        </Dialog>,
+        document.body,
+      )}
     </ConfirmationContext.Provider>
   );
 }

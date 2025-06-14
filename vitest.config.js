@@ -6,7 +6,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "./src/setup-test.ts",
+    setupFiles: "./src/shared/setup-test.ts",
     css: true,
     testTimeout: 5000,
     reporters: ["verbose"],

@@ -67,7 +67,7 @@ export function UpdateCheckModal({
           disabled={formSubmit.isLoading}
           onSubmit={formSubmit.onSubmitForm}
           onClose={onClose}
-          isUpdateFormData={formState.isUpdate}
+          isUpdateFormData={formState.isUpdated}
         />
       }
       onClose={onClose}

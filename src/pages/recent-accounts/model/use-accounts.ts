@@ -22,7 +22,7 @@ export function useAccounts() {
     fetcher: () =>
       new Promise((resolve) => {
         setTimeout(() => {
-          resolve(api.fetchAccounts("?_sort=updatedAt&_order=desc"));
+          resolve(api.fetchAccounts());
         }, 1000);
       }),
     options: {

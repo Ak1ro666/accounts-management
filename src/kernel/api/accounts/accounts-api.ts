@@ -6,9 +6,9 @@ import { href } from "@/shared/model/routes";
 import { authorizedApiClient } from "@/shared/api/instance";
 
 export const api: AccountsApiContextType = {
-  fetchAccounts: async (slug) => {
+  fetchAccounts: async () => {
     return await authorizedApiClient<Account[]>({
-      url: `${API_URL.ACCOUNTS}${slug ?? ""}`,
+      url: API_URL.ACCOUNTS,
     });
   },
 
@@ -23,7 +23,7 @@ export const api: AccountsApiContextType = {
   update: async (id: AccountId, data: UpdateData) => {
     return await authorizedApiClient<Account>({
       url: href(API_URL.ACCOUNTS_FOR_ID, { accountId: id }),
-      method: "PATCH",
+      method: "PUT",
       json: data,
     });
   },
