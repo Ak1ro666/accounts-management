@@ -1,8 +1,10 @@
-import { Children, createElement, isValidElement, type ReactNode } from "react";
+import type { ReactNode } from 'react'
+
+import { Children, createElement, isValidElement } from 'react'
 
 export function ComposeChildren({ children }: { children: ReactNode }) {
-  const array = Children.toArray(children);
-  const last = array.pop();
+  const array = Children.toArray(children)
+  const last = array.pop()
 
   return (
     <>
@@ -11,8 +13,8 @@ export function ComposeChildren({ children }: { children: ReactNode }) {
           isValidElement(element)
             ? createElement(element.type, element.props, child)
             : child,
-        last,
+        last
       )}
     </>
-  );
+  )
 }

@@ -1,1 +1,1 @@
-export { Layout as NavigationActions } from "./layout";
+export { Layout as NavigationActions } from './layout'

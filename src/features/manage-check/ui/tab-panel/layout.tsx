@@ -1,23 +1,22 @@
-import { ReactNode } from "react";
-import { Box } from "@mui/material";
+import { ReactNode } from 'react'
+import { Box } from '@mui/material'
 
 export function Layout({
   index,
   value,
-  children,
+  children
 }: {
-  children?: ReactNode;
-  index: number;
-  value: number;
+  children?: ReactNode
+  index: number
+  value: number
 }) {
   return (
     <div
-      role="tabpanel"
+      role='tabpanel'
       hidden={value !== index}
       id={`account-tabpanel-${index}`}
-      aria-labelledby={`account-tab-${index}`}
-    >
+      aria-labelledby={`account-tab-${index}`}>
       {value === index && <Box sx={{ pt: 2 }}>{children}</Box>}
     </div>
-  );
+  )
 }

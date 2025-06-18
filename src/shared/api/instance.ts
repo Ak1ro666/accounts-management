@@ -1,52 +1,51 @@
-import { createApi } from "@/shared/api/create-api";
-import { CONFIG } from "@/shared/model/config";
+import { createApi } from '@/shared/api/create-api'
+import { CONFIG } from '@/shared/model/config'
+import { appSessionStore } from '@/shared/model/session'
 
-import { appSessionStore } from "@/shared/model/session";
-
-console.log(CONFIG.API_BASE_URL);
+console.log(CONFIG.API_BASE_URL)
 
 export const publicApiClient = createApi({
-  baseUrl: CONFIG.API_BASE_URL,
-});
+  baseUrl: CONFIG.API_BASE_URL
+})
 
 export const authorizedApiClient = createApi({
   baseUrl: CONFIG.API_BASE_URL,
   requestMiddlewares: [
-    async (config) => {
-      let token = appSessionStore.getSessionToken();
+    async config => {
+      let token = appSessionStore.getSessionToken()
 
       if (!token || appSessionStore.isSessionExpired()) {
-        token = await appSessionStore.getRefreshToken();
+        token = await appSessionStore.getRefreshToken()
       }
 
       if (token) {
         config.headers = {
           ...config.headers,
-          Authorization: `Bearer ${token}`,
-        };
+          Authorization: `Bearer ${token}`
+        }
       }
-      return config;
-    },
+      return config
+    }
   ],
   responseMiddlewares: [
     async (response, config) => {
       if (response.status === 401) {
-        const token = appSessionStore.getSessionToken();
+        const token = appSessionStore.getSessionToken()
         if (token) {
-          const newToken = await appSessionStore.getRefreshToken();
+          const newToken = await appSessionStore.getRefreshToken()
           if (newToken) {
             config.headers = {
               ...config.headers,
-              Authorization: `Bearer ${newToken}`,
-            };
+              Authorization: `Bearer ${newToken}`
+            }
 
-            return await fetch(config.url, config);
+            return await fetch(config.url, config)
           }
         }
 
-        appSessionStore.removeSessionToken();
+        appSessionStore.removeSessionToken()
       }
-      return response;
-    },
-  ],
-});
+      return response
+    }
+  ]
+})

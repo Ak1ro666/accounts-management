@@ -1,1 +1,1 @@
-export { Layout as UiConfirmation, useConfirmation } from "./layout";
+export { Layout as UiConfirmation, useConfirmation } from './layout'

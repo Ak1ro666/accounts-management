@@ -1,6 +1,6 @@
 type UnionKeyFromPath<
-  S extends string = "",
-  Acc extends string[] = [],
+  S extends string = '',
+  Acc extends string[] = []
 > = S extends `/:${infer Param}/${infer Rest}`
   ? UnionKeyFromPath<`/${Rest}`, [...Acc, Param]>
   : S extends `/:${infer Param}`
@@ -9,22 +9,22 @@ type UnionKeyFromPath<
       ? UnionKeyFromPath<`/${Rest}`, [...Acc, Param]>
       : S extends `${string}/:${infer Param}`
         ? [...Acc, Param][number]
-        : Acc[number];
+        : Acc[number]
 
 export const href = <S extends string>(
   url: S,
-  options: Record<UnionKeyFromPath<S>, string>,
+  options: Record<UnionKeyFromPath<S>, string>
 ) => {
-  let newUrl = url;
+  let newUrl = url
   for (const key in options) {
-    if (options?.[key as UnionKeyFromPath<S>] === undefined) continue;
+    if (options?.[key as UnionKeyFromPath<S>] === undefined) continue
     newUrl = newUrl.replace(
       `:${key}`,
-      options[key as UnionKeyFromPath<S>]!,
-    ) as S;
+      options[key as UnionKeyFromPath<S>]!
+    ) as S
   }
 
-  return newUrl;
-};
+  return newUrl
+}
 
-href("/users/:id/posts/:postId", { id: "1", postId: "2" });
+href('/users/:id/posts/:postId', { id: '1', postId: '2' })

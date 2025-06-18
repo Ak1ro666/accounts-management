@@ -6,8 +6,8 @@ import {
   DialogContent,
   DialogProps,
   DialogTitle,
-  Toolbar,
-} from "@mui/material";
+  Toolbar
+} from '@mui/material'
 
 export function Layout({
   title,
@@ -17,22 +17,24 @@ export function Layout({
   actions,
   ...otherProps
 }: {
-  title?: string;
-  body?: React.ReactNode;
-  header?: React.ReactNode;
-  footer?: React.ReactNode;
-  actions?: React.ReactNode;
-  onClose?: () => void;
+  title?: string
+  body?: React.ReactNode
+  header?: React.ReactNode
+  footer?: React.ReactNode
+  actions?: React.ReactNode
+  onClose?: () => void
 } & DialogProps) {
   return (
-    <Dialog maxWidth="md" {...otherProps}>
+    <Dialog
+      maxWidth='md'
+      {...otherProps}>
       {header && (
-        <AppBar sx={{ position: "relative" }}>
+        <AppBar sx={{ position: 'relative' }}>
           <Toolbar>{header}</Toolbar>
         </AppBar>
       )}
       {title && <DialogTitle>{title}</DialogTitle>}
-      <Box component="form">
+      <Box component='form'>
         <DialogContent>
           {body}
           {footer}
@@ -40,5 +42,5 @@ export function Layout({
         {actions && <DialogActions>{actions}</DialogActions>}
       </Box>
     </Dialog>
-  );
+  )
 }

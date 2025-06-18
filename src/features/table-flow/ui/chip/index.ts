@@ -1,1 +1,1 @@
-export { Layout as StatusChip } from "./layout";
+export { Layout as StatusChip } from './layout'

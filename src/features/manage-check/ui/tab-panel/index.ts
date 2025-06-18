@@ -1,1 +1,1 @@
-export { Layout as TabPanel } from "./layout";
+export { Layout as TabPanel } from './layout'

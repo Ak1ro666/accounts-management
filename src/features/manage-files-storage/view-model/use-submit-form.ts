@@ -1,6 +1,7 @@
-import { type FormEvent, useTransition } from "react";
+import type { FormEvent } from 'react'
+import type { FileFormData } from '../domain/form'
 
-import type { FileFormData } from "../domain/form";
+import { useTransition } from 'react'
 
 export function useSubmitForm({
   checkIsValid,
@@ -8,35 +9,35 @@ export function useSubmitForm({
   showErrors,
   reset,
   onSubmit,
-  formState,
+  formState
 }: {
-  checkIsValid: () => boolean;
-  hideErrors: () => void;
-  showErrors: () => void;
-  reset: () => void;
-  onSubmit: (data: FileFormData) => void;
-  formState: FileFormData;
+  checkIsValid: () => boolean
+  hideErrors: () => void
+  showErrors: () => void
+  reset: () => void
+  onSubmit: (data: FileFormData) => void
+  formState: FileFormData
 }) {
-  const [isLoading, startTransition] = useTransition();
+  const [isLoading, startTransition] = useTransition()
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    const isValid = checkIsValid();
+    e.preventDefault()
+    const isValid = checkIsValid()
 
     if (isValid) {
-      hideErrors();
+      hideErrors()
 
       startTransition(() => {
-        onSubmit(formState);
-        reset();
-      });
+        onSubmit(formState)
+        reset()
+      })
     } else {
-      showErrors();
+      showErrors()
     }
-  };
+  }
 
   return {
     isLoading,
-    handleSubmit,
-  } as const;
+    handleSubmit
+  } as const
 }

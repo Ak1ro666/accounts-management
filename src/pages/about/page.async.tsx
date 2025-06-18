@@ -1,5 +1,5 @@
-import { lazy } from 'react';
+import { lazy } from 'react'
 
 export const PageAsync = lazy(() =>
-    import('./page').then((module) => ({ default: module.Page })),
-);
+  import('./page').then(module => ({ default: module.Page }))
+)

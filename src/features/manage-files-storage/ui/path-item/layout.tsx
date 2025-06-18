@@ -1,31 +1,30 @@
-import { Link } from "@mui/material";
+import type { Path } from '../../domain/files-tree'
 
-import type { Path } from "../../domain/files-tree";
+import { Link } from '@mui/material'
 
 export function Layout<T extends Path>({
   item,
   onClick,
-  isLast,
+  isLast
 }: {
-  item: T;
-  onClick: () => void;
-  isLast: boolean;
+  item: T
+  onClick: () => void
+  isLast: boolean
 }) {
   return (
     <Link
       key={item.id}
-      color={isLast ? "text.primary" : "inherit"}
+      color={isLast ? 'text.primary' : 'inherit'}
       onClick={onClick}
       sx={{
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        "&:hover": {
-          textDecoration: "underline",
-        },
-      }}
-    >
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        '&:hover': {
+          textDecoration: 'underline'
+        }
+      }}>
       {item.name}
     </Link>
-  );
+  )
 }

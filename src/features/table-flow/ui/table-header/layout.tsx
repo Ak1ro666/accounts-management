@@ -1,27 +1,28 @@
-import { TableCell, TableSortLabel } from "@mui/material";
+import type { Direction, SortQuery } from '../../domain/query'
 
-import { FORM_QUERY } from "../../lib/constants";
-import type { Direction, SortQuery } from "../../domain/query";
+import { TableCell, TableSortLabel } from '@mui/material'
+
+import { FORM_QUERY } from '../../lib/constants'
 
 export function Layout({
   selectedSort,
-  onChangeSelected,
+  onChangeSelected
 }: {
   selectedSort: {
-    query: SortQuery;
-    direction: Direction;
-  };
+    query: SortQuery
+    direction: Direction
+  }
   onChangeSelected: ({
     query,
-    direction,
+    direction
   }: {
-    query: SortQuery;
-    direction: Direction;
-  }) => void;
+    query: SortQuery
+    direction: Direction
+  }) => void
 }) {
-  return FORM_QUERY.map((query) => {
+  return FORM_QUERY.map(query => {
     if (query.disabled) {
-      return <TableCell key={query.id}>{query.label}</TableCell>;
+      return <TableCell key={query.id}>{query.label}</TableCell>
     }
 
     return (
@@ -32,13 +33,12 @@ export function Layout({
           onClick={() =>
             onChangeSelected({
               query: query.value,
-              direction: selectedSort.direction === "asc" ? "desc" : "asc",
+              direction: selectedSort.direction === 'asc' ? 'desc' : 'asc'
             })
-          }
-        >
+          }>
           {query.label}
         </TableSortLabel>
       </TableCell>
-    );
-  });
+    )
+  })
 }

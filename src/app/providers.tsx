@@ -1,13 +1,14 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from 'react'
 
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider } from '@mui/material'
 
-import { accountsApi, AccountsApiContext } from "@/kernel/api/accounts";
+import { accountsApi, AccountsApiContext } from '@/kernel/api/accounts'
 
-import { themeConfig } from "@/shared/model/theme-config";
-import { UiConfirmation } from "@/shared/ui/kit/confirmation";
-import { ComposeChildren } from "@/shared/lib/react/compose-children";
-import { ErrorBoundary } from "./error-boundary";
+import { ComposeChildren } from '@/shared/lib/react/compose-children'
+import { themeConfig } from '@/shared/model/theme-config'
+import { UiConfirmation } from '@/shared/ui/kit/confirmation'
+
+import { ErrorBoundary } from './error-boundary'
 
 export function Providers({ children }: { children: ReactNode }) {
   return (
@@ -19,5 +20,5 @@ export function Providers({ children }: { children: ReactNode }) {
       <ErrorBoundary />
       {children}
     </ComposeChildren>
-  );
+  )
 }

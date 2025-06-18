@@ -1,1 +1,1 @@
-export { Layout as FileForm } from "./layout";
+export { Layout as FileForm } from './layout'

@@ -1,1 +1,1 @@
-export { Layout as TableHeader } from "./layout";
+export { Layout as TableHeader } from './layout'

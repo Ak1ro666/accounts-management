@@ -1,1 +1,1 @@
-export { Layout as UpdateFields } from "./layout";
+export { Layout as UpdateFields } from './layout'

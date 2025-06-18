@@ -1,34 +1,34 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useEffect } from "react";
+import { useEffect } from 'react'
 
 export class BroadcastEvents<M> {
-  private listeners: Set<(event: M) => void> = new Set();
-  private broadcast: BroadcastChannel;
+  private listeners: Set<(event: M) => void> = new Set()
+  private broadcast: BroadcastChannel
 
   constructor(channel: string) {
-    this.broadcast = new BroadcastChannel(channel);
+    this.broadcast = new BroadcastChannel(channel)
 
-    this.broadcast.onmessage = (message) => {
-      this.listeners.forEach((listener) => listener(message.data));
-    };
+    this.broadcast.onmessage = message => {
+      this.listeners.forEach(listener => listener(message.data))
+    }
   }
 
   listen = (callback: (event: M) => void) => {
-    this.listeners.add(callback);
+    this.listeners.add(callback)
 
     return () => {
-      this.listeners.delete(callback);
-    };
-  };
+      this.listeners.delete(callback)
+    }
+  }
 
   emit = (event: M) => {
-    this.broadcast.postMessage(event);
-    this.listeners.forEach((listener) => listener(event));
-  };
+    this.broadcast.postMessage(event)
+    this.listeners.forEach(listener => listener(event))
+  }
 
   useEvent = (listener: (event: M) => void) => {
     useEffect(() => {
-      return this.listen(listener);
-    }, [listener]);
-  };
+      return this.listen(listener)
+    }, [listener])
+  }
 }

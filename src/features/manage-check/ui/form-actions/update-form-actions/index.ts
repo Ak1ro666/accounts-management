@@ -1,1 +1,1 @@
-export { Layout as UpdateFormActions } from './layout.tsx';
+export { Layout as UpdateFormActions } from './layout.tsx'

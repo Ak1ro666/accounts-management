@@ -1,51 +1,49 @@
-import { TableFlow } from "@/features/table-flow";
 import {
   CreateCheckModal,
   UpdateCheckModal,
-  useStartCreate,
-} from "@/features/manage-check";
-
+  useStartCreate
+} from '@/features/manage-check'
 import {
   ManageFilesStorageModal,
-  useStartOpenModal,
-} from "@/features/manage-files-storage";
+  useStartOpenModal
+} from '@/features/manage-files-storage'
+import { TableFlow } from '@/features/table-flow'
 
-import { Root } from "./ui/root";
-import { CreateCheckButton } from "./ui/create-check-button";
-import { Filters } from "./ui/filters";
-import { FilteredActions } from "./ui/filtered-actions";
-
-import { useAccounts } from "./model/use-accounts";
-import { useFilters } from "./model/use-filters";
+import { useAccounts } from './model/use-accounts'
+import { useFilters } from './model/use-filters'
+import { CreateCheckButton } from './ui/create-check-button'
+import { FilteredActions } from './ui/filtered-actions'
+import { Filters } from './ui/filters'
+import { Root } from './ui/root'
 
 function Page() {
-const accounts = useAccounts();
-const [filteredItems, filters] = useFilters(accounts.data);
- const startCreate = useStartCreate();
-const startOpenModal = useStartOpenModal();
+  const accounts = useAccounts()
+  const [filteredItems, filters] = useFilters(accounts.data)
+  const startCreate = useStartCreate()
+  const startOpenModal = useStartOpenModal()
 
   return (
-   <Root
-     title="Каталог лицевых счетов"
-     filters={
-    <Filters
-        filters={filters.data}
-        onChangeFilters={filters.onChangeFilters}
-        ownerOptions={accounts.ownerOptions}
-        filtersActions={
-          <FilteredActions
-            onResetClick={filters.reset}
-            onSearchClick={filters.startSearch}
-           />
-         }
-     />
-    }
-    actions={<CreateCheckButton onClick={startCreate} />}
-    tableFlow={
-       <TableFlow
-        items={filteredItems}
-        remove={accounts.remove}
-       update={accounts.update}
+    <Root
+      title='Каталог лицевых счетов'
+      filters={
+        <Filters
+          filters={filters.data}
+          onChangeFilters={filters.onChangeFilters}
+          ownerOptions={accounts.ownerOptions}
+          filtersActions={
+            <FilteredActions
+              onResetClick={filters.reset}
+              onSearchClick={filters.startSearch}
+            />
+          }
+        />
+      }
+      actions={<CreateCheckButton onClick={startCreate} />}
+      tableFlow={
+        <TableFlow
+          items={filteredItems}
+          remove={accounts.remove}
+          update={accounts.update}
           isLoading={accounts.isLoading}
         />
       }
@@ -63,7 +61,7 @@ const startOpenModal = useStartOpenModal();
         </>
       }
     />
-  );
+  )
 }
 
-export const Component = Page;
+export const Component = Page

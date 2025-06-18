@@ -1,1 +1,1 @@
-export { Layout as TableActions } from "./layout";
+export { Layout as TableActions } from './layout'

@@ -4,17 +4,17 @@ export type QueryParamValue =
   | boolean
   | Date
   | null
-  | undefined;
+  | undefined
 
-export type QueryParamRecord = Record<string, QueryParamValue>;
+export type QueryParamRecord = Record<string, QueryParamValue>
 
 export type QueryParamTransformer<T> = {
-  encode: (value: T) => QueryParamValue;
-  decode: (value: QueryParamValue) => T;
-};
+  encode: (value: T) => QueryParamValue
+  decode: (value: QueryParamValue) => T
+}
 
 export type QueryParamConfig<T> = {
-  name: string;
-  defaultValue: T;
-  transformer?: QueryParamTransformer<T>;
-};
+  name: string
+  defaultValue: T
+  transformer?: QueryParamTransformer<T>
+}

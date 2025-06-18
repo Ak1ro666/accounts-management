@@ -1,5 +1,5 @@
 export const CONFIG = {
   API_BASE_URL: import.meta.env.VITE_API_BASE_URL,
   IS_DEV: import.meta.env.DEV,
-  IS_PROD: import.meta.env.PROD,
-} as const;
+  IS_PROD: import.meta.env.PROD
+} as const

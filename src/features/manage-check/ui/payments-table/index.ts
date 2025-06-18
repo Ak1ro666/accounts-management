@@ -1,1 +1,1 @@
-export { Layout as PaymentsTable } from "./layout";
+export { Layout as PaymentsTable } from './layout'

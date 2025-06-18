@@ -1,12 +1,12 @@
-import { describe, expect, test } from "vitest";
+import { describe, expect, test } from 'vitest'
 
-import { getSortByDateAsc } from "./account";
-import { testChargesAsc, testChargesDesc } from "../__test__/stub";
+import { testChargesAsc, testChargesDesc } from '../__test__/stub'
+import { getSortByDateAsc } from './account'
 
-describe("manage-check/domain/account", () => {
-  test("getSortByDateAsc", () => {
-    const res = getSortByDateAsc(testChargesDesc);
+describe('manage-check/domain/account', () => {
+  test('getSortByDateAsc', () => {
+    const res = getSortByDateAsc(testChargesDesc)
 
-    expect(res).toEqual(testChargesAsc);
-  });
-});
+    expect(res).toEqual(testChargesAsc)
+  })
+})

@@ -1,1 +1,1 @@
-export { Layout as ModalHeader } from "./layout";
+export { Layout as ModalHeader } from './layout'

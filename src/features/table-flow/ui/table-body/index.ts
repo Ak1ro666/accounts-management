@@ -1,1 +1,1 @@
-export { Layout as TableBody } from "./layout";
+export { Layout as TableBody } from './layout'

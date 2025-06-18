@@ -1,38 +1,28 @@
-import { ROUTES } from "@/shared/model/routes";
+import { ROUTES } from '@/shared/model/routes'
 
-import { SubmitButton } from "../ui/submit-button";
-import { SignInFields } from "../ui/sign-in-fields";
-import { AuthFormLayout } from "../ui/auth-form-layout";
-
-import { useSignInForm } from "../model/use-sign-in-form";
-import { useSignInErrors } from "../model/use-sign-in-errors";
-
-import { useSignInSubmitForm } from "../view-model/use-sign-in-submit-form";
-import { useNavigate } from "react-router-dom";
-import { appSessionStore } from "@/shared/model/session";
+import { useSignInErrors } from '../model/use-sign-in-errors'
+import { useSignInForm } from '../model/use-sign-in-form'
+import { useUpdateSession } from '../model/use-update-session'
+import { AuthFormLayout } from '../ui/auth-form-layout'
+import { SignInFields } from '../ui/sign-in-fields'
+import { SubmitButton } from '../ui/submit-button'
+import { useSignInSubmitForm } from '../view-model/use-sign-in-submit-form'
 
 export function SignInForm() {
-  const signInForm = useSignInForm();
-  const errorsState = useSignInErrors(signInForm.data);
+  const signInForm = useSignInForm()
+  const errorsState = useSignInErrors(signInForm.data)
   const handleSubmit = useSignInSubmitForm({
     checkIsValid: errorsState.checkIsValid,
     hideErrors: errorsState.hideErrors,
     showErrors: errorsState.showErrors,
-    formData: signInForm.data,
-  });
-
-  const navigate = useNavigate();
-
-  appSessionStore.updateSessionStream.useEvent((event) => {
-    if (event.type === "update") {
-      navigate(ROUTES.ACCOUNTS);
-    }
-  });
+    formData: signInForm.data
+  })
+  useUpdateSession()
 
   return (
     <AuthFormLayout
-      title="Вход"
-      description="Войдите в аккаунт, чтобы начать работу с приложением"
+      title='Вход'
+      description='Войдите в аккаунт, чтобы начать работу с приложением'
       onSubmit={handleSubmit}
       actions={<SubmitButton>Войти</SubmitButton>}
       fields={
@@ -44,16 +34,16 @@ export function SignInForm() {
       }
       footer={
         <AuthFormLayout.Footer
-          separatingText="или"
+          separatingText='или'
           footerText={
             <AuthFormLayout.Link
-              text="Нет аккаунта?"
-              linkText="Зарегистрироваться"
+              text='Нет аккаунта?'
+              linkText='Зарегистрироваться'
               url={ROUTES.SIGN_UP}
             />
           }
         />
       }
     />
-  );
+  )
 }

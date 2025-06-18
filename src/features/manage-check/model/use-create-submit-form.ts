@@ -1,6 +1,6 @@
-import { useTransition } from "react";
+import type { CreateData } from '@/kernel/api/accounts'
 
-import type { CreateData } from "@/kernel/api/accounts";
+import { useTransition } from 'react'
 
 export function useCreateSubmitForm({
   createCheck,
@@ -8,32 +8,32 @@ export function useCreateSubmitForm({
   hideErrors,
   showErrors,
   afterSubmit,
-  formStateData,
+  formStateData
 }: {
-  createCheck: (body: CreateData) => Promise<void>;
-  checkIsValid: () => boolean;
-  hideErrors: () => void;
-  showErrors: () => void;
-  afterSubmit: () => void;
-  formStateData: CreateData;
+  createCheck: (body: CreateData) => Promise<void>
+  checkIsValid: () => boolean
+  hideErrors: () => void
+  showErrors: () => void
+  afterSubmit: () => void
+  formStateData: CreateData
 }) {
-  const [isLoading, startTransition] = useTransition();
+  const [isLoading, startTransition] = useTransition()
 
   const onSubmitForm = () => {
-    const isValid = checkIsValid();
+    const isValid = checkIsValid()
 
     if (isValid) {
-      hideErrors();
+      hideErrors()
       startTransition(
-        async () => await createCheck(formStateData).finally(afterSubmit),
-      );
+        async () => await createCheck(formStateData).finally(afterSubmit)
+      )
     } else {
-      showErrors();
+      showErrors()
     }
-  };
+  }
 
   return {
     isLoading,
-    onSubmitForm,
-  } as const;
+    onSubmitForm
+  } as const
 }

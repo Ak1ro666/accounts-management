@@ -1,68 +1,68 @@
-import { type UserFilters } from "./filters";
+import { type UserFilters } from './filters'
 
-export type AccountStatus = "OPEN" | "CLOSED" | "PRE_CLOSED";
-export type AccountId = string;
+export type AccountStatus = 'OPEN' | 'CLOSED' | 'PRE_CLOSED'
+export type AccountId = string
 
 export type Account = {
-  id: AccountId;
-  code: string;
-  status: AccountStatus;
-  owner: string;
-  address: string;
-  debt: number;
-  createdAt: Date;
-  updatedAt: Date;
-};
+  id: AccountId
+  code: string
+  status: AccountStatus
+  owner: string
+  address: string
+  debt: number
+  createdAt: Date
+  updatedAt: Date
+}
 
 export const getFilteredItems = (
   items: Account[],
-  filters: UserFilters,
+  filters: UserFilters
 ): Account[] => {
-  return items.filter((account) => {
+  return items.filter(account => {
     if (
       filters.owner &&
       !account.owner.toLowerCase().includes(filters.owner.toLowerCase())
     ) {
-      return false;
+      return false
     }
 
     if (filters.status && account.status !== filters.status) {
-      return false;
+      return false
     }
 
     if (
       filters.code &&
       !account.code.toLowerCase().includes(filters.code.toLowerCase())
     ) {
-      return false;
+      return false
     }
 
     if (filters.from) {
-      const accountDate = new Date(account.createdAt);
+      const accountDate = new Date(account.createdAt)
       if (accountDate < filters.from) {
-        return false;
+        return false
       }
     }
 
     if (filters.to) {
-      const accountDate = new Date(account.createdAt);
-      const toDate = new Date(filters.to);
-      toDate.setDate(toDate.getDate() + 1);
+      const accountDate = new Date(account.createdAt)
+      const toDate = new Date(filters.to)
+      toDate.setDate(toDate.getDate() + 1)
 
       if (accountDate >= toDate) {
-        return false;
+        return false
       }
     }
 
-    return true;
-  });
-};
+    return true
+  })
+}
 
 export const getFilteredRemoveAccounts = (
   accounts: Account[],
-  removedAccounts: AccountId[],
-) => accounts.filter((account) => !removedAccounts.includes(account.id));
+  removedAccounts: AccountId[]
+) => accounts.filter(account => !removedAccounts.includes(account.id))
 
 export const removeAccount = (accounts: AccountId[], id: AccountId) => {
-  return accounts.filter((i) => i !== id);
-};
+  return accounts.filter(i => i !== id)
+}

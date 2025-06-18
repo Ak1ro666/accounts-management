@@ -1,1 +1,1 @@
-export { Layout as UiModal } from "./layout";
+export { Layout as UiModal } from './layout'

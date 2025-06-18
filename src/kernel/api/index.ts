@@ -1,1 +1,1 @@
-export { API_URL } from "./api-config";
+export { API_URL } from './api-config'

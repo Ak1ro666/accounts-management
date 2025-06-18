@@ -1,12 +1,13 @@
-import { SignInForm } from "@/features/auth";
-import { useEffect } from "react";
+import { useEffect } from 'react'
+
+import { SignInForm } from '@/features/auth'
 
 function Page() {
   useEffect(() => {
-    import("@/pages/accounts/page"); // prefetching
-  }, []);
+    import('@/pages/accounts/page') // prefetching
+  }, [])
 
-  return <SignInForm />;
+  return <SignInForm />
 }
 
-export const Component = Page;
+export const Component = Page

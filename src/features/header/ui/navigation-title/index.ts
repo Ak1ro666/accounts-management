@@ -1,1 +1,1 @@
-export { Layout as NavigationTitle } from "./layout.tsx";
+export { Layout as NavigationTitle } from './layout.tsx'

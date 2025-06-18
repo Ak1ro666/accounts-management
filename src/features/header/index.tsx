@@ -1,1 +1,1 @@
-export { AppHeader } from "./facade/app-header";
+export { AppHeader } from './facade/app-header'

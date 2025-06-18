@@ -1,13 +1,13 @@
-import { create } from "zustand";
+import { create } from 'zustand'
 
 type Store = {
-  isOpen: boolean;
-  open: () => void;
-  close: () => void;
-};
+  isOpen: boolean
+  open: () => void
+  close: () => void
+}
 
-export const useOpenModal = create<Store>((set) => ({
+export const useOpenModal = create<Store>(set => ({
   isOpen: false,
   open: () => set({ isOpen: true }),
-  close: () => set({ isOpen: false }),
-}));
+  close: () => set({ isOpen: false })
+}))

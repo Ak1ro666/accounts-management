@@ -1,1 +1,1 @@
-export { TableFlow } from "./facade/table-flow";
+export { TableFlow } from './facade/table-flow'

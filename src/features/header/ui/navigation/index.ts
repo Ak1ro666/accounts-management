@@ -1,1 +1,1 @@
-export { Layout as Navigation } from "./layout";
+export { Layout as Navigation } from './layout'

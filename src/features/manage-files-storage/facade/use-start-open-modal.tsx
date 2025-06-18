@@ -1,5 +1,5 @@
-import { useOpenModal } from "../model/use-open-modal";
+import { useOpenModal } from '../model/use-open-modal'
 
 export function useStartOpenModal() {
-  return useOpenModal((store) => store.open);
+  return useOpenModal(store => store.open)
 }

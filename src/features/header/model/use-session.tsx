@@ -1,5 +1,5 @@
-import { appSessionStore } from "@/shared/model/session";
+import { appSessionStore } from '@/shared/model/session'
 
 export function useSession() {
-  return appSessionStore.useSession();
+  return appSessionStore.useSession()
 }

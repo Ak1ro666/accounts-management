@@ -1,5 +1,5 @@
-import { useCreateCheck } from "../model/use-create-check";
+import { useCreateCheck } from '../model/use-create-check'
 
 export function useStartCreate() {
-  return useCreateCheck((store) => store.startCreate);
+  return useCreateCheck(store => store.startCreate)
 }

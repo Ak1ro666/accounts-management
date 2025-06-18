@@ -3,5 +3,5 @@ export type {
   AccountId,
   AccountStatus,
   Charge,
-  Payment,
-} from "./account";
+  Payment
+} from './account'

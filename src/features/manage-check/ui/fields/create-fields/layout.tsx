@@ -1,5 +1,7 @@
-import { type ChangeEvent } from "react";
+import type { SelectChangeEvent } from '@mui/material'
+import type { FormData, FormErrors } from '../../../domain/form'
 
+import { type ChangeEvent } from 'react'
 import {
   FormControl,
   FormHelperText,
@@ -7,40 +9,42 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  type SelectChangeEvent,
-  TextField,
-} from "@mui/material";
+  TextField
+} from '@mui/material'
 
-import type { FormData, FormErrors } from "../../../domain/form";
-import { type AccountStatus } from "../../../domain/account";
+import { type AccountStatus } from '../../../domain/account'
 
 export function Layout({
   formData,
   errors,
-  onChange,
+  onChange
 }: {
-  formData: FormData;
-  errors?: FormErrors;
-  onChange: (name: string, value: string) => void;
+  formData: FormData
+  errors?: FormErrors
+  onChange: (name: string, value: string) => void
 }) {
   const onChangeField = (
     e:
       | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-      | SelectChangeEvent<AccountStatus>,
+      | SelectChangeEvent<AccountStatus>
   ) => {
     if (e.target instanceof HTMLInputElement) {
-      onChange(e.target.name, e.target.value);
+      onChange(e.target.name, e.target.value)
     } else {
-      onChange(e.target.name, e.target.value);
+      onChange(e.target.name, e.target.value)
     }
-  };
+  }
 
   return (
-    <Grid container spacing={2}>
-      <Grid size={{ xs: 12, sm: 6 }} mt={1}>
+    <Grid
+      container
+      spacing={2}>
+      <Grid
+        size={{ xs: 12, sm: 6 }}
+        mt={1}>
         <TextField
-          name="code"
-          label="Код счета"
+          name='code'
+          label='Код счета'
           value={formData.code}
           onChange={onChangeField}
           fullWidth
@@ -50,18 +54,21 @@ export function Layout({
         />
       </Grid>
 
-      <Grid size={{ xs: 12, sm: 6 }} mt={1}>
-        <FormControl error={!!errors?.status} fullWidth>
+      <Grid
+        size={{ xs: 12, sm: 6 }}
+        mt={1}>
+        <FormControl
+          error={!!errors?.status}
+          fullWidth>
           <InputLabel>Статус</InputLabel>
           <Select
-            name="status"
+            name='status'
             value={formData.status}
             onChange={onChangeField}
-            label="Статус"
-          >
-            <MenuItem value="OPEN">Открыт</MenuItem>
-            <MenuItem value="PRE_CLOSED">Предзакрыт</MenuItem>
-            <MenuItem value="CLOSED">Закрыт</MenuItem>
+            label='Статус'>
+            <MenuItem value='OPEN'>Открыт</MenuItem>
+            <MenuItem value='PRE_CLOSED'>Предзакрыт</MenuItem>
+            <MenuItem value='CLOSED'>Закрыт</MenuItem>
           </Select>
           <FormHelperText>{errors?.status}</FormHelperText>
         </FormControl>
@@ -69,8 +76,8 @@ export function Layout({
 
       <Grid size={{ xs: 12 }}>
         <TextField
-          name="owner"
-          label="Владелец"
+          name='owner'
+          label='Владелец'
           value={formData.owner}
           onChange={onChangeField}
           fullWidth
@@ -82,8 +89,8 @@ export function Layout({
 
       <Grid size={{ xs: 12 }}>
         <TextField
-          name="address"
-          label="Адрес"
+          name='address'
+          label='Адрес'
           value={formData.address}
           onChange={onChangeField}
           fullWidth
@@ -93,5 +100,5 @@ export function Layout({
         />
       </Grid>
     </Grid>
-  );
+  )
 }

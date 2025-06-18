@@ -1,1 +1,1 @@
-export { Layout as FilesBodyView } from "./layout";
+export { Layout as FilesBodyView } from './layout'

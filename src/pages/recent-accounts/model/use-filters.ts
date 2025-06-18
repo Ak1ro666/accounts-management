@@ -1,84 +1,87 @@
-import { useMemo, useState } from "react";
+import type { Account } from '../domain/account'
+import type { UserFilters } from '../domain/filters'
+
+import { useMemo, useState } from 'react'
 
 import {
-  dateTransformer,
-  defaultStringTransformer,
   createSearchQueryParams,
-} from "@/shared/lib/react/use-create-search-query";
+  dateTransformer,
+  defaultStringTransformer
+} from '@/shared/lib/react/use-create-search-query'
 
-import { getFilteredItems, type Account } from "../domain/account";
-import { isSearchActive, type UserFilters } from "../domain/filters";
+import { getFilteredItems } from '../domain/account'
+import { isSearchActive } from '../domain/filters'
 
 const initialFilters: UserFilters = {
-  owner: "",
-  status: "",
-  code: "",
+  owner: '',
+  status: '',
+  code: '',
   from: new Date(),
-  to: new Date(),
-};
+  to: new Date()
+}
 
 export function useFilters(items: Account[], defaultFilters?: UserFilters) {
   const useQueryParamsHook = createSearchQueryParams<UserFilters>({
     owner: {
-      name: "owner",
-      defaultValue: "",
-      transformer: defaultStringTransformer,
+      name: 'owner',
+      defaultValue: '',
+      transformer: defaultStringTransformer
     },
     status: {
-      name: "status",
-      defaultValue: "",
-      transformer: defaultStringTransformer,
+      name: 'status',
+      defaultValue: '',
+      transformer: defaultStringTransformer
     },
     code: {
-      name: "code",
-      defaultValue: "",
-      transformer: defaultStringTransformer,
+      name: 'code',
+      defaultValue: '',
+      transformer: defaultStringTransformer
     },
     from: {
-      name: "from",
+      name: 'from',
       defaultValue: null,
-      transformer: dateTransformer,
+      transformer: dateTransformer
     },
     to: {
-      name: "to",
+      name: 'to',
       defaultValue: null,
-      transformer: dateTransformer,
-    },
-  });
+      transformer: dateTransformer
+    }
+  })
 
   const {
     params: userFilters,
     updateParams: setUserFilters,
-    resetParams,
-  } = useQueryParamsHook();
+    resetParams
+  } = useQueryParamsHook()
 
   const fullFilters = {
     ...initialFilters,
     ...defaultFilters,
-    ...userFilters,
-  };
+    ...userFilters
+  }
 
   const [isSearch, setIsSearch] = useState<boolean>(() =>
-    isSearchActive(fullFilters),
-  );
+    isSearchActive(fullFilters)
+  )
 
   const reset = () => {
-    resetParams();
-    setIsSearch(false);
-  };
+    resetParams()
+    setIsSearch(false)
+  }
 
   const filteredCacheItems = useMemo(
     () => getFilteredItems(items, fullFilters),
-    [items, fullFilters],
-  );
+    [items, fullFilters]
+  )
 
-  const filteredItems = isSearch ? filteredCacheItems : items;
+  const filteredItems = isSearch ? filteredCacheItems : items
 
   const startSearch = () => {
     if (isSearchActive(fullFilters)) {
-      setIsSearch(true);
+      setIsSearch(true)
     }
-  };
+  }
 
   return [
     filteredItems,
@@ -86,7 +89,7 @@ export function useFilters(items: Account[], defaultFilters?: UserFilters) {
       data: fullFilters,
       onChangeFilters: setUserFilters,
       reset,
-      startSearch,
-    },
-  ] as const;
+      startSearch
+    }
+  ] as const
 }

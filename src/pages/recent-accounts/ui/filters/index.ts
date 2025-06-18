@@ -1,1 +1,1 @@
-export { Layout as Filters } from "./layout";
+export { Layout as Filters } from './layout'

@@ -1,32 +1,30 @@
-import { Button } from "@mui/material";
+import { Button } from '@mui/material'
 
 export function Layout({
   onClose,
   onSubmit,
-  disabled,
+  disabled
 }: {
-  onClose: () => void;
-  onSubmit: () => void;
-  disabled: boolean;
+  onClose: () => void
+  onSubmit: () => void
+  disabled: boolean
 }) {
   return (
     <>
       <Button
         disabled={disabled}
         onClick={onClose}
-        variant="contained"
-        color="inherit"
-      >
+        variant='contained'
+        color='inherit'>
         Отмена
       </Button>
       <Button
         disabled={disabled}
         onClick={onSubmit}
-        variant="contained"
-        color="primary"
-      >
+        variant='contained'
+        color='primary'>
         Сохранить
       </Button>
     </>
-  );
+  )
 }

@@ -1,39 +1,39 @@
-import { useState } from "react";
+import type { FileFormData } from '../domain/form'
 
-import type { FileFormData } from "../domain/form";
+import { useState } from 'react'
 
 const initialFormData: FileFormData = {
-  name: "",
-  type: "file",
-  size: undefined,
-};
+  name: '',
+  type: 'file',
+  size: undefined
+}
 
 export function useFormState(defaultFormState?: FileFormData) {
-  const [userFormData, setUserFormData] = useState<FileFormData>({});
+  const [userFormData, setUserFormData] = useState<FileFormData>({})
 
   const onChangeFormData = (
     name: keyof FileFormData,
-    value: string | number,
+    value: string | number
   ) => {
-    setUserFormData((prevState) => ({
+    setUserFormData(prevState => ({
       ...prevState,
-      [name]: value,
-    }));
-  };
+      [name]: value
+    }))
+  }
 
   const fullFormData = {
     ...initialFormData,
     ...defaultFormState,
-    ...userFormData,
-  };
+    ...userFormData
+  }
 
   const reset = () => {
-    setUserFormData({});
-  };
+    setUserFormData({})
+  }
 
   return {
     data: fullFormData,
     onChange: onChangeFormData,
-    reset,
-  } as const;
+    reset
+  } as const
 }

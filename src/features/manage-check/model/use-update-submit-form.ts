@@ -1,9 +1,11 @@
-import { useTransition } from "react";
+import type { UpdateData } from '@/kernel/api/accounts'
+import type { Account, AccountId } from '../domain/account'
 
-import { AccountsApiContext, type UpdateData } from "@/kernel/api/accounts";
-import { useConfirmation } from "@/shared/ui/kit/confirmation";
+import { useTransition } from 'react'
 
-import type { Account, AccountId } from "../domain/account";
+import { AccountsApiContext } from '@/kernel/api/accounts'
+
+import { useConfirmation } from '@/shared/ui/kit/confirmation'
 
 export function useUpdateSubmitForm({
   updateCheck,
@@ -14,58 +16,58 @@ export function useUpdateSubmitForm({
   checkIsValid,
   hideErrors,
   showErrors,
-  formStateData,
+  formStateData
 }: {
-  updateCheck: (id: AccountId, body: UpdateData) => Promise<void>;
-  account?: Account;
-  refetchAccount: (id: AccountId) => Promise<void>;
-  resetForm: () => void;
-  afterSubmitForm: () => void;
-  checkIsValid: () => boolean;
-  hideErrors: () => void;
-  showErrors: () => void;
-  formStateData: UpdateData;
+  updateCheck: (id: AccountId, body: UpdateData) => Promise<void>
+  account?: Account
+  refetchAccount: (id: AccountId) => Promise<void>
+  resetForm: () => void
+  afterSubmitForm: () => void
+  checkIsValid: () => boolean
+  hideErrors: () => void
+  showErrors: () => void
+  formStateData: UpdateData
 }) {
-  const api = AccountsApiContext.use();
-  const confirmation = useConfirmation();
-  const [isLoading, startTransition] = useTransition();
+  const api = AccountsApiContext.use()
+  const confirmation = useConfirmation()
+  const [isLoading, startTransition] = useTransition()
 
   const onSubmitForm = () => {
-    const isValid = checkIsValid();
+    const isValid = checkIsValid()
 
     if (isValid) {
-      hideErrors();
+      hideErrors()
 
       if (account?.id) {
         startTransition(async () => {
-          const currentAccount = await api.fetchAccountsById(account.id);
+          const currentAccount = await api.fetchAccountsById(account.id)
 
           if (currentAccount[0].updatedAt !== account.updatedAt) {
             confirmation.open({
-              title: "Внимание",
+              title: 'Внимание',
               content:
-                "Данные были изменены другим пользователем. Хотите обновить данные?",
-              cancelText: "Отменить",
-              confirmationText: "Обновить",
+                'Данные были изменены другим пользователем. Хотите обновить данные?',
+              cancelText: 'Отменить',
+              confirmationText: 'Обновить',
               onConfirm: async () => {
-                resetForm();
-                await refetchAccount(account.id);
-              },
-            });
+                resetForm()
+                await refetchAccount(account.id)
+              }
+            })
 
-            return;
+            return
           }
 
-          await updateCheck(account.id, formStateData).finally(afterSubmitForm);
-        });
+          await updateCheck(account.id, formStateData).finally(afterSubmitForm)
+        })
       }
     } else {
-      showErrors();
+      showErrors()
     }
-  };
+  }
 
   return {
     isLoading,
-    onSubmitForm,
-  } as const;
+    onSubmitForm
+  } as const
 }

@@ -1,62 +1,59 @@
-import { useMemo, useState } from "react";
+import type { CreateData, UpdateData } from '@/kernel/api/accounts'
+import type { Account, AccountId } from '../domain/account'
 
-import { AccountsApiContext } from "@/kernel/api/accounts";
-import type { UpdateData, CreateData } from "@/kernel/api/accounts";
+import { useMemo, useState } from 'react'
 
-import { useQuery } from "@/shared/lib/react/use-query";
+import { AccountsApiContext } from '@/kernel/api/accounts'
 
-import {
-  type Account,
-  type AccountId,
-  getFilteredRemoveAccounts,
-  removeAccount,
-} from "../domain/account";
+import { useQuery } from '@/shared/lib/react/use-query'
+
+import { getFilteredRemoveAccounts, removeAccount } from '../domain/account'
 
 export function useAccounts() {
-  const api = AccountsApiContext.use();
+  const api = AccountsApiContext.use()
   const {
     data = [],
     isLoading,
-    refetch,
+    refetch
   } = useQuery<Account[]>({
     fetcher: () =>
-      new Promise((resolve) => {
+      new Promise(resolve => {
         setTimeout(() => {
-          resolve(api.fetchAccounts());
-        }, 1000);
+          resolve(api.fetchAccounts())
+        }, 1000)
       }),
     options: {
-      subscribeTimeout: 1000,
-    },
-  });
+      subscribeTimeout: 1000
+    }
+  })
 
-  const [removedAccounts, setRemovedAccounts] = useState<AccountId[]>([]);
+  const [removedAccounts, setRemovedAccounts] = useState<AccountId[]>([])
 
   const remove = async (id: AccountId) => {
-    setRemovedAccounts((lastState) => [...lastState, id]);
+    setRemovedAccounts(lastState => [...lastState, id])
 
     await api
       .remove(id)
       .then(refetch)
-      .finally(() => setRemovedAccounts(removeAccount(removedAccounts, id)));
-  };
+      .finally(() => setRemovedAccounts(removeAccount(removedAccounts, id)))
+  }
 
   const update = async (id: AccountId, data: UpdateData) => {
     await api
       .update(id, { ...data, updatedAt: new Date().toISOString() })
-      .then(refetch);
-  };
+      .then(refetch)
+  }
 
   const create = async (body: CreateData) => {
-    await api.create(body).then(refetch);
-  };
+    await api.create(body).then(refetch)
+  }
 
   const fullAccounts = useMemo(
     () => getFilteredRemoveAccounts(data, removedAccounts),
-    [data, removedAccounts],
-  );
+    [data, removedAccounts]
+  )
 
-  const ownerOptions = useMemo(() => data.map((acc) => acc.owner), [data]);
+  const ownerOptions = useMemo(() => data.map(acc => acc.owner), [data])
 
   return {
     data: fullAccounts,
@@ -65,6 +62,6 @@ export function useAccounts() {
     update,
     create,
     isLoading,
-    ownerOptions,
-  } as const;
+    ownerOptions
+  } as const
 }

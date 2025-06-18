@@ -1,1 +1,1 @@
-export { Layout as UiLoader } from "./layout";
+export { Layout as UiLoader } from './layout'

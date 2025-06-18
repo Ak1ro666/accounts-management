@@ -3,5 +3,5 @@ export function Page() {
     <div>
       <p>About man</p>
     </div>
-  );
+  )
 }

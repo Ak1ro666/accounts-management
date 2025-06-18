@@ -1,15 +1,14 @@
-import { Button } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { Add } from '@mui/icons-material'
+import { Button } from '@mui/material'
 
 export function Layout({ onClick }: { onClick: () => void }) {
   return (
     <Button
-      variant="contained"
-      color="primary"
+      variant='contained'
+      color='primary'
       startIcon={<Add />}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       Создать счет
     </Button>
-  );
+  )
 }

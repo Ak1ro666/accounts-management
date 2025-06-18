@@ -1,23 +1,22 @@
-import { Button } from "@mui/material";
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
+import { Button } from '@mui/material'
 
 export function Layout({
   children,
-  onClick,
+  onClick
 }: {
-  children: ReactNode;
-  onClick?: () => void;
+  children: ReactNode
+  onClick?: () => void
 }) {
   return (
     <Button
-      type="submit"
-      variant="contained"
+      type='submit'
+      variant='contained'
       fullWidth
-      size="large"
+      size='large'
       sx={{ mb: 2, py: 1.5 }}
-      onClick={onClick}
-    >
+      onClick={onClick}>
       {children}
     </Button>
-  );
+  )
 }

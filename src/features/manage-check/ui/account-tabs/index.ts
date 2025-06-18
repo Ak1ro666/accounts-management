@@ -1,1 +1,1 @@
-export { Layout as AccountTabs } from "./layout";
+export { Layout as AccountTabs } from './layout'

@@ -1,1 +1,1 @@
-export { checkModalEventEmitter } from "./check-modal-event-emitter";
+export { checkModalEventEmitter } from './check-modal-event-emitter'

@@ -1,35 +1,34 @@
-import { TablePagination } from "@mui/material";
+import type { Account, AccountId } from '@/kernel/account'
+import type { UpdateData } from '@/kernel/api/accounts'
 
-import type { Account, AccountId } from "@/kernel/account";
-import type { UpdateData } from "@/kernel/api/accounts";
-import { checkModalEventEmitter } from "@/kernel/check-modal";
+import { TablePagination } from '@mui/material'
 
-import { Root } from "../ui/root";
-import { StatusChip } from "../ui/chip";
-import { TableBody } from "../ui/table-body";
-import { TableHeader } from "../ui/table-header";
+import { checkModalEventEmitter } from '@/kernel/check-modal'
 
-import { useDeleteConfirmation } from "../model/use-delete-confirmation";
-import { usePagination } from "../model/use-pagination";
-import { useFilters } from "../model/use-filters";
-
-import { ROWS_PER_PAGE_OPTIONS } from "../lib/constants";
-import { TableActions } from "../ui/table-actions";
+import { ROWS_PER_PAGE_OPTIONS } from '../lib/constants'
+import { useDeleteConfirmation } from '../model/use-delete-confirmation'
+import { useFilters } from '../model/use-filters'
+import { usePagination } from '../model/use-pagination'
+import { StatusChip } from '../ui/chip'
+import { Root } from '../ui/root'
+import { TableActions } from '../ui/table-actions'
+import { TableBody } from '../ui/table-body'
+import { TableHeader } from '../ui/table-header'
 
 export function TableFlow({
   items,
   isLoading,
   remove,
-  update,
+  update
 }: {
-  items: Account[];
-  isLoading?: boolean;
-  remove: (id: AccountId) => Promise<void>;
-  update: (id: AccountId, data: UpdateData) => void;
+  items: Account[]
+  isLoading?: boolean
+  remove: (id: AccountId) => Promise<void>
+  update: (id: AccountId, data: UpdateData) => void
 }) {
-  const filters = useFilters(items);
-  const pagination = usePagination(filters.data);
-  const onDeleteConfirmation = useDeleteConfirmation(remove);
+  const filters = useFilters(items)
+  const pagination = usePagination(filters.data)
+  const onDeleteConfirmation = useDeleteConfirmation(remove)
 
   return (
     <Root
@@ -44,12 +43,12 @@ export function TableFlow({
           onChangeStatus={(id, status) => update(id, { status })}
           items={pagination.data}
           isLoading={isLoading}
-          renderChip={(status) => <StatusChip status={status} />}
-          renderActions={(id) => (
+          renderChip={status => <StatusChip status={status} />}
+          renderActions={id => (
             <TableActions
               onDeleteClick={() => onDeleteConfirmation(id)}
               onEditClick={() =>
-                checkModalEventEmitter.emit("onChangeOpenModal", id)
+                checkModalEventEmitter.emit('onChangeOpenModal', id)
               }
             />
           )}
@@ -58,18 +57,18 @@ export function TableFlow({
       pagination={
         <TablePagination
           rowsPerPageOptions={ROWS_PER_PAGE_OPTIONS}
-          component="div"
+          component='div'
           count={items.length}
           rowsPerPage={pagination.rowsPerPage}
           page={pagination.currentPage}
           onPageChange={pagination.onChangePage}
           onRowsPerPageChange={pagination.handleChangeRowsPerPage}
-          labelRowsPerPage="Строк на странице:"
+          labelRowsPerPage='Строк на странице:'
           labelDisplayedRows={({ from, to, count }) =>
             `${from}–${to} из ${count}`
           }
         />
       }
     />
-  );
+  )
 }

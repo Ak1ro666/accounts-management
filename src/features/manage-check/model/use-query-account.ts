@@ -1,12 +1,12 @@
-import { AccountsApiContext } from "@/kernel/api/accounts";
+import type { AccountId } from '../domain/account'
 
-import { useQuery } from "@/shared/lib/react/use-query";
+import { AccountsApiContext } from '@/kernel/api/accounts'
 
-import type { AccountId } from "../domain/account";
+import { useQuery } from '@/shared/lib/react/use-query'
 
 export function useQueryAccount(id: AccountId) {
-  const api = AccountsApiContext.use();
+  const api = AccountsApiContext.use()
   return useQuery({
-    fetcher: () => api.fetchAccountsById(id),
-  });
+    fetcher: () => api.fetchAccountsById(id)
+  })
 }

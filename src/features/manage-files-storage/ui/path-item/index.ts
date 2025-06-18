@@ -1,1 +1,1 @@
-export { Layout as PathItem } from "./layout";
+export { Layout as PathItem } from './layout'

@@ -1,1 +1,1 @@
-export { Layout as CreateFields } from "./layout.tsx";
+export { Layout as CreateFields } from './layout.tsx'

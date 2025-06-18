@@ -1,1 +1,1 @@
-export { Layout as LangSwitcher } from "./layout";
+export { Layout as LangSwitcher } from './layout'

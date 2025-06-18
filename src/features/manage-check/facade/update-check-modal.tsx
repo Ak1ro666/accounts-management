@@ -1,35 +1,34 @@
-import { type UpdateData } from "@/kernel/api/accounts";
+import type { AccountId } from '../domain/account'
 
-import { AccountTabs } from "../ui/account-tabs";
-import { UpdateFields } from "../ui/fields/update-fields";
-import { UpdateFormActions } from "../ui/form-actions/update-form-actions";
+import { type UpdateData } from '@/kernel/api/accounts'
 
-import { useErrors } from "../model/use-errors";
-import { useUpdateCheckModal } from "../model/use-update-check-modal";
-import { useUpdateSubmitForm } from "../model/use-update-submit-form";
+import { UiModal } from '@/shared/ui/kit/modal'
 
-import { useFormState } from "../view-model/use-form-state";
-
-import type { AccountId } from "../domain/account";
-import { UiModal } from "@/shared/ui/kit/modal";
+import { useErrors } from '../model/use-errors'
+import { useUpdateCheckModal } from '../model/use-update-check-modal'
+import { useUpdateSubmitForm } from '../model/use-update-submit-form'
+import { AccountTabs } from '../ui/account-tabs'
+import { UpdateFields } from '../ui/fields/update-fields'
+import { UpdateFormActions } from '../ui/form-actions/update-form-actions'
+import { useFormState } from '../view-model/use-form-state'
 
 export function UpdateCheckModal({
   updateCheck,
-  openFilesStorage,
+  openFilesStorage
 }: {
-  updateCheck: (id: AccountId, body: UpdateData) => Promise<void>;
-  openFilesStorage: () => void;
+  updateCheck: (id: AccountId, body: UpdateData) => Promise<void>
+  openFilesStorage: () => void
 }) {
-  const updateCheckModal = useUpdateCheckModal();
-  const formState = useFormState(updateCheckModal.defaultAccountFormState);
+  const updateCheckModal = useUpdateCheckModal()
+  const formState = useFormState(updateCheckModal.defaultAccountFormState)
   const errorsState = useErrors({
-    formData: formState.data,
-  });
+    formData: formState.data
+  })
   const onClose = () => {
-    updateCheckModal.closeModal();
-    formState.reset();
-    errorsState.hideErrors();
-  };
+    updateCheckModal.closeModal()
+    formState.reset()
+    errorsState.hideErrors()
+  }
   const formSubmit = useUpdateSubmitForm({
     account: updateCheckModal.account,
     refetchAccount: updateCheckModal.refetch,
@@ -39,12 +38,12 @@ export function UpdateCheckModal({
     hideErrors: errorsState.hideErrors,
     showErrors: errorsState.showErrors,
     formStateData: formState.data,
-    updateCheck,
-  });
+    updateCheck
+  })
 
   return (
     <UiModal
-      title="Редактирование счёта"
+      title='Редактирование счёта'
       body={
         <UpdateFields
           formData={formState.data}
@@ -74,5 +73,5 @@ export function UpdateCheckModal({
       open={updateCheckModal.isOpen}
       fullWidth
     />
-  );
+  )
 }

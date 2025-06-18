@@ -1,62 +1,62 @@
-import { useMemo, useState } from "react";
+import type { Account, AccountId } from '../domain/account'
 
-import { checkModalEventEmitter } from "@/kernel/check-modal";
-import { AccountsApiContext } from "@/kernel/api/accounts";
+import { useMemo, useState } from 'react'
 
-import { ACCOUNTS_CHARGES, ACCOUNTS_PAYMENTS } from "../lib/constants";
+import { AccountsApiContext } from '@/kernel/api/accounts'
+import { checkModalEventEmitter } from '@/kernel/check-modal'
 
-import type { Account, AccountId } from "../domain/account";
+import { ACCOUNTS_CHARGES, ACCOUNTS_PAYMENTS } from '../lib/constants'
 
 export function useUpdateCheckModal() {
-  const api = AccountsApiContext.use();
-  const [account, setAccount] = useState<Account>();
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const api = AccountsApiContext.use()
+  const [account, setAccount] = useState<Account>()
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   const fetchAccount = async (id: AccountId) => {
-    setIsLoading(true);
-    await new Promise((resolve) => {
+    setIsLoading(true)
+    await new Promise(resolve => {
       setTimeout(
         () =>
           resolve(
             Promise.all([
               api.fetchAccountsById(id),
               Promise.resolve(ACCOUNTS_CHARGES), // api.fetchAccountsCharges(id),
-              Promise.resolve(ACCOUNTS_PAYMENTS), // api.fetchAccountsPayments(id),
+              Promise.resolve(ACCOUNTS_PAYMENTS) // api.fetchAccountsPayments(id),
             ])
               .then(([accountData, chargesData, paymentsData]) =>
                 setAccount({
                   ...accountData[0],
                   charges: chargesData,
-                  payments: paymentsData,
-                }),
+                  payments: paymentsData
+                })
               )
-              .finally(() => setIsLoading(false)),
+              .finally(() => setIsLoading(false))
           ),
-        1000,
-      );
-    });
-  };
+        1000
+      )
+    })
+  }
 
-  checkModalEventEmitter.useEvent("onChangeOpenModal", async (id) => {
-    setIsOpen(true);
-    await fetchAccount(id);
-  });
+  checkModalEventEmitter.useEvent('onChangeOpenModal', async id => {
+    setIsOpen(true)
+    await fetchAccount(id)
+  })
 
   const closeModal = () => {
-    setIsOpen(false);
-    setAccount(undefined);
-  };
+    setIsOpen(false)
+    setAccount(undefined)
+  }
 
   const defaultAccountFormState = useMemo(
     () => ({
       address: account?.address,
       code: account?.code,
       status: account?.status,
-      owner: account?.owner,
+      owner: account?.owner
     }),
-    [account],
-  );
+    [account]
+  )
 
   return {
     isOpen,
@@ -64,6 +64,6 @@ export function useUpdateCheckModal() {
     closeModal,
     refetch: fetchAccount,
     isLoading,
-    defaultAccountFormState,
-  } as const;
+    defaultAccountFormState
+  } as const
 }

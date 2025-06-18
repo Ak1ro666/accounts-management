@@ -1,2 +1,1 @@
-export { Layout as FilteredActions } from "./layout";
-
+export { Layout as FilteredActions } from './layout'

@@ -1,26 +1,25 @@
-import { type ReactNode } from "react";
-
+import { type ReactNode } from 'react'
 import {
   Paper,
   Table,
   TableBody,
   TableContainer,
   TableHead,
-  TableRow,
-} from "@mui/material";
+  TableRow
+} from '@mui/material'
 
 export function Layout({
   header,
   body,
-  pagination,
+  pagination
 }: {
-  header: ReactNode;
-  body: ReactNode;
-  pagination?: ReactNode;
+  header: ReactNode
+  body: ReactNode
+  pagination?: ReactNode
 }) {
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: "calc(100vh - 300px)" }}>
+    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TableContainer sx={{ maxHeight: 'calc(100vh - 300px)' }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>{header}</TableRow>
@@ -30,5 +29,5 @@ export function Layout({
       </TableContainer>
       {pagination}
     </Paper>
-  );
+  )
 }

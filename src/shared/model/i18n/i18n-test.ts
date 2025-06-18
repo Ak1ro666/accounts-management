@@ -1,7 +1,7 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
 
-import { languages } from "./data";
+import { languages } from './data'
 
 i18n.use(initReactI18next).init({
   lng: languages[0],
@@ -10,10 +10,10 @@ i18n.use(initReactI18next).init({
   debug: false,
 
   interpolation: {
-    escapeValue: false, // not needed for react!!
+    escapeValue: false // not needed for react!!
   },
 
-  resources: { ru: { translationsNS: {} } },
-});
+  resources: { ru: { translationsNS: {} } }
+})
 
-export default i18n;
+export default i18n

@@ -1,34 +1,34 @@
-import { useState } from "react";
+import type { SignUpFormData } from '../domain/types'
 
-import type { SignUpFormData } from "../domain/types";
+import { useState } from 'react'
 
 const initialFormData: SignUpFormData = {
-  name: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  rememberMe: false,
-};
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  rememberMe: false
+}
 
 export function useSignUpForm() {
-  const [userFormData, setUserFormData] = useState<Partial<SignUpFormData>>({});
+  const [userFormData, setUserFormData] = useState<Partial<SignUpFormData>>({})
 
   const onChange = (name: string, value: string | boolean) => {
     setUserFormData({
       ...userFormData,
-      [name]: value,
-    });
-  };
+      [name]: value
+    })
+  }
 
   const reset = () => {
-    setUserFormData({});
-  };
+    setUserFormData({})
+  }
 
-  const fullFormData = { ...initialFormData, ...userFormData };
+  const fullFormData = { ...initialFormData, ...userFormData }
 
   return {
     data: fullFormData,
     onChange,
-    reset,
-  } as const;
+    reset
+  } as const
 }
