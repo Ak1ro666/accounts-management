@@ -1,4 +1,4 @@
-import { Account } from "@/kernel/account";
+import { type Account } from "@/kernel/account";
 
 export type SortQuery = "code" | "status" | "owner" | "address" | "debt";
 export type Direction = "asc" | "desc";

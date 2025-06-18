@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { type ChangeEvent } from "react";
 
 import {
   FormControl,
@@ -7,12 +7,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
-  SelectChangeEvent,
+  type SelectChangeEvent,
   TextField,
 } from "@mui/material";
 
 import type { FormData, FormErrors } from "../../../domain/form";
-import { AccountStatus } from "../../../domain/account";
+import { type AccountStatus } from "../../../domain/account";
 
 export function Layout({
   formData,

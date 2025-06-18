@@ -1,4 +1,4 @@
-import { Payment } from "@/kernel/account";
+import type { Payment } from "@/kernel/account";
 import type { Charge } from "../domain/account";
 
 export const testCharge1: Charge = {

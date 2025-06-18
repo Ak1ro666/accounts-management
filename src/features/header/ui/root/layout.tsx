@@ -1,5 +1,5 @@
 import { AppBar, styled, Toolbar } from "@mui/material";
-import { ReactNode } from "react";
+import { type ReactNode } from "react";
 
 const StyledAppBar = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.default,

@@ -1,4 +1,4 @@
-import { UserFilters } from "./filters";
+import { type UserFilters } from "./filters";
 
 export type AccountStatus = "OPEN" | "CLOSED" | "PRE_CLOSED";
 export type AccountId = string;

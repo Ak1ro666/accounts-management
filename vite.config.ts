@@ -2,6 +2,7 @@ import { defineConfig, splitVendorChunkPlugin } from "vite";
 import react from "@vitejs/plugin-react";
 import viteTsconfigPaths from "vite-tsconfig-paths";
 import { federation } from "@module-federation/vite";
+import basicSsl from "@vitejs/plugin-basic-ssl";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -9,6 +10,7 @@ export default defineConfig({
     react(),
     viteTsconfigPaths(),
     splitVendorChunkPlugin(),
+    basicSsl(),
     federation({
       name: "host",
       remotes: {
@@ -43,6 +45,7 @@ export default defineConfig({
       },
       host: "0.0.0.0",
     },
+    https: true,
   },
   preview: {
     host: "0.0.0.0",

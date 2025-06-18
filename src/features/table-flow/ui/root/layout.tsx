@@ -1,3 +1,5 @@
+import { type ReactNode } from "react";
+
 import {
   Paper,
   Table,
@@ -6,7 +8,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { ReactNode } from "react";
 
 export function Layout({
   header,

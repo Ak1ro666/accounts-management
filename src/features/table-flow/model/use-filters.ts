@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { Account } from "@/kernel/account";
+import { type Account } from "@/kernel/account";
 
 import { createSearchQueryParams } from "@/shared/lib/react/use-create-search-query";
 

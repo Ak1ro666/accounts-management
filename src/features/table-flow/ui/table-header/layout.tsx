@@ -1,7 +1,7 @@
 import { TableCell, TableSortLabel } from "@mui/material";
 
 import { FORM_QUERY } from "../../lib/constants";
-import { Direction, SortQuery } from "../../domain/query";
+import type { Direction, SortQuery } from "../../domain/query";
 
 export function Layout({
   selectedSort,

@@ -1,3 +1,5 @@
+import { type ReactNode } from "react";
+
 import {
   Paper,
   List,
@@ -11,7 +13,6 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { useStyles } from "./styles";
 import { NAV_ITEMS } from "./lib/data";
-import { ReactNode } from "react";
 
 export function Layout({
   className,

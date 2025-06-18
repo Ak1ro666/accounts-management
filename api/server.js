@@ -5,8 +5,19 @@ import cors from "cors";
 const app = express();
 const PORT = 7000;
 
+app.use((req, res, next) => {
+  console.log("Origin:", req.headers.origin); // Какой origin приходит?
+  next();
+});
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+
 // Middleware
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Инициализация данных в памяти

@@ -1,6 +1,6 @@
 import { API_URL } from "../api-config";
 import type { Account, AccountId, Charge, Payment } from "../../account";
-import { AccountsApiContextType } from "./accounts-api-provider";
+import type { AccountsApiContextType } from "./accounts-api-provider";
 import type { CreateData, UpdateData } from "./types";
 import { href } from "@/shared/model/routes";
 import { authorizedApiClient } from "@/shared/api/instance";

@@ -1,4 +1,4 @@
-import { AccountStatus } from "@/kernel/account";
+import type { AccountStatus } from "@/kernel/account";
 
 export type CreateData = {
   code?: string;

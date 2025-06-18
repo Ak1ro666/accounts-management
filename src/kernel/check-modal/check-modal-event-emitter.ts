@@ -1,5 +1,5 @@
 import { EventEmitter } from "@/shared/lib/event-emitter";
-import { AccountId } from "../account";
+import type { AccountId } from "../account";
 
 type CheckContextType = {
   updateCheck: AccountId;
