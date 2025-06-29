@@ -1,8 +1,7 @@
+import { appSessionStore } from '@/kernel/session'
+
 import { createApi } from '@/shared/api/create-api'
 import { CONFIG } from '@/shared/model/config'
-import { appSessionStore } from '@/shared/model/session'
-
-console.log(CONFIG.API_BASE_URL)
 
 export const publicApiClient = createApi({
   baseUrl: CONFIG.API_BASE_URL
@@ -11,7 +10,7 @@ export const publicApiClient = createApi({
 export const authorizedApiClient = createApi({
   baseUrl: CONFIG.API_BASE_URL,
   requestMiddlewares: [
-    async config => {
+    async (config) => {
       let token = appSessionStore.getSessionToken()
 
       if (!token || appSessionStore.isSessionExpired()) {

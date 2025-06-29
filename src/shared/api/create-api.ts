@@ -7,6 +7,7 @@ type CreateApiParams = {
 type RequestConfig = RequestInit & {
   url: string
   json?: unknown
+  strategyResponse?: (response: Response) => unknown
 }
 
 export class ApiError extends Error {
@@ -60,6 +61,10 @@ export function createApi({
         middleware(await responsePromise, config),
       Promise.resolve(response)
     )
+
+    if (config.strategyResponse) {
+      return config.strategyResponse(response) as Promise<T>
+    }
 
     return response.json() as Promise<T>
   }

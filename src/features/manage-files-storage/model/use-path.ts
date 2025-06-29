@@ -1,4 +1,4 @@
-import type { FileNode, FileNodeId, Path } from '../domain/files-tree'
+import type { FileNodeConfig, FileNodeId, Path } from '../domain/files-tree'
 
 import { useState } from 'react'
 
@@ -6,7 +6,7 @@ export function usePath() {
   const [path, setPath] = useState<Path[]>([{ id: 'root', name: 'Root' }])
   const [currentDirectory, setCurrentDirectory] = useState<FileNodeId>('root')
 
-  const navigatePath = (file: FileNode) => {
+  const navigatePath = (file: FileNodeConfig) => {
     if (file.type === 'folder') {
       setCurrentDirectory(file.id)
       setPath([...path, { id: file.id, name: file.name }])
@@ -14,7 +14,7 @@ export function usePath() {
   }
 
   const navigateUp = (targetId: FileNodeId) => {
-    const targetIndex = path.findIndex(item => item.id === targetId)
+    const targetIndex = path.findIndex((item) => item.id === targetId)
     if (targetIndex >= 0) {
       setCurrentDirectory(targetId)
       setPath(path.slice(0, targetIndex + 1))

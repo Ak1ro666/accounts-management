@@ -1,9 +1,8 @@
-import type { FileNode, FileNodeId } from '../../domain/files-tree'
+import type { FileItemNode, FileNodeProps } from '../../domain/files-tree'
 
 import {
   Delete as DeleteIcon,
-  InsertDriveFile as FileIcon,
-  Folder as FolderIcon
+  InsertDriveFile as FileIcon
 } from '@mui/icons-material'
 import { IconButton, ListItem, ListItemIcon, ListItemText } from '@mui/material'
 
@@ -11,13 +10,7 @@ export function Layout({
   file,
   onNavigate,
   onDelete
-}: {
-  file: FileNode
-  onNavigate: (file: FileNode) => void
-  onDelete: (id: FileNodeId) => void
-}) {
-  const isFileType = file.type === 'file'
-
+}: FileNodeProps<FileItemNode>) {
   return (
     <ListItem
       sx={{
@@ -28,18 +21,20 @@ export function Layout({
         '&:hover': {
           bgcolor: 'action.hover'
         },
-        cursor: isFileType ? 'default' : 'pointer'
+        cursor: 'default'
       }}
       onClick={() => onNavigate(file)}>
-      <ListItemIcon>{isFileType ? <FileIcon /> : <FolderIcon />}</ListItemIcon>
+      <ListItemIcon>
+        <FileIcon />
+      </ListItemIcon>
       <ListItemText
         primary={file.name}
-        secondary={isFileType && file.size && `${file.size} bytes`}
+        secondary={`${file.size ?? 0} bytes`}
       />
       <IconButton
         edge='end'
         aria-label='delete'
-        onClick={e => {
+        onClick={(e) => {
           e.stopPropagation()
           onDelete(file.id)
         }}

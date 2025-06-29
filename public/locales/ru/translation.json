@@ -1,3 +1,7 @@
 {
-  "language": "russian"
+  "language": "russian",
+  "error": {
+    "errorOccurred": "Произошла ошибка",
+    "reloadPage": "Перезагрузить страницу"
+  }
 }

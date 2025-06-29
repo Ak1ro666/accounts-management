@@ -1,4 +1,4 @@
-import type { FileNode, FileNodeId } from '../domain/files-tree'
+import type { FileNodeConfig, FileNodeId } from '../domain/files-tree'
 
 import { useMemo, useState } from 'react'
 
@@ -6,7 +6,7 @@ import { createFileNode } from '../domain/files-tree'
 import { type FileFormData } from '../domain/form'
 
 type StateFiles = {
-  files: Record<FileNodeId, FileNode>
+  files: Record<FileNodeId, FileNodeConfig>
 }
 
 const initialFile1 = createFileNode({
@@ -43,16 +43,16 @@ export function useFiles() {
     }
 
     delete newFiles[id]
-    setFiles(prevState => ({ ...prevState, files: newFiles }))
+    setFiles((prevState) => ({ ...prevState, files: newFiles }))
   }
 
   const create = (data: FileFormData, parentId?: FileNodeId) => {
-    const newFile: FileNode = createFileNode({
+    const newFile: FileNodeConfig = createFileNode({
       ...data,
       parentId
     })
 
-    setFiles(prevFiles => ({
+    setFiles((prevFiles) => ({
       ...prevFiles,
       files: { ...prevFiles.files, [newFile.id]: newFile }
     }))
@@ -71,7 +71,7 @@ export function useFiles() {
           }
           return acc
         },
-        {} as Record<FileNodeId, FileNode[]>
+        {} as Record<FileNodeId, FileNodeConfig[]>
       ),
     [files.files]
   )

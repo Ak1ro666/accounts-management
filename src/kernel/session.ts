@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useSyncExternalStore } from 'react'
 
-import { parseJwt, publicApiClient } from '../api'
-import { BroadcastEvents } from '../lib/broadcast-events'
-import { LOCAL_STORAGE_AUTH_TOKEN } from './constants'
+import { parseJwt, publicApiClient } from '../shared/api'
+import { BroadcastEvents } from '../shared/lib/broadcast-events'
+import { LOCAL_STORAGE_AUTH_TOKEN } from '../shared/model/constants'
 
 type Session = {
   userId: number
@@ -46,7 +46,7 @@ class SessionStore {
         url: '/refresh',
         method: 'POST'
       })
-        .then(result => {
+        .then((result) => {
           appSessionStore.setSessionToken(result.token)
           return result.token
         })

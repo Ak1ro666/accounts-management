@@ -2,6 +2,8 @@ import type { ErrorInfo, ReactNode } from 'react'
 
 import { Component } from 'react'
 
+import { ErrorComponent } from './error-component'
+
 type ErrorBoundaryState = {
   hasError: boolean
 }
@@ -27,7 +29,7 @@ export class ErrorBoundary extends Component<
   }
   render() {
     if (this.state.hasError) {
-      return <h1>Something went wrong.</h1>
+      return <ErrorComponent />
     }
     return this.props.children
   }

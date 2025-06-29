@@ -1,4 +1,4 @@
-import { ROUTES } from '@/shared/model/routes'
+import { ROUTES } from '@/kernel/routes'
 
 import { useSignUpErrors } from '../model/use-sign-up-errors'
 import { useSignUpForm } from '../model/use-sign-up-form'

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export function useQuery<T>({
   fetcher,
@@ -14,12 +14,10 @@ export function useQuery<T>({
   const [data, setData] = useState<T | undefined>(options?.initialData)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>()
-  const fetcherRef = useRef(fetcher)
-  fetcherRef.current = fetcher
 
   const subscribeData = async () => {
     try {
-      await fetcherRef.current?.().then(setData)
+      await fetcher().then(setData)
       await subscribeData()
     } catch (e) {
       setTimeout(() => subscribeData(), options?.subscribeTimeout)
@@ -29,10 +27,10 @@ export function useQuery<T>({
 
   const fetchData = async () => {
     setIsLoading(true)
-    return await fetcherRef
-      .current?.()
+    setError(undefined)
+    return await fetcher()
       .then(setData)
-      .catch(e => {
+      .catch((e) => {
         if (e instanceof Error) {
           setError(e.message)
         }
@@ -45,14 +43,21 @@ export function useQuery<T>({
       })
   }
 
+  const refetchInterval = async () => {
+    return await fetcher()
+      .then(setData)
+      .catch((e) => {
+        if (e instanceof Error) {
+          setError(e.message)
+        }
+      })
+  }
+
   useEffect(() => {
     fetchData()
 
     if (options?.refetchInterval) {
-      const intervalId = setInterval(
-        fetcherRef.current,
-        options.refetchInterval
-      )
+      const intervalId = setInterval(refetchInterval, options.refetchInterval)
 
       return () => clearInterval(intervalId)
     }

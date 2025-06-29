@@ -11,6 +11,7 @@ import {
 } from '@/features/manage-files-storage'
 import { TableFlow } from '@/features/table-flow'
 
+import { getOwnerOptions } from './domain/account'
 import { useAccounts } from './model/use-accounts'
 import { useFilters } from './model/use-filters'
 import { CreateCheckButton } from './ui/create-check-button'
@@ -32,8 +33,8 @@ function Page() {
         <Filters
           filters={filters.data}
           onChangeFilters={filters.onChangeFilters}
-          ownerOptions={accounts.ownerOptions}
-          filtersActions={
+          ownerOptions={getOwnerOptions(accounts.data)}
+          actions={
             <FilteredActions
               onResetClick={filters.reset}
               onSearchClick={filters.startSearch}

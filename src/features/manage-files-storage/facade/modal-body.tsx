@@ -2,9 +2,9 @@ import { getLastPath } from '../domain/files-tree'
 import { useFiles } from '../model/use-files'
 import { usePath } from '../model/use-path'
 import { FileForm } from '../ui/file-form'
-import { FileItem } from '../ui/file-item'
 import { FilesBodyView } from '../ui/files-body-view'
 import { PathItem } from '../ui/path-item'
+import { FileNode } from './file-node'
 
 export function ModalBody() {
   const files = useFiles()
@@ -16,7 +16,7 @@ export function ModalBody() {
       path={path.data}
       form={
         <FileForm
-          onSubmit={data => files.create(data, path.currentDirectory)}
+          onSubmit={(data) => files.create(data, path.currentDirectory)}
         />
       }
       renderPath={(item, index) => (
@@ -26,11 +26,10 @@ export function ModalBody() {
           onClick={() => path.navigateUp(item.id)}
         />
       )}
-      files={files.getChildrenFiles(path.currentDirectory).map(file => (
-        <FileItem
-          onDelete={files.remove}
-          key={file.id}
+      files={files.getChildrenFiles(path.currentDirectory).map((file) => (
+        <FileNode
           file={file}
+          onDelete={files.remove}
           onNavigate={path.navigatePath}
         />
       ))}

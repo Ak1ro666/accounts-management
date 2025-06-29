@@ -2,8 +2,9 @@ import type { Account, AccountId, Charge, Payment } from '../../account'
 import type { AccountsApiContextType } from './accounts-api-provider'
 import type { CreateData, UpdateData } from './types'
 
+import { href } from '@/kernel/routes'
+
 import { authorizedApiClient } from '@/shared/api/instance'
-import { href } from '@/shared/model/routes'
 
 import { API_URL } from '../api-config'
 

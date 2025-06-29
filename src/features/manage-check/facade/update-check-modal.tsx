@@ -31,7 +31,7 @@ export function UpdateCheckModal({
   }
   const formSubmit = useUpdateSubmitForm({
     account: updateCheckModal.account,
-    refetchAccount: updateCheckModal.refetch,
+    onConfirm: updateCheckModal.refetch,
     resetForm: formState.reset,
     afterSubmitForm: onClose,
     checkIsValid: errorsState.checkIsValid,

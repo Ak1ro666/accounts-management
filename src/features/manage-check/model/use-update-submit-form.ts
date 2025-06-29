@@ -10,7 +10,7 @@ import { useConfirmation } from '@/shared/ui/kit/confirmation'
 export function useUpdateSubmitForm({
   updateCheck,
   account,
-  refetchAccount,
+  onConfirm,
   resetForm,
   afterSubmitForm,
   checkIsValid,
@@ -20,7 +20,7 @@ export function useUpdateSubmitForm({
 }: {
   updateCheck: (id: AccountId, body: UpdateData) => Promise<void>
   account?: Account
-  refetchAccount: (id: AccountId) => Promise<void>
+  onConfirm: (id: AccountId) => Promise<void>
   resetForm: () => void
   afterSubmitForm: () => void
   checkIsValid: () => boolean
@@ -37,30 +37,29 @@ export function useUpdateSubmitForm({
 
     if (isValid) {
       hideErrors()
+      if (!account?.id) return
 
-      if (account?.id) {
-        startTransition(async () => {
-          const currentAccount = await api.fetchAccountsById(account.id)
+      startTransition(async () => {
+        const currentAccount = await api.fetchAccountsById(account.id)
 
-          if (currentAccount[0].updatedAt !== account.updatedAt) {
-            confirmation.open({
-              title: 'Внимание',
-              content:
-                'Данные были изменены другим пользователем. Хотите обновить данные?',
-              cancelText: 'Отменить',
-              confirmationText: 'Обновить',
-              onConfirm: async () => {
-                resetForm()
-                await refetchAccount(account.id)
-              }
-            })
+        if (currentAccount[0].updatedAt !== account.updatedAt) {
+          confirmation.open({
+            title: 'Внимание',
+            content:
+              'Данные были изменены другим пользователем. Хотите обновить данные?',
+            cancelText: 'Отменить',
+            confirmationText: 'Обновить',
+            onConfirm: async () => {
+              resetForm()
+              await onConfirm(account.id)
+            }
+          })
 
-            return
-          }
+          return
+        }
 
-          await updateCheck(account.id, formStateData).finally(afterSubmitForm)
-        })
-      }
+        await updateCheck(account.id, formStateData).finally(afterSubmitForm)
+      })
     } else {
       showErrors()
     }

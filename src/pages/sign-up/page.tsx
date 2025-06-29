@@ -2,13 +2,13 @@ import { useNavigate } from 'react-router-dom'
 
 import { SignUpForm } from '@/features/auth'
 
-import { ROUTES } from '@/shared/model/routes'
-import { appSessionStore } from '@/shared/model/session'
+import { ROUTES } from '@/kernel/routes'
+import { appSessionStore } from '@/kernel/session'
 
 function Page() {
   const navigate = useNavigate()
 
-  appSessionStore.updateSessionStream.useEvent(event => {
+  appSessionStore.updateSessionStream.useEvent((event) => {
     if (event.type === 'update') {
       navigate(ROUTES.ACCOUNTS)
     }

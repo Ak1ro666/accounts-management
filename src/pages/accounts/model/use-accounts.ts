@@ -16,21 +16,16 @@ export function useAccounts() {
     isLoading,
     refetch
   } = useQuery<Account[]>({
-    fetcher: () =>
-      new Promise(resolve => {
-        setTimeout(() => {
-          resolve(api.fetchAccounts())
-        }, 1000)
-      }),
+    fetcher: () => api.fetchAccounts(),
     options: {
-      subscribeTimeout: 1000
+      refetchInterval: 5000
     }
   })
 
   const [removedAccounts, setRemovedAccounts] = useState<AccountId[]>([])
 
   const remove = async (id: AccountId) => {
-    setRemovedAccounts(lastState => [...lastState, id])
+    setRemovedAccounts((lastState) => [...lastState, id])
 
     await api
       .remove(id)
@@ -53,15 +48,12 @@ export function useAccounts() {
     [data, removedAccounts]
   )
 
-  const ownerOptions = useMemo(() => data.map(acc => acc.owner), [data])
-
   return {
     data: fullAccounts,
     refetch,
     remove,
     update,
     create,
-    isLoading,
-    ownerOptions
+    isLoading
   } as const
 }

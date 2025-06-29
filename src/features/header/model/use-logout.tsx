@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 
-import { ROUTES } from '@/shared/model/routes'
-import { appSessionStore } from '@/shared/model/session'
+import { ROUTES } from '@/kernel/routes'
+import { appSessionStore } from '@/kernel/session'
 
 export function useLogout() {
   const navigate = useNavigate()

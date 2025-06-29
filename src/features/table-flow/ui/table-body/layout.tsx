@@ -1,6 +1,6 @@
 import type { Account, AccountId, AccountStatus } from '@/kernel/account'
+import type { ReactNode } from 'react'
 
-import { type ReactNode } from 'react'
 import { MenuItem, Select, TableCell, TableRow } from '@mui/material'
 
 import { UiLoader } from '@/shared/ui/kit/loader'
@@ -45,7 +45,7 @@ export function Layout({
     )
   }
 
-  return items?.map(item => (
+  return items?.map((item) => (
     <TableRow
       key={item.id}
       hover>
@@ -53,12 +53,12 @@ export function Layout({
       <TableCell>
         <Select
           value={item?.status}
-          onChange={e =>
+          onChange={(e) =>
             onChangeStatus(item.id, e.target.value as AccountStatus)
           }
           size='small'
           sx={{ minWidth: 120 }}>
-          {ACCOUNT_STATUS.map(status => (
+          {ACCOUNT_STATUS.map((status) => (
             <MenuItem
               key={status}
               value={status}>

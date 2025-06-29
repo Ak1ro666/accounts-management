@@ -1,3 +1,7 @@
 {
-  "language": "english"
+  "language": "english",
+  "error": {
+    "errorOccurred": "Error occurred",
+    "reloadPage": "Reload page"
+  }
 }

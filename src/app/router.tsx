@@ -1,17 +1,20 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 
+import { PdfExportButton } from '@/features/document-flow'
 import { AppHeader } from '@/features/header'
 
-import { ROUTES } from '@/shared/model/routes'
-import { appSessionStore } from '@/shared/model/session'
+import { ROUTES } from '@/kernel/routes'
+
+import { Layout } from '@/shared/ui/kit/layout'
 
 import { App } from './app'
 import { authLoader } from './model/auth-loader'
 import { protectedLoader } from './model/protected-loader'
 import { ProtectedRoute } from './model/protected-router'
+import { updateSessionStream } from './model/update-session-stream'
 import { Providers } from './providers'
 import { LangSwitcher } from './ui/lang-switcher'
-import { PageLayout } from './ui/page-layout'
+import { LayoutSwitchers } from './ui/layout-switchers'
 import { Sidebar } from './ui/sidebar'
 
 export const router = createBrowserRouter([
@@ -25,13 +28,23 @@ export const router = createBrowserRouter([
       {
         loader: protectedLoader,
         element: (
-          <>
-            <AppHeader />
-            <PageLayout>
-              <Sidebar switchers={<LangSwitcher />} />
-              <ProtectedRoute />
-            </PageLayout>
-          </>
+          <Layout topLayout={<AppHeader />}>
+            <Sidebar
+              switchers={
+                <LayoutSwitchers>
+                  <LangSwitcher />
+                  <PdfExportButton
+                    data={{
+                      title: 'Мой отчет',
+                      content:
+                        'Это пример содержимого отчета, которое будет в PDF.'
+                    }}
+                  />
+                </LayoutSwitchers>
+              }
+            />
+            <ProtectedRoute />
+          </Layout>
         ),
         children: [
           {
@@ -69,8 +82,4 @@ export const router = createBrowserRouter([
   }
 ])
 
-appSessionStore.updateSessionStream.listen(event => {
-  if (event.type === 'remove') {
-    router.navigate(ROUTES.SIGN_IN)
-  }
-})
+updateSessionStream(router)

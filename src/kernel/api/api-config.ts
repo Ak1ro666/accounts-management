@@ -3,5 +3,6 @@ export const API_URL = {
   ACCOUNTS_FOR_ID: '/accounts/:accountId',
   ACCOUNTS_STATUS: '/accounts/:id/status',
   ACCOUNTS_CHARGES: '/accounts/:id/charges',
-  ACCOUNTS_PAYMENTS: '/accounts/:id/payments'
+  ACCOUNTS_PAYMENTS: '/accounts/:id/payments',
+  GENERATE_PDF: '/generate-pdf'
 } as const

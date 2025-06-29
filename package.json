@@ -7,13 +7,13 @@
     "dev": "vite --open --port 5001",
     "build": "tsc -b && vite build",
     "lint:ts": "eslint .",
-    "preview": "vite preview --port 5001",
-    "server": "node ./api/server.js",
-    "unit": "vitest",
+    "lint:types": "tsc --noEmit --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.node.json",
     "format": "prettier --cache --write .",
     "format:check": "prettier --check .",
-    "check:types": "tsc --noEmit --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.node.json",
-    "prepare": "husky"
+    "preview": "vite preview --port 5001",
+    "prepare": "husky",
+    "bundle:analyzer": "vite-bundle-analyzer",
+    "unit": "vitest run"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -24,10 +24,8 @@
     "@mui/x-date-pickers": "8.0.0",
     "@tanstack/react-query": "5.76.0",
     "clsx": "2.1.1",
-    "cors": "2.8.5",
     "date-fns": "4.1.0",
     "date-fns-jalali": "latest",
-    "express": "5.1.0",
     "i18next": "^25.2.1",
     "i18next-browser-languagedetector": "^8.2.0",
     "i18next-http-backend": "^3.0.2",
@@ -69,11 +67,13 @@
     "openapi-msw": "^1.2.0",
     "openapi-typescript": "^7.8.0",
     "prettier": "^3.5.3",
+    "rollup-plugin-visualizer": "^6.0.3",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1",
     "vite": "^6.3.1",
+    "vite-bundle-analyzer": "^0.23.0",
     "vite-plugin-minify": "^2.1.0",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^3.2.3"
+    "vitest": "^3.2.4"
   }
 }
