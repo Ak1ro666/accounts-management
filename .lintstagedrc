@@ -1,7 +1,4 @@
 {
-  "*.{ts,tsx}": [
-    "prettier --cache --write .",
-    "eslint .",
-  ],
+  "*.{ts,tsx}": ["prettier --cache --write .", "eslint ."],
   "*.json": ["prettier --cache --write"]
 }

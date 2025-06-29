@@ -15,7 +15,7 @@ export function useFormState(defaultFormState?: FileFormData) {
     name: keyof FileFormData,
     value: string | number
   ) => {
-    setUserFormData(prevState => ({
+    setUserFormData((prevState) => ({
       ...prevState,
       [name]: value
     }))

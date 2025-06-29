@@ -50,7 +50,7 @@ export function Layout({
             Навигация
           </ListSubheader>
         }>
-        {NAV_ITEMS.map(item => (
+        {NAV_ITEMS.map((item) => (
           <ListItem
             key={item.path}
             disablePadding

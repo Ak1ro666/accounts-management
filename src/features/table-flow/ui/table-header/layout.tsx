@@ -20,7 +20,7 @@ export function Layout({
     direction: Direction
   }) => void
 }) {
-  return FORM_QUERY.map(query => {
+  return FORM_QUERY.map((query) => {
     if (query.disabled) {
       return <TableCell key={query.id}>{query.label}</TableCell>
     }

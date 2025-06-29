@@ -7,4 +7,4 @@ export type UserFilters = {
 }
 
 export const isSearchActive = (filters: UserFilters) =>
-  Object.values(filters).some(value => Boolean(value))
+  Object.values(filters).some((value) => Boolean(value))

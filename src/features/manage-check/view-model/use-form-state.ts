@@ -13,7 +13,7 @@ export function useFormState(defaultFormData?: FormData) {
   const [formData, setFormData] = useState<FormData>({})
 
   const onChange = (name: string, value: string) => {
-    setFormData(prev => ({ ...prev, [name]: value }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const reset = () => {

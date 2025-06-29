@@ -17,8 +17,8 @@ export function CreateCheckModal({
   createCheck: (body: CreateData) => Promise<void>
   accountsData: Account[]
 }) {
-  const cancelCreate = useCreateCheck(state => state.cancelCreate)
-  const isCreating = useCreateCheck(state => state.isCreating)
+  const cancelCreate = useCreateCheck((state) => state.cancelCreate)
+  const isCreating = useCreateCheck((state) => state.isCreating)
   const formState = useFormState()
   const errorsState = useErrors({
     formData: formState.data,

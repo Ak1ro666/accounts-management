@@ -15,7 +15,7 @@ export function useUpdateCheckModal() {
 
   const fetchAccount = async (id: AccountId) => {
     setIsLoading(true)
-    await new Promise(resolve => {
+    await new Promise((resolve) => {
       setTimeout(
         () =>
           resolve(
@@ -38,7 +38,7 @@ export function useUpdateCheckModal() {
     })
   }
 
-  checkModalEventEmitter.useEvent('onChangeOpenModal', async id => {
+  checkModalEventEmitter.useEvent('onChangeOpenModal', async (id) => {
     setIsOpen(true)
     await fetchAccount(id)
   })

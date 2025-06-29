@@ -56,10 +56,10 @@ export function Layout({
           <InputLabel>Статус</InputLabel>
           <Select
             value={filters.status}
-            onChange={e => onChangeFilters({ status: e.target.value })}
+            onChange={(e) => onChangeFilters({ status: e.target.value })}
             label='Статус'
             name='status'>
-            {SELECT_FILTERS.map(option => (
+            {SELECT_FILTERS.map((option) => (
               <MenuItem
                 key={option.value}
                 value={option.value}>
@@ -76,7 +76,7 @@ export function Layout({
           options={ownerOptions}
           inputValue={filters.owner}
           onInputChange={(_, newValue) => onChangeFilters({ owner: newValue })}
-          renderInput={params => (
+          renderInput={(params) => (
             <TextField
               {...params}
               label='Владелец'
@@ -91,7 +91,7 @@ export function Layout({
           <DatePicker
             label='Дата с'
             value={filters.from}
-            onChange={value => onChangeFilters({ from: value })}
+            onChange={(value) => onChangeFilters({ from: value })}
             slotProps={{ textField: { size: 'small', fullWidth: true } }}
           />
         </LocalizationProvider>
@@ -102,7 +102,7 @@ export function Layout({
           <DatePicker
             label='Дата по'
             value={filters.to}
-            onChange={value => onChangeFilters({ to: value })}
+            onChange={(value) => onChangeFilters({ to: value })}
             slotProps={{ textField: { size: 'small', fullWidth: true } }}
           />
         </LocalizationProvider>

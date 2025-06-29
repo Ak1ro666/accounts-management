@@ -8,8 +8,8 @@ export class BroadcastEvents<M> {
   constructor(channel: string) {
     this.broadcast = new BroadcastChannel(channel)
 
-    this.broadcast.onmessage = message => {
-      this.listeners.forEach(listener => listener(message.data))
+    this.broadcast.onmessage = (message) => {
+      this.listeners.forEach((listener) => listener(message.data))
     }
   }
 
@@ -23,7 +23,7 @@ export class BroadcastEvents<M> {
 
   emit = (event: M) => {
     this.broadcast.postMessage(event)
-    this.listeners.forEach(listener => listener(event))
+    this.listeners.forEach((listener) => listener(event))
   }
 
   useEvent = (listener: (event: M) => void) => {

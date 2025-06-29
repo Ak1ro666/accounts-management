@@ -6,8 +6,8 @@ import { ModalHeader } from '../ui/modal-header'
 import { ModalBody } from './modal-body'
 
 export function ManageFilesStorageModal() {
-  const isOpen = useOpenModal(store => store.isOpen)
-  const close = useOpenModal(store => store.close)
+  const isOpen = useOpenModal((store) => store.isOpen)
+  const close = useOpenModal((store) => store.close)
 
   return (
     <UiModal

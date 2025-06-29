@@ -35,7 +35,7 @@ export function Layout({
       <TextField
         size='small'
         value={formState.data.name}
-        onChange={e => formState.onChange('name', e.target.value)}
+        onChange={(e) => formState.onChange('name', e.target.value)}
         placeholder={'placeholder'}
         sx={{ flexGrow: 1 }}
         error={!!errorsState.getFieldErrors('name')}
@@ -46,7 +46,7 @@ export function Layout({
         select
         size='small'
         value={formState.data.type}
-        onChange={e =>
+        onChange={(e) =>
           formState.onChange('type', e.target.value as 'file' | 'folder')
         }
         sx={{ minWidth: 120 }}>
@@ -59,7 +59,7 @@ export function Layout({
           type='number'
           size='small'
           value={formState.data.size}
-          onChange={e => formState.onChange('size', Number(e.target.value))}
+          onChange={(e) => formState.onChange('size', Number(e.target.value))}
           placeholder='Size in bytes'
           sx={{ minWidth: 120 }}
           error={!!errorsState.getFieldErrors('size')}

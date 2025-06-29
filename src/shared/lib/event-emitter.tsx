@@ -26,7 +26,7 @@ export class EventEmitter<T extends Record<string, unknown>> {
     const eventsListenersSet = this.events.get(event)
 
     if (eventsListenersSet) {
-      eventsListenersSet.forEach(listener => listener(data))
+      eventsListenersSet.forEach((listener) => listener(data))
     }
   }
 

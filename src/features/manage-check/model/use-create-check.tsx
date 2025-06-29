@@ -6,7 +6,7 @@ type Store = {
   cancelCreate: () => void
 }
 
-export const useCreateCheck = create<Store>(set => ({
+export const useCreateCheck = create<Store>((set) => ({
   isCreating: false,
   startCreate: () => set({ isCreating: true }),
   cancelCreate: () => set({ isCreating: false })

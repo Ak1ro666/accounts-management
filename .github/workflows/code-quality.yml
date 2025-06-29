@@ -24,10 +24,5 @@ jobs:
         with:
           cmd: lint:ts
 
-      - name: Verify Code Formatting 📝
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: format:check
-
       - name: Enforce Conventional Commits 🔒
         uses: webiny/action-conventional-commits@v1.1.0

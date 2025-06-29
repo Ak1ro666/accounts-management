@@ -68,7 +68,7 @@ export function Layout({
               </TableRow>
             </TableHead>
             <TableBody>
-              {charges?.map(charge => (
+              {charges?.map((charge) => (
                 <TableRow
                   key={charge.id}
                   hover>

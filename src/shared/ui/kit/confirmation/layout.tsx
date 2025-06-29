@@ -61,7 +61,7 @@ export function Layout({ children }: { children?: ReactNode }) {
   }
 
   const openAsync = async (state: ConfirmationState) => {
-    return new Promise<{ type: 'cancel' } | { type: 'confirm' }>(resolve => {
+    return new Promise<{ type: 'cancel' } | { type: 'confirm' }>((resolve) => {
       open({
         ...state,
         onConfirm: async () => {

@@ -1,13 +1,14 @@
 import type { QueryParamTransformer, QueryParamValue } from './types'
 
 export const defaultStringTransformer: QueryParamTransformer<string> = {
-  encode: value => value,
-  decode: value => (value === null || value === undefined ? '' : String(value))
+  encode: (value) => value,
+  decode: (value) =>
+    value === null || value === undefined ? '' : String(value)
 }
 
 export const defaultNumberTransformer: QueryParamTransformer<number> = {
-  encode: value => (isNaN(value) ? null : String(value)),
-  decode: value => {
+  encode: (value) => (isNaN(value) ? null : String(value)),
+  decode: (value) => {
     if (value === null || value === undefined) return NaN
     const num = Number(value)
     return isNaN(num) ? NaN : num
@@ -15,21 +16,21 @@ export const defaultNumberTransformer: QueryParamTransformer<number> = {
 }
 
 export const defaultBooleanTransformer: QueryParamTransformer<boolean> = {
-  encode: value => (value ? '1' : '0'),
-  decode: value => value === '1'
+  encode: (value) => (value ? '1' : '0'),
+  decode: (value) => value === '1'
 }
 
 export const createArrayTransformer = <T>(
   itemTransformer: QueryParamTransformer<T>,
   delimiter = ','
 ): QueryParamTransformer<T[]> => ({
-  encode: values =>
-    values.map(value => itemTransformer.encode(value)).join(delimiter),
-  decode: value => {
+  encode: (values) =>
+    values.map((value) => itemTransformer.encode(value)).join(delimiter),
+  decode: (value) => {
     if (value === null || value === undefined) return []
     return String(value)
       .split(delimiter)
-      .map(item => itemTransformer.decode(item))
+      .map((item) => itemTransformer.decode(item))
   }
 })
 
@@ -53,11 +54,11 @@ export const dateTransformer: QueryParamTransformer<Date | null> = {
 }
 
 export const dateOnlyTransformer: QueryParamTransformer<Date> = {
-  encode: date => {
+  encode: (date) => {
     if (!(date instanceof Date) || isNaN(date.getTime())) return null
     return date.toISOString().split('T')[0] // YYYY-MM-DD
   },
-  decode: value => {
+  decode: (value) => {
     if (value === null || value === undefined) return new Date(NaN)
     try {
       // Добавляем время, чтобы избежать проблем с часовыми поясами

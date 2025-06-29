@@ -43,8 +43,8 @@ export function TableFlow({
           onChangeStatus={(id, status) => update(id, { status })}
           items={pagination.data}
           isLoading={isLoading}
-          renderChip={status => <StatusChip status={status} />}
-          renderActions={id => (
+          renderChip={(status) => <StatusChip status={status} />}
+          renderActions={(id) => (
             <TableActions
               onDeleteClick={() => onDeleteConfirmation(id)}
               onEditClick={() =>

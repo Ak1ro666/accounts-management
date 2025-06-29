@@ -20,7 +20,7 @@ export function useErrors({
       errors.code.push("Необходимо заполнить поле 'Код счета'")
     }
 
-    if (accountsData?.some(account => account.code === data.code)) {
+    if (accountsData?.some((account) => account.code === data.code)) {
       errors.code = errors.code ?? []
       errors.code.push('Счет с таким кодом уже существует')
     }

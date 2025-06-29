@@ -15,7 +15,7 @@ export class Atom<T> {
 
   set = (value: T) => {
     this.value = value
-    this.listeners.forEach(listener => listener())
+    this.listeners.forEach((listener) => listener())
   }
 
   get = () => {

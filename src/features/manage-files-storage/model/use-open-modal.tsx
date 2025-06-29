@@ -6,7 +6,7 @@ type Store = {
   close: () => void
 }
 
-export const useOpenModal = create<Store>(set => ({
+export const useOpenModal = create<Store>((set) => ({
   isOpen: false,
   open: () => set({ isOpen: true }),
   close: () => set({ isOpen: false })

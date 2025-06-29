@@ -18,7 +18,7 @@ export const getFilteredItems = (
   items: Account[],
   filters: UserFilters
 ): Account[] => {
-  return items.filter(account => {
+  return items.filter((account) => {
     if (
       filters.owner &&
       !account.owner.toLowerCase().includes(filters.owner.toLowerCase())
@@ -61,8 +61,8 @@ export const getFilteredItems = (
 export const getFilteredRemoveAccounts = (
   accounts: Account[],
   removedAccounts: AccountId[]
-) => accounts.filter(account => !removedAccounts.includes(account.id))
+) => accounts.filter((account) => !removedAccounts.includes(account.id))
 
 export const removeAccount = (accounts: AccountId[], id: AccountId) => {
-  return accounts.filter(i => i !== id)
+  return accounts.filter((i) => i !== id)
 }
