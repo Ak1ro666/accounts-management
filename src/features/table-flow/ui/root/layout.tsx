@@ -8,26 +8,39 @@ import {
   TableRow
 } from '@mui/material'
 
+import { TableLoader } from '../table-loader'
+
 export function Layout({
   header,
   body,
-  pagination
+  footer,
+  isLoading
 }: {
   header: ReactNode
   body: ReactNode
-  pagination?: ReactNode
+  footer: ReactNode
+  isLoading?: boolean
 }) {
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 'calc(100vh - 300px)' }}>
+    <Paper
+      sx={{
+        width: '100%',
+        overflow: 'hidden',
+        maxHeight: 'calc(100vh - 250px)',
+        height: '100%'
+      }}>
+      <TableContainer sx={{ height: '100%' }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>{header}</TableRow>
           </TableHead>
-          <TableBody>{body}</TableBody>
+          <TableBody>
+            {isLoading && <TableLoader />}
+            {body}
+          </TableBody>
         </Table>
       </TableContainer>
-      {pagination}
+      {footer}
     </Paper>
   )
 }

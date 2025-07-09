@@ -1,30 +1,25 @@
-type UnionKeyFromPath<
-  S extends string = '',
-  Acc extends string[] = []
-> = S extends `/:${infer Param}/${infer Rest}`
-  ? UnionKeyFromPath<`/${Rest}`, [...Acc, Param]>
-  : S extends `/:${infer Param}`
-    ? [...Acc, Param][number]
-    : S extends `${string}/:${infer Param}/${infer Rest}`
-      ? UnionKeyFromPath<`/${Rest}`, [...Acc, Param]>
-      : S extends `${string}/:${infer Param}`
-        ? [...Acc, Param][number]
-        : Acc[number]
+type PathToTuple<T> = T extends `/${infer P1}/${infer Rest}`
+  ? [P1, ...PathToTuple<`/${Rest}`>]
+  : T extends `/${infer P1}`
+    ? [P1]
+    : never
 
-export const href = <S extends string>(
-  url: S,
-  options: Record<UnionKeyFromPath<S>, string>
-) => {
-  let newUrl = url
-  for (const key in options) {
-    if (options?.[key as UnionKeyFromPath<S>] === undefined) continue
-    newUrl = newUrl.replace(
-      `:${key}`,
-      options[key as UnionKeyFromPath<S>]!
-    ) as S
-  }
+type FilterPathParams<T extends string[]> = T[number] extends infer R
+  ? R extends `:${infer P}`
+    ? P
+    : never
+  : never
 
-  return newUrl
+type PathToParams<T> = Record<FilterPathParams<PathToTuple<T>>, string>
+
+export function href<T extends `${string}:${string}`>(
+  route: T,
+  params: PathToParams<T>
+): string
+export function href(
+  route: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params: any
+) {
+  return route.toString().replace(/:(\w+)/g, (_match, key) => params[key] || '')
 }
-
-href('/users/:id/posts/:postId', { id: '1', postId: '2' })

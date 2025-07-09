@@ -1,11 +1,18 @@
 import { Button } from '@mui/material'
 
-export function Layout({ logout }: { logout: () => void }) {
+export function Layout({
+  logout,
+  disabled
+}: {
+  logout: () => void
+  disabled?: boolean
+}) {
   return (
     <Button
       variant='contained'
       size='small'
-      onClick={logout}>
+      onClick={logout}
+      disabled={disabled}>
       Выйти
     </Button>
   )

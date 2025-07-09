@@ -27,9 +27,11 @@ export function Layout({
 
   return (
     <Paper
+      data-testid='sidebar'
       className={className}
       sx={{
-        width: 256,
+        maxWidth: 256,
+        width: '100%',
         border: `1px solid ${styles.theme.palette.divider}`,
         p: 2,
         borderRadius: 0,

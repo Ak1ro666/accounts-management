@@ -25,7 +25,7 @@ export function useSignInSubmitForm({
     if (isValid) {
       hideErrors()
       appSessionStore.setSessionToken(
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE1MTYyMzkwMjJ9.luvEOkXfBZdktM_5z0tN9yhLloPp3VTZ7XnnivC2ngw'
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiZW1haWwiOiJhZG1pbkBnbWFpbC5jb20iLCJyb2xlIjoiQURNSU4iLCJpYXQiOjE1MTYyMzkwMjJ9.YC7dNOjUXSCdWEStU_BQLBkwQNF9gV7roeRbGK39_aA'
       )
       navigate(ROUTES.ACCOUNTS)
     } else {

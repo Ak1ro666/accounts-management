@@ -100,6 +100,28 @@ app.post('/api/accounts', (req, res) => {
   res.status(201).json(newAccount)
 })
 
+app.put('/api/accounts', (req, res) => {
+  try {
+    const updatedAccounts = req.body.accounts
+    if (!Array.isArray(updatedAccounts)) {
+      return res
+        .status(400)
+        .json({ error: 'Expected an array of accounts in the request body' })
+    }
+
+    // Полностью заменяем все аккаунты
+    db.accounts = updatedAccounts.map((account) => ({
+      ...account,
+      updatedAt: new Date().toISOString()
+    }))
+
+  } catch (error) {
+    res.json(db.accounts)
+    console.error('Error updating all accounts:', error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
+})
+
 app.put('/api/accounts/:id', (req, res) => {
   const index = db.accounts.findIndex((a) => a.id === req.params.id)
   if (index !== -1) {

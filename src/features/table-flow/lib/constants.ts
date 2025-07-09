@@ -1,6 +1,10 @@
 import type { SortQuery } from '../domain/query'
 
-export const ROWS_PER_PAGE_OPTIONS = [10, 25, 50] as const
+export const TABLE_CONFIG = {
+  rowPerPageOptions: [10, 25, 50] as const,
+  defaultRowsPerPage: 10
+}
+
 export const ACCOUNT_STATUS = ['OPEN', 'PRE_CLOSED', 'CLOSED'] as const
 export const FORM_QUERY: {
   value: SortQuery

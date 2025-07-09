@@ -2,7 +2,7 @@ import type { FileNodeConfig, FileNodeId } from '../domain/files-tree'
 
 import { useMemo, useState } from 'react'
 
-import { createFileNode } from '../domain/files-tree'
+import { createFileNode, excludeFileById } from '../domain/files-tree'
 import { type FileFormData } from '../domain/form'
 
 type StateFiles = {
@@ -34,15 +34,7 @@ export function useFiles() {
   // const [removedFiles, setRemovedFiles] = useState<FileNodeId[]>([]);
 
   const remove = (id: FileNodeId) => {
-    const newFiles = { ...files.files }
-
-    for (const key in newFiles) {
-      if (newFiles[key].parentId === id) {
-        delete newFiles[key]
-      }
-    }
-
-    delete newFiles[id]
+    const newFiles = excludeFileById(files.files, id)
     setFiles((prevState) => ({ ...prevState, files: newFiles }))
   }
 

@@ -58,11 +58,6 @@ export const getFilteredItems = (
   })
 }
 
-export const getFilteredRemoveAccounts = (
-  accounts: Account[],
-  removedAccounts: AccountId[]
-) => accounts.filter((account) => !removedAccounts.includes(account.id))
-
 export const removeAccount = (accounts: AccountId[], id: AccountId) => {
   return accounts.filter((i) => i !== id)
 }

@@ -1,8 +1,11 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 
+import { AccountsRecentPage } from '@/pages/accounts-recent/page'
+
 import { PdfExportButton } from '@/features/document-flow'
 import { AppHeader } from '@/features/header'
 
+import { UserRole } from '@/kernel/authorization'
 import { ROUTES } from '@/kernel/routes'
 
 import { Layout } from '@/shared/ui/kit/layout'
@@ -10,7 +13,7 @@ import { Layout } from '@/shared/ui/kit/layout'
 import { App } from './app'
 import { authLoader } from './model/auth-loader'
 import { protectedLoader } from './model/protected-loader'
-import { ProtectedRoute } from './model/protected-router'
+import { ProtectedRolesRoute, ProtectedRoute } from './model/protected-route'
 import { updateSessionStream } from './model/update-session-stream'
 import { Providers } from './providers'
 import { LangSwitcher } from './ui/lang-switcher'
@@ -25,6 +28,10 @@ export const router = createBrowserRouter([
       </Providers>
     ),
     children: [
+      {
+        path: ROUTES.ROOT,
+        loader: () => redirect(ROUTES.ACCOUNTS)
+      },
       {
         loader: protectedLoader,
         element: (
@@ -53,7 +60,11 @@ export const router = createBrowserRouter([
           },
           {
             path: ROUTES.RESENT_ACCOUNTS,
-            lazy: () => import('@/pages/recent-accounts/page')
+            element: (
+              <ProtectedRolesRoute roles={[UserRole.VIEWER, UserRole.ADMIN]}>
+                <AccountsRecentPage />
+              </ProtectedRolesRoute>
+            )
           }
         ]
       },
@@ -69,10 +80,6 @@ export const router = createBrowserRouter([
             lazy: () => import('@/pages/sign-up/page')
           }
         ]
-      },
-      {
-        path: ROUTES.HOME,
-        loader: () => redirect(ROUTES.ACCOUNTS)
       },
       {
         path: ROUTES.NOT_FOUND,

@@ -49,3 +49,20 @@ export const getCurrentFiles = (
 
 export const getLastPath = (path: Path[], index: number) =>
   index === path.length - 1
+
+export const excludeFileById = (
+  files: Record<FileNodeId, FileNodeConfig>,
+  fileId: FileNodeId
+) => {
+  const newFiles = { ...files }
+
+  for (const key in newFiles) {
+    if (newFiles[key].parentId === fileId) {
+      delete newFiles[key]
+    }
+  }
+
+  delete newFiles[fileId]
+
+  return newFiles
+}

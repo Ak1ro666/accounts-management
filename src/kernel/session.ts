@@ -1,13 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useSyncExternalStore } from 'react'
 
-import { parseJwt, publicApiClient } from '../shared/api'
+import { parseJwt } from '@/shared/api'
+
 import { BroadcastEvents } from '../shared/lib/broadcast-events'
 import { LOCAL_STORAGE_AUTH_TOKEN } from '../shared/model/constants'
+import { publicApiClient } from './api'
+import { UserRole } from './authorization'
 
 type Session = {
   userId: number
   email: string
+  role: UserRole
 }
 
 let refreshTokenPromise: Promise<string | null> | null = null
@@ -26,7 +30,7 @@ class SessionStore {
     this.updateSessionStream.emit({ type: 'update', token })
   }
 
-  removeSessionToken() {
+  removeSession() {
     localStorage.removeItem(LOCAL_STORAGE_AUTH_TOKEN)
     this.updateSessionStream.emit({ type: 'remove' })
   }
@@ -51,7 +55,7 @@ class SessionStore {
           return result.token
         })
         .catch(() => {
-          appSessionStore.removeSessionToken()
+          appSessionStore.removeSession()
           return null
         })
         .finally(() => {

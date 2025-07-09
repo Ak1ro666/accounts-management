@@ -6,7 +6,7 @@ import { NavigationTitle } from '../ui/navigation-title'
 import { Root } from '../ui/root'
 
 export function AppHeader() {
-  const logout = useLogout()
+  const [isLoading, logout] = useLogout()
   const session = useSession()
 
   return (
@@ -15,7 +15,12 @@ export function AppHeader() {
       navigation={
         <Navigation
           email={session?.email}
-          actions={<NavigationActions logout={logout} />}
+          actions={
+            <NavigationActions
+              disabled={isLoading}
+              logout={logout}
+            />
+          }
         />
       }
     />

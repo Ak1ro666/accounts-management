@@ -4,18 +4,18 @@ import { Box, Typography } from '@mui/material'
 export function Layout({
   title,
   actionsPannel,
-  tableFlow,
-  actions,
+  flow,
+  createForm,
   modals
 }: {
   title: ReactNode
   actionsPannel: ReactNode
-  tableFlow: ReactNode
-  actions: ReactNode
+  flow: ReactNode
+  createForm: ReactNode
   modals: ReactNode
 }) {
   return (
-    <Box>
+    <Box sx={{ flexGrow: 1, height: '100%' }}>
       <Typography
         variant='h4'
         component='h1'>
@@ -29,9 +29,9 @@ export function Layout({
           alignItems: 'center'
         }}>
         <Box sx={{ width: '100%', mr: 2 }}>{actionsPannel}</Box>
-        {actions}
+        {createForm}
       </Box>
-      {tableFlow}
+      {flow}
       {modals}
     </Box>
   )

@@ -1,37 +1,32 @@
 import type { CreateData, UpdateData } from '@/kernel/api/accounts'
 import type { Account, AccountId } from '../domain/account'
 
-import { useMemo, useState } from 'react'
-
-import { AccountsApiContext } from '@/kernel/api/accounts'
-
 import { useQuery } from '@/shared/lib/react/use-query'
 
-import { getFilteredRemoveAccounts, removeAccount } from '../domain/account'
+import { API_CONFIG } from '../lib/constants'
 
-export function useAccounts() {
-  const api = AccountsApiContext.use()
+export type AccountsApi = {
+  fetchAccounts: (slug?: string) => Promise<Account[]>
+  create: (data: CreateData) => Promise<Account>
+  update: (id: AccountId, data: UpdateData) => Promise<Account>
+}
+
+export function useAccounts(api: AccountsApi) {
   const {
     data = [],
     isLoading,
     refetch
   } = useQuery<Account[]>({
-    fetcher: () => api.fetchAccounts(),
+    fetcher: () =>
+      new Promise((resolve) => {
+        setTimeout(() => {
+          resolve(api.fetchAccounts())
+        }, API_CONFIG.mockDelay)
+      }),
     options: {
-      refetchInterval: 5000
+      refetchInterval: API_CONFIG.refetchInterval
     }
   })
-
-  const [removedAccounts, setRemovedAccounts] = useState<AccountId[]>([])
-
-  const remove = async (id: AccountId) => {
-    setRemovedAccounts((lastState) => [...lastState, id])
-
-    await api
-      .remove(id)
-      .then(refetch)
-      .finally(() => setRemovedAccounts(removeAccount(removedAccounts, id)))
-  }
 
   const update = async (id: AccountId, data: UpdateData) => {
     await api
@@ -43,15 +38,9 @@ export function useAccounts() {
     await api.create(body).then(refetch)
   }
 
-  const fullAccounts = useMemo(
-    () => getFilteredRemoveAccounts(data, removedAccounts),
-    [data, removedAccounts]
-  )
-
   return {
-    data: fullAccounts,
+    data,
     refetch,
-    remove,
     update,
     create,
     isLoading

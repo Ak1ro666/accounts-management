@@ -2,9 +2,13 @@ import { ChangeEvent, useState } from 'react'
 
 import { Account } from '@/kernel/account'
 
+import { TABLE_CONFIG } from '../lib/constants'
+
 export function usePagination(items: Account[]) {
   const [currentPage, setCurrentPage] = useState<number>(0)
-  const [rowsPerPage, setRowsPerPage] = useState<number>(10)
+  const [rowsPerPage, setRowsPerPage] = useState<number>(
+    TABLE_CONFIG.defaultRowsPerPage
+  )
 
   const onChangePage = (_: unknown, newPage: number) => setCurrentPage(newPage)
 
@@ -20,9 +24,11 @@ export function usePagination(items: Account[]) {
 
   return {
     data,
-    currentPage,
-    rowsPerPage,
-    onChangePage,
-    handleChangeRowsPerPage
+    getContainerProps: () => ({
+      page: currentPage,
+      rowsPerPage,
+      onPageChange: onChangePage,
+      onRowsPerPageChange: handleChangeRowsPerPage
+    })
   } as const
 }

@@ -26,6 +26,7 @@ export function Layout({
 } & DialogProps) {
   return (
     <Dialog
+      data-testid='modal'
       maxWidth='md'
       {...otherProps}>
       {header && (
@@ -33,7 +34,7 @@ export function Layout({
           <Toolbar>{header}</Toolbar>
         </AppBar>
       )}
-      {title && <DialogTitle>{title}</DialogTitle>}
+      {title && <DialogTitle data-testid='title'>{title}</DialogTitle>}
       <Box component='form'>
         <DialogContent>
           {body}

@@ -3,8 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss",
+    "**/*",
+    "@/shared/model/i18n/i18n.ts"
+  ],
   "scripts": {
-    "dev": "vite --open --port 5001",
+    "dev": "vite --port 5001",
     "build": "tsc -b && vite build",
     "lint:ts": "eslint .",
     "lint:types": "tsc --noEmit --project ./tsconfig.json && tsc --noEmit --project ./tsconfig.node.json",

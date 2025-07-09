@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Container } from '@mui/material'
+import { Box, Container } from '@mui/material'
 
 export function Layout({
   children,
@@ -9,13 +9,20 @@ export function Layout({
   topLayout?: ReactNode
 }) {
   return (
-    <>
+    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
       {topLayout}
       <Container
         maxWidth='xl'
-        sx={{ display: 'flex', gap: 2, my: 4, height: '100%' }}>
+        sx={{
+          display: 'flex',
+          gap: 2,
+          my: 4,
+          height: '100%',
+          flexGrow1: 1,
+          justifyContent: 'center'
+        }}>
         {children}
       </Container>
-    </>
+    </Box>
   )
 }

@@ -42,7 +42,7 @@ export const authorizedApiClient = createApi({
           }
         }
 
-        appSessionStore.removeSessionToken()
+        appSessionStore.removeSession()
       }
       return response
     }

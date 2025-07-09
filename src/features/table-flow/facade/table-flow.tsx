@@ -3,35 +3,30 @@ import type { UpdateData } from '@/kernel/api/accounts'
 
 import { TablePagination } from '@mui/material'
 
-import { checkModalEventEmitter } from '@/kernel/check-modal'
-
-import { ROWS_PER_PAGE_OPTIONS } from '../lib/constants'
-import { useDeleteConfirmation } from '../model/use-delete-confirmation'
+import { TABLE_CONFIG } from '../lib/constants'
 import { useFilters } from '../model/use-filters'
 import { usePagination } from '../model/use-pagination'
-import { StatusChip } from '../ui/chip'
 import { Root } from '../ui/root'
-import { TableActions } from '../ui/table-actions'
-import { TableBody } from '../ui/table-body'
 import { TableHeader } from '../ui/table-header'
+import { TableBody } from './table-body'
 
 export function TableFlow({
   items,
   isLoading,
-  remove,
-  update
+  removeAccount,
+  updateAccount
 }: {
   items: Account[]
   isLoading?: boolean
-  remove: (id: AccountId) => Promise<void>
-  update: (id: AccountId, data: UpdateData) => void
+  removeAccount: (id: AccountId) => Promise<void>
+  updateAccount: (id: AccountId, data: UpdateData) => void
 }) {
   const filters = useFilters(items)
   const pagination = usePagination(filters.data)
-  const onDeleteConfirmation = useDeleteConfirmation(remove)
 
   return (
     <Root
+      isLoading={isLoading}
       header={
         <TableHeader
           selectedSort={filters.selectedSort}
@@ -40,33 +35,21 @@ export function TableFlow({
       }
       body={
         <TableBody
-          onChangeStatus={(id, status) => update(id, { status })}
           items={pagination.data}
-          isLoading={isLoading}
-          renderChip={(status) => <StatusChip status={status} />}
-          renderActions={(id) => (
-            <TableActions
-              onDeleteClick={() => onDeleteConfirmation(id)}
-              onEditClick={() =>
-                checkModalEventEmitter.emit('onChangeOpenModal', id)
-              }
-            />
-          )}
+          remove={removeAccount}
+          update={updateAccount}
         />
       }
-      pagination={
+      footer={
         <TablePagination
-          rowsPerPageOptions={ROWS_PER_PAGE_OPTIONS}
+          rowsPerPageOptions={TABLE_CONFIG.rowPerPageOptions}
           component='div'
           count={items.length}
-          rowsPerPage={pagination.rowsPerPage}
-          page={pagination.currentPage}
-          onPageChange={pagination.onChangePage}
-          onRowsPerPageChange={pagination.handleChangeRowsPerPage}
           labelRowsPerPage='Строк на странице:'
           labelDisplayedRows={({ from, to, count }) =>
             `${from}–${to} из ${count}`
           }
+          {...pagination.getContainerProps()}
         />
       }
     />

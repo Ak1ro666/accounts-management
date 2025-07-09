@@ -2,9 +2,8 @@ import type { Account, AccountId, Charge, Payment } from '../../account'
 import type { AccountsApiContextType } from './accounts-api-provider'
 import type { CreateData, UpdateData } from './types'
 
+import { authorizedApiClient } from '@/kernel/api'
 import { href } from '@/kernel/routes'
-
-import { authorizedApiClient } from '@/shared/api/instance'
 
 import { API_URL } from '../api-config'
 
@@ -55,41 +54,3 @@ export const api: AccountsApiContextType = {
     })
   }
 }
-
-// export const mockApi: AccountsApiContextType = {
-//   fetchAccounts: async () => {
-//     return await new Promise<Account[]>((resolve) => {
-//       setTimeout(() => {
-//         resolve([]);
-//       }, 2000);
-//     });
-//   },
-
-//   create: async (account: Account) => {
-//     return await new Promise<Account>((resolve) => {
-//       setTimeout(() => {
-//         // [].push(account);
-//         resolve([]);
-//       }, 2000);
-//     });
-//   },
-
-//   update: async (id: string, data: Account) => {
-//     return await new Promise((resolve) => {
-//       setTimeout(() => {
-//         resolve();
-//       }, 1000);
-//     });
-//   },
-
-//   remove: async (id: string) => {
-//     // const accountIndex = MockAccounts.findIndex((acc) => acc.id === id);
-
-//     // MockAccounts.splice(accountIndex, 1);
-//     return await new Promise((resolve) => {
-//       setTimeout(() => {
-//         resolve();
-//       }, 1000);
-//     });
-//   },
-// };

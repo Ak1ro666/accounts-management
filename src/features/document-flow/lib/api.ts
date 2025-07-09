@@ -1,8 +1,6 @@
 import type { Document } from '../domain/document'
 
-import { API_URL } from '@/kernel/api'
-
-import { authorizedApiClient } from '@/shared/api'
+import { API_URL, authorizedApiClient } from '@/kernel/api'
 
 export async function generateDocumentPdf(data: Document) {
   return await authorizedApiClient<Blob>({

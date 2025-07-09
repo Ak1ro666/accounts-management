@@ -10,7 +10,8 @@ export function Layout({
   fields,
   actions,
   footer,
-  onSubmit
+  onSubmit,
+  dataTestId
 }: {
   title: ReactNode
   description?: ReactNode
@@ -18,9 +19,11 @@ export function Layout({
   actions: ReactNode
   footer?: ReactNode
   onSubmit?: (e: FormEvent<HTMLFormElement>) => void
+  dataTestId?: string
 }) {
   return (
     <Box
+      data-testid={dataTestId}
       display='flex'
       justifyContent='center'
       alignItems='center'

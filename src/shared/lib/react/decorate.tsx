@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ComponentProps, ReactElement, Suspense } from 'react'
+import { ComponentProps, ReactElement, ReactNode, Suspense } from 'react'
+import { render } from '@testing-library/react'
+import { I18nextProvider } from 'react-i18next'
 
+import i18nForTest from '@/shared/model/i18n/i18n-test'
 import { UiLoader } from '@/shared/ui/kit/loader'
-
-import { ErrorBoundary } from './error-boundary'
 
 type WithUse<T extends (...args: any) => any> = T & {
   use: <R extends (...args: any) => any>(
@@ -37,7 +38,7 @@ export const withSkeleton =
     }
   }
 
-export function WithFallbacks<
+export function withFallbacks<
   P extends {
     ref?: React.Ref<HTMLElement>
     className?: string
@@ -45,11 +46,15 @@ export function WithFallbacks<
 >(Component: React.ComponentType<P>): React.ComponentType<P> {
   return function EnhancedComponent(props: P) {
     return (
-      <ErrorBoundary>
-        <Suspense fallback={<UiLoader />}>
-          <Component {...props} />
-        </Suspense>
-      </ErrorBoundary>
+      <Suspense fallback={<UiLoader />}>
+        <Component {...props} />
+      </Suspense>
     )
   }
+}
+
+export function renderWithTranslation(component: ReactNode) {
+  return render(
+    <I18nextProvider i18n={i18nForTest}>{component}</I18nextProvider>
+  )
 }

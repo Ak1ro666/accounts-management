@@ -1,54 +1,24 @@
-import type { Account, AccountId, AccountStatus } from '@/kernel/account'
-import type { ReactNode } from 'react'
-
+import { ReactNode } from 'react'
 import { MenuItem, Select, TableCell, TableRow } from '@mui/material'
 
-import { UiLoader } from '@/shared/ui/kit/loader'
+import { Account, AccountId, AccountStatus } from '@/kernel/account'
 
 import { getDebtConfig } from '../../domain/table'
 import { ACCOUNT_STATUS } from '../../lib/constants'
 
 export function Layout({
-  isLoading,
-  items,
+  item,
   onChangeStatus,
-  renderChip,
-  renderActions
+  renderActions,
+  renderChip
 }: {
-  isLoading?: boolean
-  items?: Account[]
+  item: Account
   onChangeStatus: (id: AccountId, status: AccountStatus) => void
   renderChip: (status: AccountStatus) => ReactNode
   renderActions: (id: string) => ReactNode
 }) {
-  if (isLoading) {
-    return (
-      <TableRow>
-        <TableCell
-          colSpan={6}
-          align='center'>
-          <UiLoader />
-        </TableCell>
-      </TableRow>
-    )
-  }
-
-  if (items?.length === 0) {
-    return (
-      <TableRow>
-        <TableCell
-          colSpan={6}
-          align='center'>
-          Нет данных
-        </TableCell>
-      </TableRow>
-    )
-  }
-
-  return items?.map((item) => (
-    <TableRow
-      key={item.id}
-      hover>
+  return (
+    <TableRow hover>
       <TableCell>{item?.code}</TableCell>
       <TableCell>
         <Select
@@ -72,5 +42,5 @@ export function Layout({
       <TableCell>{getDebtConfig(item.debt)} ₽</TableCell>
       <TableCell>{renderActions(item.id)}</TableCell>
     </TableRow>
-  ))
+  )
 }

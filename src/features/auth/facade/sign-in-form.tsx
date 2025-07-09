@@ -25,6 +25,7 @@ export function SignInForm() {
       description='Войдите в аккаунт, чтобы начать работу с приложением'
       onSubmit={handleSubmit}
       actions={<SubmitButton>Войти</SubmitButton>}
+      dataTestId='SignInForm'
       fields={
         <SignInFields
           formData={signInForm.data}
