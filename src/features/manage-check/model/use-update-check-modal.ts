@@ -5,6 +5,8 @@ import { useMemo, useState } from 'react'
 import { AccountsApiContext } from '@/kernel/api/accounts'
 import { checkModalEventEmitter } from '@/kernel/check-modal'
 
+import { delay } from '@/shared/lib/react/delay'
+
 import { ACCOUNTS_CHARGES, ACCOUNTS_PAYMENTS } from '../lib/constants'
 
 export function useUpdateCheckModal() {
@@ -15,27 +17,21 @@ export function useUpdateCheckModal() {
 
   const fetchAccount = async (id: AccountId) => {
     setIsLoading(true)
-    await new Promise((resolve) => {
-      setTimeout(
-        () =>
-          resolve(
-            Promise.all([
-              api.fetchAccountsById(id),
-              Promise.resolve(ACCOUNTS_CHARGES), // api.fetchAccountsCharges(id),
-              Promise.resolve(ACCOUNTS_PAYMENTS) // api.fetchAccountsPayments(id),
-            ])
-              .then(([accountData, chargesData, paymentsData]) =>
-                setAccount({
-                  ...accountData[0],
-                  charges: chargesData,
-                  payments: paymentsData
-                })
-              )
-              .finally(() => setIsLoading(false))
-          ),
-        1000
-      )
-    })
+    delay(1000).then(() =>
+      Promise.all([
+        api.fetchAccountsById(id),
+        Promise.resolve(ACCOUNTS_CHARGES), // api.fetchAccountsCharges(id),
+        Promise.resolve(ACCOUNTS_PAYMENTS) // api.fetchAccountsPayments(id),
+      ])
+        .then(([accountData, chargesData, paymentsData]) =>
+          setAccount({
+            ...accountData[0],
+            charges: chargesData,
+            payments: paymentsData
+          })
+        )
+        .finally(() => setIsLoading(false))
+    )
   }
 
   checkModalEventEmitter.useEvent('onChangeOpenModal', async (id) => {

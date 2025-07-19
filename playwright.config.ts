@@ -10,7 +10,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') })
 const isDev = process.env.NODE_ENV === 'development'
 
 export default defineConfig({
-  testDir: './tests',
+  testDir: './e2e',
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -24,8 +24,8 @@ export default defineConfig({
 
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] }
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] }
     }
 
     /* Test against mobile viewports. */

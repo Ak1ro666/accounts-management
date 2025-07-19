@@ -6,7 +6,7 @@ export const ROUTES = {
   ACCOUNT: '/account/:id',
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',
-  FORBIDEN: 'forbiden',
+  FORBIDEN: '/forbiden',
   NOT_FOUND: '*'
 } as const
 

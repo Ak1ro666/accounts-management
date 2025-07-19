@@ -6,13 +6,15 @@ import { initReactI18next } from 'react-i18next'
 import { CONFIG } from '../config'
 import { languages } from './data'
 
+const isDev = CONFIG.NODE_ENV === 'development'
+
 i18n
   .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng: languages[0],
-    debug: CONFIG.IS_DEV,
+    debug: isDev,
     returnEmptyString: false,
     preload: languages,
     supportedLngs: languages,

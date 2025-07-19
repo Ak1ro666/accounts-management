@@ -1,13 +1,13 @@
 import { screen } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 
-import { renderWithTranslation } from '@/shared/lib/react/tests'
+import { renderForTests } from '@/shared/lib/react/render-for-tests'
 
-import { Layout } from './layout'
+import { Sidebar } from './sidebar'
 
 describe('Sidebar', () => {
   test('render Sidebar', () => {
-    renderWithTranslation(<Layout switchers={null} />)
+    renderForTests(<Sidebar />)
     expect(screen.getByTestId('sidebar')).toBeInTheDocument()
   })
 })

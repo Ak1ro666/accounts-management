@@ -19,7 +19,7 @@
     "preview": "vite preview --port 5001",
     "prepare": "husky",
     "bundle:analyzer": "vite-bundle-analyzer",
-    "unit": "vitest run",
+    "test": "vitest run",
     "storybook": "storybook dev -p 6006 -c ./config/storybook",
     "build-storybook": "storybook build -c ./config/storybook"
   },

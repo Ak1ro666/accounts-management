@@ -65,6 +65,10 @@ export const router = createBrowserRouter([
         ]
       },
       {
+        path: ROUTES.FORBIDEN,
+        lazy: () => import('@/pages/forbiden/page')
+      },
+      {
         path: ROUTES.NOT_FOUND,
         lazy: () => import('@/pages/not-found/page')
       }

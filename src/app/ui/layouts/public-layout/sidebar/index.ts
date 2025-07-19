@@ -1,1 +1,1 @@
-export { Layout as Sidebar } from './layout'
+export { Sidebar } from './facade/sidebar/sidebar'

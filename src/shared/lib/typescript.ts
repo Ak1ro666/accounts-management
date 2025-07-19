@@ -5,3 +5,9 @@ export type MyReturnType<T extends (...args: any) => any> = T extends (
 ) => infer R
   ? R
   : any
+
+export type NullishPartial<T> = T extends unknown
+  ? {
+      [K in keyof T]: NullishPartial<T[K]> | null
+    }
+  : T | null

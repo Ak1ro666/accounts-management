@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import {
   Box,
   List,
@@ -11,21 +12,17 @@ import {
 } from '@mui/material'
 import { Link, useLocation } from 'react-router-dom'
 
-import { PdfExportButton } from '@/features/document-flow'
-
-import { LangSwitcher } from '../lang-switcher'
-import { NAV_ITEMS } from './lib/data'
+import { NAV_ITEMS } from '../../lib/data'
 import { useStyles } from './styles'
 
-export function Layout({ className }: { className?: string }) {
+export function Layout({ actions }: { actions: ReactNode }) {
+  const styles = useStyles()
   const location = useLocation()
   const isActive = (path: string) => location.pathname === path
-  const styles = useStyles()
 
   return (
     <Paper
       data-testid='sidebar'
-      className={className}
       sx={{
         maxWidth: 256,
         width: '100%',
@@ -72,13 +69,7 @@ export function Layout({ className }: { className?: string }) {
       </List>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-        <LangSwitcher />
-        <PdfExportButton
-          data={{
-            title: 'Мой отчет',
-            content: 'Это пример содержимого отчета, которое будет в PDF.'
-          }}
-        />
+        {actions}
       </Box>
     </Paper>
   )

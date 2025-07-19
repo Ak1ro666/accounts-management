@@ -23,13 +23,13 @@ export function Layout({
   ownerOptions
 }: {
   filters: UserFilters
-  onChangeFilters: (updates: Partial<UserFilters>) => void
+  onChangeFilters: (name: keyof UserFilters, value: string) => void
   actions: ReactNode
   ownerOptions: string[]
 }) {
   const handleChangeField =
     (name: keyof UserFilters) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChangeFilters({ [name]: e.target.value })
+      onChangeFilters(name, e.target.value)
     }
 
   const gridSize = useMemo(() => ({ xs: 12, sm: 6, md: 2 }), [])
@@ -56,7 +56,7 @@ export function Layout({
           <InputLabel>Статус</InputLabel>
           <Select
             value={filters.status}
-            onChange={(e) => onChangeFilters({ status: e.target.value })}
+            onChange={(e) => onChangeFilters('status', e.target.value)}
             label='Статус'
             name='status'>
             {SELECT_FILTERS.map((option) => (
@@ -75,7 +75,7 @@ export function Layout({
           freeSolo
           options={ownerOptions}
           inputValue={filters.owner}
-          onInputChange={(_, newValue) => onChangeFilters({ owner: newValue })}
+          onInputChange={(_, newValue) => onChangeFilters('owner', newValue)}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -90,8 +90,10 @@ export function Layout({
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
             label='Дата с'
-            value={filters.from}
-            onChange={(value) => onChangeFilters({ from: value })}
+            value={filters.from ? new Date(filters.from) : null}
+            onChange={(value) =>
+              onChangeFilters('from', value?.toString() ?? '')
+            }
             slotProps={{ textField: { size: 'small', fullWidth: true } }}
           />
         </LocalizationProvider>
@@ -101,8 +103,8 @@ export function Layout({
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
             label='Дата по'
-            value={filters.to}
-            onChange={(value) => onChangeFilters({ to: value })}
+            value={filters.to ? new Date(filters.to) : null}
+            onChange={(value) => onChangeFilters('to', value?.toString() ?? '')}
             slotProps={{ textField: { size: 'small', fullWidth: true } }}
           />
         </LocalizationProvider>

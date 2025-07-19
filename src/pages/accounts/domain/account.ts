@@ -39,7 +39,7 @@ export const getFilteredItems = (
 
     if (filters.from) {
       const accountDate = new Date(account.createdAt)
-      if (accountDate < filters.from) {
+      if (accountDate < new Date(filters.from)) {
         return false
       }
     }

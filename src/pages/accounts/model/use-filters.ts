@@ -1,62 +1,20 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import type { Account } from '../domain/account'
 import type { UserFilters } from '../domain/filters'
 
 import { useMemo, useState } from 'react'
-
-import {
-  createSearchQueryParams,
-  dateTransformer,
-  defaultStringTransformer
-} from '@/shared/lib/react/use-create-search-query'
+import { useSearchParams } from 'react-router-dom'
 
 import { getFilteredItems } from '../domain/account'
-import { isSearchActive } from '../domain/filters'
-
-const initialFilters: UserFilters = {
-  owner: '',
-  status: '',
-  code: '',
-  from: new Date(),
-  to: new Date()
-}
+import { isSearchActive, parseFiltersFromUrl } from '../domain/filters'
+import { INITIAL_FILTERS } from '../lib/constants'
 
 export function useFilters(items: Account[], defaultFilters?: UserFilters) {
-  const useQueryParamsHook = createSearchQueryParams<UserFilters>({
-    owner: {
-      name: 'owner',
-      defaultValue: '',
-      transformer: defaultStringTransformer
-    },
-    status: {
-      name: 'status',
-      defaultValue: '',
-      transformer: defaultStringTransformer
-    },
-    code: {
-      name: 'code',
-      defaultValue: '',
-      transformer: defaultStringTransformer
-    },
-    from: {
-      name: 'from',
-      defaultValue: null,
-      transformer: dateTransformer
-    },
-    to: {
-      name: 'to',
-      defaultValue: null,
-      transformer: dateTransformer
-    }
-  })
+  const [searchParams, setSearchParams] = useSearchParams()
+  const userFilters = parseFiltersFromUrl(searchParams)
 
-  const {
-    params: userFilters,
-    updateParams: setUserFilters,
-    resetParams
-  } = useQueryParamsHook()
-
-  const fullFilters = {
-    ...initialFilters,
+  const fullFilters: UserFilters = {
+    ...INITIAL_FILTERS,
     ...defaultFilters,
     ...userFilters
   }
@@ -65,8 +23,12 @@ export function useFilters(items: Account[], defaultFilters?: UserFilters) {
     isSearchActive(fullFilters)
   )
 
+  const onChangeFilters = (name: keyof UserFilters, value: string) => {
+    setSearchParams({ ...fullFilters, [name]: value })
+  }
+
   const reset = () => {
-    resetParams()
+    setSearchParams()
     setIsSearch(false)
   }
 
@@ -87,7 +49,7 @@ export function useFilters(items: Account[], defaultFilters?: UserFilters) {
     filteredItems,
     {
       data: fullFilters,
-      onChangeFilters: setUserFilters,
+      onChangeFilters,
       reset,
       startSearch
     }

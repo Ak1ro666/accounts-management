@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Box, Button } from '@mui/material'
 
-import { Layout } from './layout'
+import { Layout } from './sidebar'
 
 const meta = {
   title: 'app/Sidebar',

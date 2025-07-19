@@ -9,7 +9,13 @@ export function Layout({
   topLayout?: ReactNode
 }) {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100vh',
+        overflowY: 'hidden'
+      }}>
       {topLayout}
       <Container
         maxWidth='xl'
@@ -18,7 +24,8 @@ export function Layout({
           gap: 2,
           my: 4,
           flexGrow1: 1,
-          justifyContent: 'center'
+          justifyContent: 'center',
+          height: '100%'
         }}>
         {children}
       </Container>
