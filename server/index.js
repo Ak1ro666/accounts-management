@@ -114,7 +114,6 @@ app.put('/api/accounts', (req, res) => {
       ...account,
       updatedAt: new Date().toISOString()
     }))
-
   } catch (error) {
     res.json(db.accounts)
     console.error('Error updating all accounts:', error)

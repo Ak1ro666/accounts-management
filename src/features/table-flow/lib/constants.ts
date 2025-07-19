@@ -1,4 +1,4 @@
-import type { SortQuery } from '../domain/query'
+import type { FormQueryItem } from '../domain/query'
 
 export const TABLE_CONFIG = {
   rowPerPageOptions: [10, 25, 50] as const,
@@ -6,12 +6,7 @@ export const TABLE_CONFIG = {
 }
 
 export const ACCOUNT_STATUS = ['OPEN', 'PRE_CLOSED', 'CLOSED'] as const
-export const FORM_QUERY: {
-  value: SortQuery
-  label?: string
-  id: number
-  disabled?: boolean
-}[] = [
+export const FORM_QUERY: FormQueryItem[] = [
   { value: 'code', label: 'Код счета', id: 1 },
   { value: 'status', label: 'Статус', id: 2 },
   { value: 'owner', label: 'Владелец', id: 3 },

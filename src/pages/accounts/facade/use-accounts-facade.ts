@@ -21,7 +21,6 @@ export function useAccountsFacade() {
     data: optimisticAccountsDelete,
     update: accounts.update,
     create: accounts.create,
-    refetch: accounts.refetch,
     remove: deleteAccount,
     isLoading: accounts.isLoading,
     permissions

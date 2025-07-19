@@ -28,7 +28,6 @@ export function ProtectedRolesRoute({
   children: ReactNode
 }) {
   const role = useRole()
-  console.log(role)
 
   if (roles.includes(role)) {
     return children

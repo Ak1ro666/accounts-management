@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react'
 import {
+  Box,
   Paper,
   Table,
   TableBody,
@@ -29,7 +30,7 @@ export function Layout({
         maxHeight: 'calc(100vh - 250px)',
         height: '100%'
       }}>
-      <TableContainer sx={{ height: '100%' }}>
+      <TableContainer sx={{ height: '92%' }}>
         <Table stickyHeader>
           <TableHead>
             <TableRow>{header}</TableRow>
@@ -40,7 +41,7 @@ export function Layout({
           </TableBody>
         </Table>
       </TableContainer>
-      {footer}
+      <Box>{footer}</Box>
     </Paper>
   )
 }

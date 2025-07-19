@@ -1,5 +1,5 @@
-import { type ReactNode } from 'react'
 import {
+  Box,
   List,
   ListItem,
   ListItemButton,
@@ -11,16 +11,13 @@ import {
 } from '@mui/material'
 import { Link, useLocation } from 'react-router-dom'
 
+import { PdfExportButton } from '@/features/document-flow'
+
+import { LangSwitcher } from '../lang-switcher'
 import { NAV_ITEMS } from './lib/data'
 import { useStyles } from './styles'
 
-export function Layout({
-  className,
-  switchers
-}: {
-  className?: string
-  switchers: ReactNode
-}) {
+export function Layout({ className }: { className?: string }) {
   const location = useLocation()
   const isActive = (path: string) => location.pathname === path
   const styles = useStyles()
@@ -74,7 +71,15 @@ export function Layout({
         ))}
       </List>
 
-      {switchers}
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+        <LangSwitcher />
+        <PdfExportButton
+          data={{
+            title: 'Мой отчет',
+            content: 'Это пример содержимого отчета, которое будет в PDF.'
+          }}
+        />
+      </Box>
     </Paper>
   )
 }

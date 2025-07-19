@@ -1,4 +1,4 @@
-import type { Direction, SortQuery } from '../../domain/query'
+import type { Direction, FormQueryItem, SortQuery } from '../../domain/query'
 
 import { TableCell, TableSortLabel } from '@mui/material'
 
@@ -12,15 +12,9 @@ export function Layout({
     query: SortQuery
     direction: Direction
   }
-  onChangeSelected: ({
-    query,
-    direction
-  }: {
-    query: SortQuery
-    direction: Direction
-  }) => void
+  onChangeSelected: (params: { query: SortQuery; direction: Direction }) => void
 }) {
-  return FORM_QUERY.map((query) => {
+  const renderFormQuery = (query: FormQueryItem) => {
     if (query.disabled) {
       return <TableCell key={query.id}>{query.label}</TableCell>
     }
@@ -33,12 +27,14 @@ export function Layout({
           onClick={() =>
             onChangeSelected({
               query: query.value,
-              direction: selectedSort.direction === 'asc' ? 'desc' : 'asc'
+              direction: selectedSort.direction
             })
           }>
           {query.label}
         </TableSortLabel>
       </TableCell>
     )
-  })
+  }
+
+  return FORM_QUERY.map(renderFormQuery)
 }

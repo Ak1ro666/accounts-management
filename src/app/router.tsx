@@ -2,13 +2,10 @@ import { createBrowserRouter, redirect } from 'react-router-dom'
 
 import { AccountsRecentPage } from '@/pages/accounts-recent/page'
 
-import { PdfExportButton } from '@/features/document-flow'
 import { AppHeader } from '@/features/header'
 
 import { UserRole } from '@/kernel/authorization'
 import { ROUTES } from '@/kernel/routes'
-
-import { Layout } from '@/shared/ui/kit/layout'
 
 import { App } from './app'
 import { authLoader } from './model/auth-loader'
@@ -16,9 +13,8 @@ import { protectedLoader } from './model/protected-loader'
 import { ProtectedRolesRoute, ProtectedRoute } from './model/protected-route'
 import { updateSessionStream } from './model/update-session-stream'
 import { Providers } from './providers'
-import { LangSwitcher } from './ui/lang-switcher'
-import { LayoutSwitchers } from './ui/layout-switchers'
-import { Sidebar } from './ui/sidebar'
+import { AppLayout } from './ui/layouts/app-layout'
+import { Sidebar } from './ui/layouts/public-layout/sidebar'
 
 export const router = createBrowserRouter([
   {
@@ -35,23 +31,10 @@ export const router = createBrowserRouter([
       {
         loader: protectedLoader,
         element: (
-          <Layout topLayout={<AppHeader />}>
-            <Sidebar
-              switchers={
-                <LayoutSwitchers>
-                  <LangSwitcher />
-                  <PdfExportButton
-                    data={{
-                      title: 'Мой отчет',
-                      content:
-                        'Это пример содержимого отчета, которое будет в PDF.'
-                    }}
-                  />
-                </LayoutSwitchers>
-              }
-            />
+          <AppLayout topLayout={<AppHeader />}>
+            <Sidebar />
             <ProtectedRoute />
-          </Layout>
+          </AppLayout>
         ),
         children: [
           {

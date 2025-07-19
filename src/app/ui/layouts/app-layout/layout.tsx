@@ -17,7 +17,6 @@ export function Layout({
           display: 'flex',
           gap: 2,
           my: 4,
-          height: '100%',
           flexGrow1: 1,
           justifyContent: 'center'
         }}>

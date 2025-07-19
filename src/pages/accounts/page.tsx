@@ -36,7 +36,7 @@ function Page() {
     <Can
       permissions={accounts.permissions}
       action='canView'
-      def={
+      defaultComponent={
         <Navigate
           to={ROUTES.FORBIDEN}
           replace
@@ -64,7 +64,7 @@ function Page() {
             <CreateCheckButton onClick={startCreateAccount} />
           </Can>
         }
-        flow={
+        mainContent={
           <TableFlow
             items={filteredItems}
             removeAccount={accounts.remove}

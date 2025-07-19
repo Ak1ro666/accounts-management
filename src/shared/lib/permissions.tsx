@@ -8,22 +8,22 @@ export function Can<
   params,
   children,
   not,
-  def = null
+  defaultComponent = null
 }: {
   permissions: P
   action: K
   params?: Parameters<P[K]>[0]
   children: React.ReactNode
   not?: boolean
-  def?: React.ReactElement | null
+  defaultComponent?: React.ReactElement | null
 }): React.ReactElement | null {
   const can = permissions[action](params)
   if (!not && !can) {
-    return def
+    return defaultComponent
   }
 
   if (not && can) {
-    return def
+    return defaultComponent
   }
 
   return <>{children}</>

@@ -3,6 +3,13 @@ import { type Account } from '@/kernel/account'
 export type SortQuery = 'code' | 'status' | 'owner' | 'address' | 'debt'
 export type Direction = 'asc' | 'desc'
 
+export type FormQueryItem = {
+  value: SortQuery
+  label?: string
+  id: number
+  disabled?: boolean
+}
+
 export const getSortedItemsString = (
   items: Account[],
   query: SortQuery,

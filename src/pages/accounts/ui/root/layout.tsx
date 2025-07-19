@@ -4,13 +4,13 @@ import { Box, Typography } from '@mui/material'
 export function Layout({
   title,
   actionsPannel,
-  flow,
+  mainContent,
   createForm,
   modals
 }: {
   title: ReactNode
   actionsPannel: ReactNode
-  flow: ReactNode
+  mainContent: ReactNode
   createForm: ReactNode
   modals: ReactNode
 }) {
@@ -25,13 +25,19 @@ export function Layout({
         sx={{
           mb: 2,
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           alignItems: 'center'
         }}>
-        <Box sx={{ width: '100%', mr: 2 }}>{actionsPannel}</Box>
+        <Box
+          sx={{
+            width: '100%',
+            mr: 2
+          }}>
+          {actionsPannel}
+        </Box>
         {createForm}
       </Box>
-      {flow}
+      <Box sx={{ flexGrow: 1, height: '100%' }}>{mainContent}</Box>
       {modals}
     </Box>
   )
