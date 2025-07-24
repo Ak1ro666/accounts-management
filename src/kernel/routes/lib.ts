@@ -20,3 +20,7 @@ export function href<T extends `${string}:${string}`>(
 export function href(route: string, params: any) {
   return route.toString().replace(/:(\w+)/g, (_match, key) => params[key] || '')
 }
+
+href('/users/:id/posts/:postId', { id: '1', postId: '2' }) // id, postId
+// href('/users/:id/posts', { id: '1' }) // id
+// href('/users', {}) // Error

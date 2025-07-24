@@ -1,4 +1,4 @@
-import { SEARCH_QUERY_FILTERS } from '../lib/constants'
+import { INITIAL_FILTERS, SEARCH_QUERY_FILTERS } from '../lib/constants'
 
 export type UserFilters = {
   owner: string
@@ -8,7 +8,7 @@ export type UserFilters = {
   to: string
 }
 
-export const isSearchActive = (filters: UserFilters) =>
+export const isSearchActive = (filters: UserFilters): boolean =>
   Object.values(filters).some(Boolean)
 
 export const parseFiltersFromUrl = (
@@ -24,4 +24,19 @@ export const parseFiltersFromUrl = (
   }
 
   return filters
+}
+
+const isKeyOfUserFilters = (key: string): key is keyof UserFilters => {
+  return key in INITIAL_FILTERS
+}
+
+export const sanitizeFilters = (filters: UserFilters) => {
+  const newFilters: Partial<UserFilters> = {}
+
+  for (const key in filters) {
+    if (isKeyOfUserFilters(key) && !!filters[key])
+      newFilters[key] = filters[key]
+  }
+
+  return newFilters
 }

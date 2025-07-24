@@ -1,7 +1,7 @@
 import { UserFilters } from '../domain/filters'
 
-export const SELECT_FILTERS: { value: string; label: string }[] = [
-  { value: '', label: 'Все' },
+export const SELECT_FILTERS = [
+  { value: undefined, label: 'Все' },
   { value: 'OPEN', label: 'Открыт' },
   { value: 'PRE_CLOSED', label: 'Предзакрыт' },
   { value: 'CLOSED', label: 'Закрыт' }
@@ -27,4 +27,5 @@ export const INITIAL_FILTERS: UserFilters = {
   from: '',
   to: ''
 }
-//  chat gpt conditijkonal types, filters, infrastructure
+
+export const GRID_SIZE = { xs: 12, sm: 6, md: 2 }

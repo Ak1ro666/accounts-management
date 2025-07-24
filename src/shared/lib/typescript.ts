@@ -11,3 +11,7 @@ export type NullishPartial<T> = T extends unknown
       [K in keyof T]: NullishPartial<T[K]> | null
     }
   : T | null
+
+export type Simplify<T extends Record<string, unknown>> = {
+  [K in keyof T]: T[K]
+} & {}

@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 import { type UserFilters } from './filters'
 
 export type AccountStatus = 'OPEN' | 'CLOSED' | 'PRE_CLOSED'
@@ -14,49 +16,53 @@ export type Account = {
   updatedAt: Date
 }
 
-export const getFilteredItems = (
-  items: Account[],
-  filters: UserFilters
-): Account[] => {
-  return items.filter((account) => {
-    if (
-      filters.owner &&
-      !account.owner.toLowerCase().includes(filters.owner.toLowerCase())
-    ) {
-      return false
-    }
-
-    if (filters.status && account.status !== filters.status) {
-      return false
-    }
-
-    if (
-      filters.code &&
-      !account.code.toLowerCase().includes(filters.code.toLowerCase())
-    ) {
-      return false
-    }
-
-    if (filters.from) {
-      const accountDate = new Date(account.createdAt)
-      if (accountDate < new Date(filters.from)) {
+export const getFilteredItems = _.memoize(
+  (items: Account[], filters: UserFilters): Account[] => {
+    return items.filter((account) => {
+      if (
+        filters.owner &&
+        !account.owner.toLowerCase().includes(filters.owner.toLowerCase())
+      ) {
         return false
       }
-    }
 
-    if (filters.to) {
-      const accountDate = new Date(account.createdAt)
-      const toDate = new Date(filters.to)
-      toDate.setDate(toDate.getDate() + 1)
-
-      if (accountDate >= toDate) {
+      if (filters.status && account.status !== filters.status) {
         return false
       }
-    }
 
-    return true
-  })
-}
+      if (
+        filters.code &&
+        !account.code.toLowerCase().includes(filters.code.toLowerCase())
+      ) {
+        return false
+      }
+
+      if (filters.from) {
+        const accountDate = new Date(account.createdAt)
+        if (accountDate < new Date(filters.from)) {
+          return false
+        }
+      }
+
+      if (filters.to) {
+        const accountDate = new Date(account.createdAt)
+        const toDate = new Date(filters.to)
+        toDate.setDate(toDate.getDate() + 1)
+
+        if (accountDate >= toDate) {
+          return false
+        }
+      }
+
+      return true
+    })
+  },
+  (items, filters) =>
+    JSON.stringify({
+      itemsLength: items.length,
+      filters
+    })
+)
 
 export const removeAccount = (accounts: AccountId[], id: AccountId) => {
   return accounts.filter((i) => i !== id)

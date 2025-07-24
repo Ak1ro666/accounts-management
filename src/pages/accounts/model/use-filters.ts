@@ -1,30 +1,51 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import type { Account } from '../domain/account'
 import type { UserFilters } from '../domain/filters'
 
-import { useMemo, useState } from 'react'
+import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { create } from 'zustand'
 
-import { getFilteredItems } from '../domain/account'
-import { isSearchActive, parseFiltersFromUrl } from '../domain/filters'
+import { Account, getFilteredItems } from '../domain/account'
+import {
+  isSearchActive,
+  parseFiltersFromUrl,
+  sanitizeFilters
+} from '../domain/filters'
 import { INITIAL_FILTERS } from '../lib/constants'
 
-export function useFilters(items: Account[], defaultFilters?: UserFilters) {
+type Store = {
+  isSearch: boolean
+  setIsSearch: (value: boolean) => void
+  initializeIsSearch: (filters: UserFilters) => void
+}
+
+const useSearchStore = create<Store>((set) => ({
+  isSearch: false,
+  setIsSearch: (value: boolean) => set({ isSearch: value }),
+  initializeIsSearch: (filters: UserFilters) => {
+    set({ isSearch: isSearchActive(filters) })
+  }
+}))
+
+export function useFilters() {
+  const isSearch = useSearchStore((state) => state.isSearch)
+  const setIsSearch = useSearchStore((state) => state.setIsSearch)
+  const initializeIsSearch = useSearchStore((state) => state.initializeIsSearch)
+
   const [searchParams, setSearchParams] = useSearchParams()
   const userFilters = parseFiltersFromUrl(searchParams)
 
   const fullFilters: UserFilters = {
     ...INITIAL_FILTERS,
-    ...defaultFilters,
     ...userFilters
   }
 
-  const [isSearch, setIsSearch] = useState<boolean>(() =>
-    isSearchActive(fullFilters)
-  )
+  useEffect(() => {
+    initializeIsSearch(fullFilters)
+  }, [])
 
   const onChangeFilters = (name: keyof UserFilters, value: string) => {
-    setSearchParams({ ...fullFilters, [name]: value })
+    setSearchParams({ ...sanitizeFilters(fullFilters), [name]: value })
   }
 
   const reset = () => {
@@ -32,12 +53,12 @@ export function useFilters(items: Account[], defaultFilters?: UserFilters) {
     setIsSearch(false)
   }
 
-  const filteredCacheItems = useMemo(
-    () => getFilteredItems(items, fullFilters),
-    [items, fullFilters]
-  )
+  const getFilteredAccounts = (data: Account[]) => {
+    const filteredCacheItems = getFilteredItems(data, fullFilters)
+    const filteredItems = isSearch ? filteredCacheItems : data
 
-  const filteredItems = isSearch ? filteredCacheItems : items
+    return filteredItems
+  }
 
   const startSearch = () => {
     if (isSearchActive(fullFilters)) {
@@ -45,13 +66,11 @@ export function useFilters(items: Account[], defaultFilters?: UserFilters) {
     }
   }
 
-  return [
-    filteredItems,
-    {
-      data: fullFilters,
-      onChangeFilters,
-      reset,
-      startSearch
-    }
-  ] as const
+  return {
+    data: fullFilters,
+    onChangeFilters,
+    reset,
+    startSearch,
+    getFilteredAccounts
+  }
 }

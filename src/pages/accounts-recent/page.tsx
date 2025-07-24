@@ -3,7 +3,7 @@ import { Box, Paper, Typography } from '@mui/material'
 
 import { UiWysiwigEditor, useWysiwyg } from '@/shared/ui/kit/wysiwyg-editor'
 
-export function Page() {
+function Page() {
   const [content, setContent] = useState(
     '<div>Some text</div><div><strong>Some bold text</strong></div>'
   )
@@ -35,4 +35,5 @@ export function Page() {
     </Box>
   )
 }
-export const AccountsRecentPage = Page
+
+export const Component = Page

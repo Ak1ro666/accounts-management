@@ -1,7 +1,5 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 
-import { AccountsRecentPage } from '@/pages/accounts-recent/page'
-
 import { AppHeader } from '@/features/header'
 
 import { UserRole } from '@/kernel/authorization'
@@ -9,8 +7,8 @@ import { ROUTES } from '@/kernel/routes'
 
 import { App } from './app'
 import { authLoader } from './model/auth-loader'
-import { protectedLoader } from './model/protected-loader'
-import { ProtectedRolesRoute, ProtectedRoute } from './model/protected-route'
+import { protectedLoader, protectedRolesLoader } from './model/protected-loader'
+import { ProtectedRoute } from './model/protected-route'
 import { updateSessionStream } from './model/update-session-stream'
 import { Providers } from './providers'
 import { AppLayout } from './ui/layouts/app-layout'
@@ -39,15 +37,13 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ROUTES.ACCOUNTS,
+            loader: protectedRolesLoader([UserRole.VIEWER, UserRole.ADMIN]),
             lazy: () => import('@/pages/accounts/page')
           },
           {
             path: ROUTES.RESENT_ACCOUNTS,
-            element: (
-              <ProtectedRolesRoute roles={[UserRole.VIEWER, UserRole.ADMIN]}>
-                <AccountsRecentPage />
-              </ProtectedRolesRoute>
-            )
+            loader: protectedRolesLoader([UserRole.VIEWER]),
+            lazy: () => import('@/pages/accounts-recent/page')
           }
         ]
       },
