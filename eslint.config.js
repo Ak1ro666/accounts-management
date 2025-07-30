@@ -29,7 +29,8 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true }
       ],
-      '@typescript-eslint/no-namespace': 'off'
+      '@typescript-eslint/no-namespace': 'off',
+      '@typescript-eslint/no-unnecessary-type-constraint': 'off'
     }
   },
   eslintBoundariesConfig,

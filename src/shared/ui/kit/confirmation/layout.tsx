@@ -20,11 +20,11 @@ type ConfirmationState = {
   cancelText?: string
 }
 
+type AnswerOpenAsync = Promise<{ type: 'cancel' } | { type: 'confirm' }>
+
 type ConfirmationContextType = {
   open: (state: ConfirmationState) => void
-  openAsync: (
-    state: ConfirmationState
-  ) => Promise<{ type: 'cancel' } | { type: 'confirm' }>
+  openAsync: (state: ConfirmationState) => AnswerOpenAsync
 }
 
 const ConfirmationContext = createStrictContext<ConfirmationContextType>()
@@ -39,7 +39,7 @@ export function Layout({ children }: { children?: ReactNode }) {
 
   const [isLoading, startTransition] = useTransition()
 
-  const handleConfirm = () => {
+  const handleConfirm = (): void => {
     startTransition(async () => {
       await state?.onConfirm?.()
 
@@ -47,7 +47,7 @@ export function Layout({ children }: { children?: ReactNode }) {
     })
   }
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     startTransition(async () => {
       await state?.onCancel?.()
 
@@ -55,12 +55,12 @@ export function Layout({ children }: { children?: ReactNode }) {
     })
   }
 
-  const open = (state: ConfirmationState) => {
+  const open = (state: ConfirmationState): void => {
     setState(state)
     setIsOpen(true)
   }
 
-  const openAsync = async (state: ConfirmationState) => {
+  const openAsync = async (state: ConfirmationState): AnswerOpenAsync => {
     return new Promise<{ type: 'cancel' } | { type: 'confirm' }>((resolve) => {
       open({
         ...state,

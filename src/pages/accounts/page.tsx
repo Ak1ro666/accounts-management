@@ -18,6 +18,7 @@ import { Filters } from './facade/filters'
 import { useAccountsFacade } from './facade/use-accounts-facade'
 import { useFilters } from './model/use-filters'
 import { CreateCheckButton } from './ui/create-check-button'
+import { ModalsLayout } from './ui/modals-layout'
 import { Root } from './ui/root'
 
 function Page() {
@@ -48,7 +49,7 @@ function Page() {
         />
       }
       modals={
-        <>
+        <ModalsLayout>
           <CreateCheckModal
             createCheck={accounts.create}
             accountsData={accounts.data}
@@ -58,7 +59,7 @@ function Page() {
             updateCheck={accounts.update}
           />
           <ManageFilesStorageModal />
-        </>
+        </ModalsLayout>
       }
     />
   )

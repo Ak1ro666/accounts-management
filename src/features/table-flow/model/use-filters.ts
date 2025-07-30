@@ -1,9 +1,8 @@
 import type { Direction, SortQuery } from '../domain/query'
 
-import { useMemo } from 'react'
-
 import { type Account } from '@/kernel/account'
 
+import { useMyMemo } from '@/shared/lib/react/memo'
 import { createSearchQueryParams } from '@/shared/lib/react/use-create-search-query'
 
 import { getSortedItemsString } from '../domain/query'
@@ -25,7 +24,7 @@ export function useFilters(items: Account[]) {
 
   const { params: selectedSort, updateParams } = useQueryParams()
 
-  const sortedItems = useMemo(() => {
+  const sortedItems = useMyMemo(() => {
     return getSortedItemsString(
       items,
       selectedSort.query,

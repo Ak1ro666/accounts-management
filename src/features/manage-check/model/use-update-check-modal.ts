@@ -1,11 +1,12 @@
 import type { Account, AccountId } from '../domain/account'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 
 import { AccountsApiContext } from '@/kernel/api/accounts'
 import { checkModalEventEmitter } from '@/kernel/check-modal'
 
 import { delay } from '@/shared/lib/react/delay'
+import { useMyMemo } from '@/shared/lib/react/memo'
 
 import { ACCOUNTS_CHARGES, ACCOUNTS_PAYMENTS } from '../lib/constants'
 
@@ -44,7 +45,7 @@ export function useUpdateCheckModal() {
     setAccount(undefined)
   }
 
-  const defaultAccountFormState = useMemo(
+  const defaultAccountFormState = useMyMemo(
     () => ({
       address: account?.address,
       code: account?.code,

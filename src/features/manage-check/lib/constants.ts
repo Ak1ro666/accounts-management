@@ -39,3 +39,10 @@ export const ACCOUNTS_PAYMENTS = [
     date: '2025-01-03'
   }
 ]
+
+export const CONFIRMATION_MODAL_TEXT = {
+  title: 'Внимание',
+  content: 'Данные были изменены другим пользователем. Хотите обновить данные?',
+  cancelText: 'Отменить',
+  confirmationText: 'Обновить'
+}

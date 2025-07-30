@@ -1,6 +1,8 @@
 import type { FileNodeConfig, FileNodeId } from '../domain/files-tree'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
+
+import { useMyMemo } from '@/shared/lib/react/memo'
 
 import { createFileNode, excludeFileById } from '../domain/files-tree'
 import { type FileFormData } from '../domain/form'
@@ -50,7 +52,7 @@ export function useFiles() {
     }))
   }
 
-  const childrenFiles = useMemo(
+  const childrenFiles = useMyMemo(
     () =>
       Object.values(files.files).reduce(
         (acc, file) => {
