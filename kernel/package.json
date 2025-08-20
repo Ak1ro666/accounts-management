@@ -1,0 +1,24 @@
+{
+    "name": "@accounts5270732/kernel",
+    "version": "1.0.0",
+    "type": "module",
+    "repository": {
+        "url": "https://gitlab.com/accounts5270732/kernel"
+    },
+    "typesVersions": {
+        "*": {
+            "events": [
+                "./src/events.ts"
+            ],
+            "kernel": [
+                "./src/kernel.ts"
+            ],
+            "context": [
+                "./src/context.ts"
+            ]
+        }
+    },
+    "files": [
+        "src"
+    ]
+}
