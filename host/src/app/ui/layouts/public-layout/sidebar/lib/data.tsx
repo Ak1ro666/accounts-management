@@ -1,6 +1,6 @@
 import { AccessTime, AccountBalance } from '@mui/icons-material'
 
-import { ROUTES } from '@/kernel/routes'
+import { ROUTES } from '@/platform/routes'
 
 export const NAV_ITEMS = [
   {

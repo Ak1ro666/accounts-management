@@ -1,8 +1,8 @@
 import { redirect } from 'react-router-dom'
 
-import { UserRole } from '@/kernel/authorization'
-import { ROUTES } from '@/kernel/routes'
-import { appSessionStore } from '@/kernel/session'
+import { UserRole } from '@/domains/supports/authorization'
+import { ROUTES } from '@/platform/routes'
+import { appSessionStore } from '@/platform/session'
 
 export async function protectedLoader() {
   if (appSessionStore.isSessionExpired()) {

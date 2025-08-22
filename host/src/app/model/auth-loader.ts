@@ -1,7 +1,7 @@
 import { redirect } from 'react-router-dom'
 
-import { ROUTES } from '@/kernel/routes'
-import { appSessionStore } from '@/kernel/session'
+import { ROUTES } from '@/platform/routes'
+import { appSessionStore } from '@/platform/session'
 
 export function authLoader() {
   const token = appSessionStore.getSessionToken()

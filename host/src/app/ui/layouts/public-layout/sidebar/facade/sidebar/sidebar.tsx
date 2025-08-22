@@ -1,7 +1,7 @@
-import { PdfExportButton } from '@/features/document-flow'
-
 import { LangSwitcher } from '../../../lang-switcher'
 import { Root } from '../../ui/root'
+
+import { PdfExportButton } from '@/domains/core/document-flow'
 
 export function Sidebar() {
   return (

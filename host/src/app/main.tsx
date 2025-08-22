@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router-dom'
 
 import { router } from './router'
 
-import '@/shared/model/i18n/i18n'
+import '@/platform/model/i18n/i18n'
 
 const mode = process.env.NODE_ENV
 

@@ -37,7 +37,8 @@
   },
   "include": [
     "src",
-    "src/shared/setup-test.ts",
-    "src/pages/sign-up"
-, "../auth/src/pages/sign-in"  ]
+    "src/platform/setup-test.ts",
+    "src/app/pages/sign-up",
+    "../auth/src/pages/sign-in"
+  ]
 }

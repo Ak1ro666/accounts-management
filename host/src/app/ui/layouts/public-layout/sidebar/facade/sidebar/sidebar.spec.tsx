@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react'
 import { describe, expect, test } from 'vitest'
 
-import { renderForTests } from '@/shared/lib/react/render-for-tests'
+import { renderForTests } from '@/platform/lib/react/render-for-tests'
 
 import { Sidebar } from './sidebar'
 

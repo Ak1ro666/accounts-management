@@ -1,9 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import { ROUTES } from '@/kernel/routes'
-import { appSessionStore } from '@/kernel/session'
-
-import { MyReturnType } from '@/shared/lib/typescript'
+import { MyReturnType } from '@/platform/lib/typescript'
+import { ROUTES } from '@/platform/routes'
+import { appSessionStore } from '@/platform/session'
 
 export function updateSessionStream(
   router: MyReturnType<typeof createBrowserRouter>
