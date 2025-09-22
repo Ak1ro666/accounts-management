@@ -1,16 +1,16 @@
 import { useMemo, useState } from 'react'
 
-import { useNow } from '@/platform/lib/react/use-now'
-
 import { calculateTimerState } from '../domain/timer'
-import { DEFAULT_TIMER } from '../lib/timer'
+import { DEFAULT_TIMER } from '../lib/time'
+
+import { useNow } from '@/platform/lib/react/use-now'
 
 export function useTimer() {
   const [startAt, setStartAt] = useState<number>()
   const [timer, setTimer] = useState<number>(DEFAULT_TIMER)
   const [isPaused, setIsPaused] = useState<boolean>(false)
 
-  const now = useNow(!!startAt && !isPaused, 10, () => { })
+  const now = useNow(!!startAt && !isPaused, 10, () => {})
 
   const { isRunning, timeLeft } = useMemo(
     () =>

@@ -1,8 +1,8 @@
 import { Pause, PlayArrow, Replay } from '@mui/icons-material'
 
-import { TimerAction } from '../ui/timer-action'
+import { TimerAction } from '../timer-action'
 
-export function TimerActionsLayoutContent({
+export function Layout({
   isRunning,
   onPause,
   onReset,

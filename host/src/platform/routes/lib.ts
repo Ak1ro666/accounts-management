@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type PathToTuple<T> = T extends `/${infer P1}/${infer Rest}`
   ? [P1, ...PathToTuple<`/${Rest}`>]
@@ -23,4 +24,5 @@ export function href(route: string, params: any) {
 
 href('/users/:id/posts/:postId', { id: '1', postId: '2' }) // id, postId
 href('/users/:id/posts', { id: '1' }) // id
+// @ts-expect-error
 href('/users', {}) // Error

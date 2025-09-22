@@ -1,8 +1,8 @@
-import { formatTime } from '../domain/date'
+import { formatTime } from '../lib/time'
 import { useTimer } from '../model/use-timer'
 import { TimeView } from '../ui/time-view'
+import { TimerActionsLayoutContent } from '../ui/timer-actions-layout-content'
 import { TimerRoot } from '../ui/timer-root'
-import { TimerActionsLayoutContent } from './timer-actions-layout-content'
 
 export function Timer() {
   const timer = useTimer()

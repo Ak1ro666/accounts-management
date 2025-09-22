@@ -4,8 +4,9 @@ import { Arrow } from '../ui/arrow'
 import { DiagramNodeView } from '../ui/diagram-node-view'
 import { Root } from '../ui/root'
 import { useArrows } from '../view-model/use-arrows'
-import { Timer } from './timer'
-import { Todos } from './todos'
+
+import { Timer } from '@/domains/supports/timer'
+import { Todos } from '@/domains/supports/todos'
 
 export function Diagram({
   nodes,

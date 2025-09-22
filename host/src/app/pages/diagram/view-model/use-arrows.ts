@@ -2,8 +2,7 @@ import type { ArrowNode, DiagramNode } from '../domain/diagram'
 
 import { useLayoutEffect, useRef, useState } from 'react'
 
-import { getDependencyNode } from '../domain/diagram'
-import { shiftArrow } from '../lib/arrow'
+import { getDependencyNode, shiftArrow } from '../domain/diagram'
 
 export function useArrows({ nodes }: { nodes: DiagramNode[] }) {
   const nodeRef = useRef<Map<string, HTMLDivElement>>(new Map())

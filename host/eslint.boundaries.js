@@ -17,12 +17,24 @@ export const eslintBoundariesConfig = {
         pattern: './src/app'
       },
       {
-        type: 'features',
-        pattern: './src/features/*'
+        type: 'domains',
+        pattern: './src/domains/*'
       },
       {
-        type: 'shared',
-        pattern: './src/shared'
+        type: 'contracts',
+        pattern: './src/domains/contacts/*'
+      },
+      {
+        type: 'core',
+        pattern: './src/domains/core/*'
+      },
+      {
+        type: 'supports',
+        pattern: './src/domains/supports/*'
+      },
+      {
+        type: 'platform',
+        pattern: './src/platform'
       }
     ]
   },
@@ -33,13 +45,13 @@ export const eslintBoundariesConfig = {
         default: 'allow',
         rules: [
           {
-            from: 'shared',
-            disallow: ['app', 'features'],
+            from: 'platform',
+            disallow: ['app', 'domains'],
             message:
               'Модуль нижележащего слоя (${file.type}) не может импортировать модуль вышележащего слоя (${dependency.type})'
           },
           {
-            from: 'features',
+            from: 'domains',
             disallow: ['app'],
             message:
               'Модуль нижележащего слоя (${file.type}) не может импортировать модуль вышележащего слоя (${dependency.type})'
@@ -56,12 +68,12 @@ export const eslintBoundariesConfig = {
 
         rules: [
           {
-            target: ['shared', 'app'],
+            target: ['platform', 'app'],
             allow: '**'
           },
           {
-            target: ['features'],
-            allow: ['index.(ts|tsx)', '*.page.tsx']
+            target: ['supports', 'core', 'contracts'],
+            allow: ['index.(ts|tsx)']
           }
         ]
       }

@@ -1,5 +1,8 @@
-import type { Account, AccountId } from '@/kernel(platform)/account'
-import type { UpdateData } from '@/kernel(platform)/api/accounts'
+import type {
+  Account,
+  AccountId,
+  UpdateData
+} from '@/domains/contacts/accounts'
 
 import { useFilters } from '../model/use-filters'
 import { usePagination } from '../model/use-pagination'
