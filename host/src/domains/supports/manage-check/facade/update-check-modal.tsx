@@ -1,14 +1,13 @@
 import type { AccountId } from '../domain/account'
 
-import { type UpdateData } from '@/kernel(platform)/api/accounts'
-
-import { UiModal } from '@/platform/ui/modal'
-
 import { useUpdateCheckModal } from '../model/use-update-check-modal'
 import { AccountTabs } from '../ui/account-tabs'
 import { UpdateFields } from '../ui/fields/update-fields'
 import { UpdateFormActions } from '../ui/form-actions/update-form-actions'
 import { useUpdateSubmitFormFacade } from './use-update-submit-form-facade'
+
+import { type UpdateData } from '@/domains/contacts/accounts'
+import { UiModal } from '@/platform/ui/modal'
 
 export function UpdateCheckModal({
   updateCheck,

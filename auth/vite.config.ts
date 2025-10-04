@@ -12,8 +12,7 @@ export default defineConfig({
       exposes: {
         "./module": "./src/pages/sign-in/index.ts",
       },
-      shared: {
-        react: {
+      shared: { react: {
           requiredVersion: "19.0.0",
           singleton: true,
         },

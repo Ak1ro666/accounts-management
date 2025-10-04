@@ -5,7 +5,7 @@ import { useTransition } from 'react'
 
 import { CONFIRMATION_MODAL_TEXT } from '../lib/constants'
 
-import { AccountsApiContext } from '@/domains/contacts/accounts'
+import { accountsApiContext } from '@/domains/contacts/accounts'
 import { useConfirmation } from '@/platform/ui/confirmation'
 
 export function useUpdateSubmitForm({
@@ -29,7 +29,7 @@ export function useUpdateSubmitForm({
   showErrors: () => void
   formStateData: UpdateData
 }) {
-  const api = AccountsApiContext.use()
+  const api = accountsApiContext.use()
   const confirmation = useConfirmation()
   const [isLoading, startTransition] = useTransition()
 

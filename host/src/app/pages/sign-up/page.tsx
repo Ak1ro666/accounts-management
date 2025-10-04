@@ -1,7 +1,6 @@
 import { lazy, Suspense } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-// import { SignUpForm } from "@/features/auth";
+import { useNavigate } from 'react-router-dom'
 
 import { ROUTES } from '@/platform/routes'
 import { appSessionStore } from '@/platform/session'

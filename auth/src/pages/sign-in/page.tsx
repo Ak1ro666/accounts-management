@@ -3,12 +3,10 @@ import { SignInForm } from "../../features/auth";
 function Page() {
   return (
     <div>
-      Hello
-      <SignInForm />
+      {/* <SignInForm /> */}
+      Sign in
     </div>
   );
 }
-
-// <SignInForm />
 
 export const Component = Page;

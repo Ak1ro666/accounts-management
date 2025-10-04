@@ -1,5 +1,3 @@
-import { Can } from '@/platform/lib/permissions'
-
 import { getOwnerOptions } from './domain/account'
 import { Filters } from './facade/filters'
 import { useAccountsFacade } from './facade/use-accounts-facade'
@@ -9,16 +7,15 @@ import { CreateCheckButton } from './ui/create-check-button'
 import { ModalsLayout } from './ui/modals-layout'
 import { Root } from './ui/root'
 
+import { fileStorageContext } from '@/domains/contacts/file-storage'
+import { ManageFilesStorageModal } from '@/domains/core/manage-files-storage'
+import { TableFlow } from '@/domains/core/table-flow'
 import {
   CreateCheckModal,
   UpdateCheckModal,
   useStartCreate
 } from '@/domains/supports/manage-check'
-import {
-  ManageFilesStorageModal,
-  useStartOpenModal
-} from '@/domains/core/manage-files-storage'
-import { TableFlow } from '@/domains/core/table-flow'
+import { Can } from '@/platform/lib/permissions'
 
 function Page() {
   const accounts = useAccountsFacade()
@@ -26,7 +23,7 @@ function Page() {
   const t = useTranslationPage()
 
   const startCreateAccount = useStartCreate()
-  const startOpenFilesStorageModal = useStartOpenModal()
+  const fileStorage = fileStorageContext.use()
 
   return (
     <Root
@@ -54,7 +51,7 @@ function Page() {
             accountsData={accounts.data}
           />
           <UpdateCheckModal
-            openFilesStorage={startOpenFilesStorageModal}
+            openFilesStorage={fileStorage.open}
             updateCheck={accounts.update}
           />
           <ManageFilesStorageModal />

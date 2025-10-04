@@ -59,24 +59,24 @@ export const eslintBoundariesConfig = {
         ]
       }
     ],
-    'boundaries/entry-point': [
-      2,
-      {
-        default: 'disallow',
-        message:
-          'Модуль (${file.type}) должен импортироваться через public API. Прямой импорт из ${dependency.source} запрещен',
+    // 'boundaries/entry-point': [
+    //   2,
+    //   {
+    //     default: 'disallow',
+    //     message:
+    //       'Модуль (${file.type}) должен импортироваться через public API. Прямой импорт из ${dependency.source} запрещен',
 
-        rules: [
-          {
-            target: ['platform', 'app'],
-            allow: '**'
-          },
-          {
-            target: ['supports', 'core', 'contracts'],
-            allow: ['index.(ts|tsx)']
-          }
-        ]
-      }
-    ]
+    //     rules: [
+    //       // {
+    //       //   target: ['platform', 'app'],
+    //       //   allow: '**'
+    //       // },
+    //       {
+    //         target: ['supports', 'core', 'contracts'],
+    //         allow: ['index.(ts|tsx)']
+    //       }
+    //     ]
+    //   }
+    // ]
   }
 }

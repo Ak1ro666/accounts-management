@@ -3,8 +3,8 @@ import type { SignInFormData } from '../domain/types'
 
 import { useNavigate } from 'react-router-dom'
 
-import { ROUTES } from '@/kernel/routes'
-import { appSessionStore } from '@/kernel/session'
+import { ROUTES } from '../../../kernel/routes'
+import { appSessionStore } from '../../../kernel/session'
 
 export function useSignInSubmitForm({
   checkIsValid,

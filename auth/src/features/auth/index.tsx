@@ -2,7 +2,11 @@
 // export { SignUpForm } from "./facade/sign-up-form";
 
 export function SignInForm() {
-  return <div>SignInForm</div>;
+  return (
+    <div>
+      <h2>SignInForm</h2>
+    </div>
+  );
 }
 
 export function SignUpForm() {

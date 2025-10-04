@@ -1,24 +1,21 @@
-import { ReactNode } from 'react'
-import {
-  Box,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  ListSubheader,
-  Paper,
-  Typography
-} from '@mui/material'
-import { Link, useLocation } from 'react-router-dom'
+import type { Item } from '../../domain/item'
 
-import { NAV_ITEMS } from '../../lib/data'
+import { ReactNode } from 'react'
+
+import { Box, List, ListSubheader, Paper } from '@mui/material'
+
 import { useStyles } from './styles'
 
-export function Layout({ actions }: { actions: ReactNode }) {
+export function Layout({
+  actions,
+  items,
+  renderItem
+}: {
+  actions: ReactNode
+  items: Item[]
+  renderItem: (item: Item) => ReactNode
+}) {
   const styles = useStyles()
-  const location = useLocation()
-  const isActive = (path: string) => location.pathname === path
 
   return (
     <Paper
@@ -46,26 +43,7 @@ export function Layout({ actions }: { actions: ReactNode }) {
             Навигация
           </ListSubheader>
         }>
-        {NAV_ITEMS.map((item) => (
-          <ListItem
-            key={item.path}
-            disablePadding
-            sx={{ mb: 1 }}>
-            <ListItemButton
-              component={Link}
-              to={item.path}
-              sx={
-                isActive(item.path) ? styles.activeStyle : styles.inactiveStyle
-              }>
-              <ListItemIcon sx={{ minWidth: 32, color: 'inherit' }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText
-                primary={<Typography variant='body2'>{item.label}</Typography>}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {items.map(renderItem)}
       </List>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>

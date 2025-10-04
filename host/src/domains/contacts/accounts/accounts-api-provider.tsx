@@ -19,4 +19,4 @@ export type AccountsApiContextType = {
   remove(id: AccountId): Promise<void>
 }
 
-export const AccountsApiContext = createStrictContext<AccountsApiContextType>()
+export const accountsApiContext = createStrictContext<AccountsApiContextType>()

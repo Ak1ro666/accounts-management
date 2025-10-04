@@ -1,4 +1,4 @@
-import type { AccountId } from '../account'
+import type { AccountId } from '../accounts'
 
 import { EventEmitter } from '@/platform/lib/event-emitter'
 

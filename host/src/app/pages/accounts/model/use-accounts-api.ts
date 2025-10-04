@@ -1,4 +1,4 @@
-import type { CreateData, UpdateData } from '@/kernel(platform)/api/accounts'
+import type { CreateData, UpdateData } from '@/domains/contacts/accounts'
 import type { Account, AccountId } from '../domain/account'
 
 import { API_CONFIG } from '../lib/constants'
@@ -11,7 +11,7 @@ export type AccountsApi = {
   update: (id: AccountId, data: UpdateData) => Promise<Account>
 }
 
-export function useAccounts(api: AccountsApi) {
+export function useAccountsApi(api: AccountsApi) {
   const {
     data = [],
     isLoading,

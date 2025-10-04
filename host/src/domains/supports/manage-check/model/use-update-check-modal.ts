@@ -4,13 +4,13 @@ import { useState } from 'react'
 
 import { ACCOUNTS_CHARGES, ACCOUNTS_PAYMENTS } from '../lib/constants'
 
-import { AccountsApiContext } from '@/domains/contacts/accounts'
+import { accountsApiContext } from '@/domains/contacts/accounts'
 import { checkModalEventEmitter } from '@/domains/contacts/check-modal'
 import { delay } from '@/platform/lib/react/delay'
 import { useMyMemo } from '@/platform/lib/react/memo'
 
 export function useUpdateCheckModal() {
-  const api = AccountsApiContext.use()
+  const api = accountsApiContext.use()
   const [account, setAccount] = useState<Account>()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(false)

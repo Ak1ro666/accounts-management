@@ -1,4 +1,4 @@
-import { ROUTES } from "@/kernel/routes";
+import { ROUTES } from "../../../kernel/routes";
 
 import { useSignInErrors } from "../model/use-sign-in-errors";
 import { useSignInForm } from "../model/use-sign-in-form";

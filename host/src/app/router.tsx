@@ -1,8 +1,5 @@
 import { createBrowserRouter, redirect } from 'react-router-dom'
 
-import { UserRole } from '@/domains/supports/authorization'
-import { ROUTES } from '@/platform/routes'
-
 import { App } from './app'
 import { authLoader } from './model/auth-loader'
 import { protectedLoader, protectedRolesLoader } from './model/protected-loader'
@@ -12,7 +9,9 @@ import { Providers } from './providers'
 import { AppLayout } from './ui/layouts/app-layout'
 import { Sidebar } from './ui/layouts/public-layout/sidebar'
 
+import { UserRole } from '@/domains/supports/authorization'
 import { AppHeader } from '@/domains/supports/header'
+import { ROUTES } from '@/platform/routes'
 
 export const router = createBrowserRouter([
   {

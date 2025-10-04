@@ -1,6 +1,6 @@
 export { api as accountsApi } from './accounts-api'
 export {
-  AccountsApiContext,
+  accountsApiContext,
   type AccountsApiContextType
 } from './accounts-api-provider'
 export type {

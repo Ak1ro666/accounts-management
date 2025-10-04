@@ -3,13 +3,13 @@ import {
   useOptimisticDeleteAccounts
 } from '../model/delete-accounts'
 import { useAccountsPermissions } from '../model/permissions'
-import { useAccounts } from '../model/use-accounts'
+import { useAccountsApi } from '../model/use-accounts-api'
 
-import { AccountsApiContext } from '@/domains/contacts/accounts'
+import { accountsApiContext } from '@/domains/contacts/accounts'
 
 export function useAccountsFacade() {
-  const accountsApi = AccountsApiContext.use()
-  const accounts = useAccounts(accountsApi)
+  const accountsApi = accountsApiContext.use()
+  const accounts = useAccountsApi(accountsApi)
   const optimisticAccountsDelete = useOptimisticDeleteAccounts(accounts.data)
   const permissions = useAccountsPermissions()
   const deleteAccount = useDeleteAccounts({

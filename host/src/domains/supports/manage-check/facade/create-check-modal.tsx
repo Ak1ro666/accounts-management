@@ -44,7 +44,7 @@ export function CreateCheckModal({
       body={
         <CreateFields
           formData={formState.data}
-          errors={errorsState.errors}
+          errors={errorsState.data}
           onChange={formState.onChange}
         />
       }
